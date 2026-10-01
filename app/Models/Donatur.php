@@ -10,7 +10,7 @@ class Donatur extends Model
     use HasFactory;
 
     // Nama tabel sesuai DDL
-    protected $table = 'DONATUR';
+    protected $table = 'donatur';
 
     // Primary key non-incrementing string
     protected $primaryKey = 'ID_DONATUR';
