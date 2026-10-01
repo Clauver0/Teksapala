@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jurnals', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_jurnal',10)->primary()->nullable(false);
+            $table->string('judul_jurnal',100)->nullable(false);
+            $table->text('deskripsi')->nullable();
+            $table->string('gambar',255);
+            $table->date('tanggal_jurnal')->nullable(false);
             $table->timestamps();
         });
     }
