@@ -8,18 +8,18 @@ class Jadwal extends Model
 {
     use HasFactory;
 
-    protected $table = 'jadwals';
+    protected $table = 'jadwal';
     protected $primaryKey = 'id_jadwal';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id_jadwal',
+        
         'status_pelaksanaan',
         'lokasi_pelaksanaan',
         'tanggal_pelaksanaan',
         'deskripsi',
-        // Jika ada kolom foreign key lain di tabel jadwal, masukkan ke sini
+       
     ];
 
 public function jadwalTanamans()
