@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Models;
@@ -36,5 +37,7 @@ public function jadwalTanamans()
     {
         return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
     }
+
+
 
 }
