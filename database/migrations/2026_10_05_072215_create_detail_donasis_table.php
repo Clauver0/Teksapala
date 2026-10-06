@@ -14,13 +14,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_donasis', function (Blueprint $table) {
-            $table->string('ID_DETAIL_DONASI',10)-> primary();
-            $table->integer('JUMLAH_TANAMAN');
-            $table->string('ID_DONASI',10);
-            $table->foreign('ID_DONASI')->references('ID_DONASI')->on('Donasi')->onDelete('cascade');
-            $table->string('ID_JADWAL_TANAMAN', 10);
-            $table->foreign('ID_JADWAL_TANAMAN')->references('ID_JADWAL_TANAMAN')->on('JadwalTanaman')->onDelete('cascade');
+        Schema::create('detail_donasi', function (Blueprint $table) {
+            $table->string('id_detail_donasi',10)-> primary();
+            $table->integer('jumlah_tanaman');
+            $table->string('id_donasi',10);
+            $table->foreign('id_donasi')->references('id_donasi')->on('donasi')->onDelete('cascade');
+            $table->string('id_jadwal_tanaman', 10);
+            $table->foreign('id_jadwal_tanaman')->references('id_jadwal_tanaman')->on('Jadwal_tanaman')->onDelete('cascade');
         });
     }
 
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_donasis');
+        Schema::dropIfExists('detail_donasi');
     }
 };
 

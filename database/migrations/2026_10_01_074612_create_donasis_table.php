@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('donasi', function (Blueprint $table) {
-            $table->string('ID_DONASI', 10)-> primary();
-            $table->decimal('NOMINAL_DONASI', 12 , 2);
-            $table->dateTime('WAKTU_DONASI');
-            $table->string('METODE_DONASI', 50);
-            $table->enum('STATUS_VERIFIKASI', ['Terverifikasi','Pending','Ditolak'])->default('Pending');
-            $table->string('BUKTI_DONASI', 255);
-            $table->string('FILE_SERTIFIKAT', 255)->nullable();
-            $table->string('ID_DONATUR', 10);
-            $table->foreign('ID_DONATUR')->references('ID_DONATUR')->on('donatur')->onDelete('cascade'); //foreignkey
+            $table->string('id_donasi', 10)-> primary();
+            $table->decimal('nominal_donasi', 12 , 2);
+            $table->dateTime('waktu_donasi');
+            $table->string('metode_donasi', 50);
+            $table->enum('status_verifikasi', ['Terverifikasi','Pending','Ditolak'])->default('Pending');
+            $table->string('bukti_donasi', 255);
+            $table->string('file_sertifikat', 255)->nullable();
+            $table->string('id_donatur', 10);
+            $table->foreign('id_donatur')->references('id_donatur')->on('donatur')->onDelete('cascade'); //foreignkey
             $table->timestamps();
         });
     }
