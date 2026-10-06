@@ -18,7 +18,7 @@ class Jadwal extends Model
         'status_pelaksanaan',
         'lokasi_pelaksanaan',
         'tanggal_pelaksanaan',
-        'deskripsi',
+        'deskripsi', 'id_komunitas',
        
     ];
 
