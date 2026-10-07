@@ -9,10 +9,10 @@ class Jurnal extends Model
 {
       use HasFactory;
      // Nama tabel sesuai DDL Oracle
-    protected $table = 'JURNAL';
+    protected $table = 'jurnal';
 
     // Primary key
-    protected $primaryKey = 'ID_JURNAL';
+    protected $primaryKey = 'id_jurnal';
 
     // ID berupa string, bukan angka
     public $incrementing = false;
@@ -23,13 +23,12 @@ class Jurnal extends Model
 
     // Kolom yang boleh diisi
     protected $fillable = [
-        'ID_JURNAL',
-        'TANGGAL_JURNAL',
-        'JUDUL_JURNAL',
-        'JENIS_TANAMAN',
-        'DESKRIPSI',
-        'GAMBAR',
-        'ID_KOMUNITAS',
+        'tanggal_jurnal',
+        'judul_jurnal',
+        'jenis_tanaman',
+        'deskripsi',
+        'gambar',
+        'id_komunitas',
     ];
 
     /**
@@ -39,8 +38,8 @@ class Jurnal extends Model
     {
         return $this->belongsTo(
             Komunitas::class,
-            'ID_KOMUNITAS',
-            'ID_KOMUNITAS'
+            'id_komunitas',
+            'id_komunitas'
         );
     }
 
@@ -55,20 +54,20 @@ class Jurnal extends Model
 
         static::creating(function ($model) {
 
-            if (empty($model->ID_JURNAL)) {
+            if (empty($model->id_jurnal)) {
 
-                $latest = static::orderBy('ID_JURNAL', 'desc')->first();
+                $latest = static::orderBy('id_jurnal', 'desc')->first();
 
                 $nextNumber = 1;
 
                 if (
                     $latest &&
-                    preg_match('/JR(\d+)/', $latest->ID_JURNAL, $matches)
+                    preg_match('/JR(\d+)/', $latest->id_jurnal, $matches)
                 ) {
                     $nextNumber = intval($matches[1]) + 1;
                 }
 
-                $model->ID_JURNAL = 'JR' . str_pad(
+                $model->id_jurnal = 'JR' . str_pad(
                     $nextNumber,
                     4,
                     '0',
