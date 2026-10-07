@@ -9,7 +9,7 @@ class JadwalTanaman extends Model
 {
     use HasFactory;
 
-    protected $table = 'jadwal_tanamen';
+    protected $table = 'jadwal_tanaman';
 
    
     protected $primaryKey = 'id_jadwal_tanaman';
