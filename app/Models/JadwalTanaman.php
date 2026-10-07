@@ -23,6 +23,7 @@ class JadwalTanaman extends Model
     'terdonasi',
     'id_jadwal',
     'id_tanaman',
+
 ];
 
     public function jadwal()
