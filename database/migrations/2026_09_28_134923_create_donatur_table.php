@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('donatur', function (Blueprint $table) {
-            $table->string('ID_DONATUR', 10)->primary();
-            $table->string('NAMA_LENGKAP', 100);
-            $table->string('EMAIL', 100)->unique('DONATUR_EMAIL_UN');
-            $table->string('USERNAME', 50)->unique('DONATUR_USERNAME_UN');
-            $table->string('PASSWORD', 255);
-            $table->string('NO_TELP', 20)->nullable();
+            $table->string('id_donatur', 10)->primary();
+            $table->string('nama_lengkap', 100);
+            $table->string('email', 100)->unique('donatur_email_un');
+            $table->string('username', 50)->unique('donatur_username_un');
+            $table->string('password', 255);
+            $table->string('no_telp', 20)->nullable();
             $table->timestamps();
         });
     }
