@@ -39,4 +39,16 @@ public function jadwalTanamans()
         return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
     }
 
+    protected static function booted()
+    {
+        static::creating(function ($m) {
+            if (empty($m->id_jadwal)) {
+                $last = static::orderBy('id_jadwal', 'desc')->value('id_jadwal');
+                $n = $last ? (int) substr($last, 1) + 1 : 1;
+                $m->id_jadwal = 'J' . str_pad($n, 4, '0', STR_PAD_LEFT);
+            }
+        });
+    }
 }
+
+
