@@ -19,7 +19,7 @@ class JadwalTanaman extends Model
     protected $fillable = [
     'id_jadwal_tanaman',
     'harga',
-    'kuota',
+    'kouta',
     'terdonasi',
     'id_jadwal',
     'id_tanaman',
