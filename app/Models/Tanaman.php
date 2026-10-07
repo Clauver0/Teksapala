@@ -10,22 +10,25 @@ class Tanaman extends Model
     use HasFactory;
 
     // Nama tabel sesuai DDL Oracle
-    protected $table = 'TANAMAN';
+    protected $table = 'tanaman';
 
     // Primary key
-    protected $primaryKey = 'ID_TANAMAN';
+    protected $primaryKey = 'id_tanaman';
 
     // ID berupa string, bukan angka
     public $incrementing = false;
     protected $keyType = 'string';
 
+      
+    public $timestamps = false;
+
     // Kolom yang boleh diisi
     protected $fillable = [
-        'ID_TANAMAN',
-        'NAMA',
-        'GAMBAR',
+        'id_tanaman',
+        'nama_tanaman',
+        'gambar',
     ];
-
+  
     /**
      * Meniru logika TRIGGER trg_tanaman_id
      * dan SEQUENCE seq_tanaman
@@ -37,19 +40,19 @@ class Tanaman extends Model
         static::creating(function ($model) {
 
             // Jika ID_TANAMAN kosong, buat otomatis
-            if (empty($model->ID_TANAMAN)) {
+            if (empty($model->id_tanaman)) {
 
                 // Ambil data terakhir
-                $latest = static::orderBy('ID_TANAMAN', 'desc')->first();
+                $latest = static::orderBy('id_tanaman', 'desc')->first();
 
                 $nextNumber = 1;
 
-                if ($latest && preg_match('/T(\d+)/', $latest->ID_TANAMAN, $matches)) {
+                if ($latest && preg_match('/T(\d+)/', $latest->id_tanaman, $matches)) {
                     $nextNumber = intval($matches[1]) + 1;
                 }
 
                 // Format: T001, T002, T003, ...
-                $model->ID_TANAMAN = 'T' . str_pad(
+                $model->id_tanaman = 'T' . str_pad(
                     $nextNumber,
                     3,
                     '0',
