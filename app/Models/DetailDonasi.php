@@ -10,15 +10,15 @@ class DetailDonasi extends Model
     use HasFactory;
 
     protected $table = 'detail_donasis';
-    protected $primaryKey = 'ID_DETAIL_DONASI';
+    protected $primaryKey = 'id_detail_donasi';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'ID_DETAIL_DONASI',
-        'JUMLAH_TANAMAN',
-        'ID_DONASI',
-        'ID_JADWAL_TANAMAN'
+        'id_detail_donasi',
+        'jumlah_tanaman',
+        'id_donasi',
+        'id_jadwal_tanaman'
     ];
 
     /**
@@ -30,16 +30,16 @@ class DetailDonasi extends Model
 
         static::creating(function ($model) {
             // Cek dulu biar gak ketimpa kalau diisi manual
-            if (empty($model->ID_DETAIL_DONASI)) {
-                $latest = static::orderBy('ID_DETAIL_DONASI', 'desc')->first();
+            if (empty($model->id_detail_donasi)) {
+                $latest = static::orderBy('id_detail_donasi', 'desc')->first();
                 $nextNumber = 1;
 
-                if ($latest && preg_match('/DD(\d+)/', $latest->ID_DETAIL_DONASI, $matches)) {
+                if ($latest && preg_match('/DD(\d+)/', $latest->id_detail_donasi, $matches)) {
                     $nextNumber = intval($matches[1]) + 1; // Ditambah 1 di luar intval
                 }
 
                 // Hasil: DD00000001 (Total 10 karakter)
-                $model->ID_DETAIL_DONASI = 'DD' . str_pad($nextNumber, 8, '0', STR_PAD_LEFT);
+                $model->id_detail_donasi = 'DD' . str_pad($nextNumber, 8, '0', STR_PAD_LEFT);
             }
         });
     }
@@ -49,7 +49,7 @@ class DetailDonasi extends Model
      */
     public function donasi()
     {
-        return $this->belongsTo(Donasi::class, 'ID_DONASI', 'ID_DONASI');
+        return $this->belongsTo(Donasi::class, 'id_donasi', 'id_donasi');
     }
 
     /**
@@ -57,6 +57,6 @@ class DetailDonasi extends Model
      */
     public function jadwalTanaman()
     {
-        return $this->belongsTo(JadwalTanaman::class, 'ID_JADWAL_TANAMAN', 'ID_JADWAL_TANAMAN');
+        return $this->belongsTo(JadwalTanaman::class, 'id_jadwal_tanaman', 'id_jadwal_tanaman');
     }
 }
