@@ -16,7 +16,7 @@ class JadwalTanaman extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = [
+   protected $fillable = [
     'id_jadwal_tanaman',
     'harga',
     'kouta',        
@@ -24,7 +24,6 @@ class JadwalTanaman extends Model
     'id_jadwal',
     'id_tanaman',
 ];
-
     public function jadwal()
     {
         return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id_jadwal');
