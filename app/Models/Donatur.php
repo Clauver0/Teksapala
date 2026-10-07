@@ -10,24 +10,24 @@ class Donatur extends Model
     use HasFactory;
 
     // Nama tabel sesuai DDL
-    protected $table = 'DONATUR';
+    protected $table = 'donatur';
 
     // Primary key non-incrementing string
-    protected $primaryKey = 'ID_DONATUR';
+    protected $primaryKey = 'id_donatur';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'ID_DONATUR',
-        'NAMA_LENGKAP',
-        'EMAIL',
-        'USERNAME',
-        'PASSWORD',
-        'NO_TELP',
+        'id_donatur',
+        'nama_lengkap',
+        'email',
+        'username',
+        'password',
+        'no_telp',
     ];
 
     protected $hidden = [
-        'PASSWORD',
+        'password',
     ];
 
     /**
@@ -39,22 +39,22 @@ class Donatur extends Model
 
         static::creating(function ($model) {
             // Auto generate ID_DONATUR format D00001 jika kosong
-            if (empty($model->ID_DONATUR)) {
-                $latest = static::orderBy('ID_DONATUR', 'desc')->first();
+            if (empty($model->id_donatur)) {
+                $latest = static::orderBy('id_donatur', 'desc')->first();
                 $nextNumber = 1;
 
-                if ($latest && preg_match('/D(\d+)/', $latest->ID_DONATUR, $matches)) {
+                if ($latest && preg_match('/D(\d+)/', $latest->id_donatur, $matches)) {
                     $nextNumber = intval($matches[1]) + 1;
                 }
 
-                $model->ID_DONATUR = 'D' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+                $model->id_donatur = 'D' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
             }
         });
 
         // Meniru INITCAP pada INSERT maupun UPDATE
         static::saving(function ($model) {
-            if (!empty($model->NAMA_LENGKAP)) {
-                $model->NAMA_LENGKAP = ucwords(strtolower($model->NAMA_LENGKAP));
+            if (!empty($model->nama_lengkap)) {
+                $model->nama_lengkap = ucwords(strtolower($model->nama_lengkap));
             }
         });
     }
