@@ -43,7 +43,7 @@ class DonaturTableSeeder extends Seeder
         ];
 
         foreach ($donaturs as $donatur){
-            \App\Models\Donatur::create($donatur);
+            Donatur::create($donatur);
         }
     
     }
