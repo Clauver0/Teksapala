@@ -23,7 +23,6 @@ class Jurnal extends Model
 
     // Kolom yang boleh diisi
     protected $fillable = [
-        'id_jurnal',
         'tanggal_jurnal',
         'judul_jurnal',
         'jenis_tanaman',
