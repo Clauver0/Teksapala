@@ -18,33 +18,33 @@ class DonaturTableSeeder extends Seeder
     {
         $donaturs = [
             [
-                'NAMA_LENGKAP' => 'budi santoso',
-                'EMAIL'        => 'budi@gmail.com',
-                'USERNAME'     => 'budisantoso',
-                'PASSWORD'     => Hash::make('password123'),
-                'NO_TELP'      => '081234567890',
+                'nama_lengkap' => 'budi santoso',
+                'email'        => 'budi@gmail.com',
+                'username'     => 'budisantoso',
+                'password'     => Hash::make('password123'),
+                'no_telp'      => '081234567890',
             ],
 
             [
-                'NAMA_LENGKAP' => 'SITI AMINAH',
-                'EMAIL'        => 'siti@gmail.com',
-                'USERNAME'     => 'sitiaminah',
-                'PASSWORD'     => Hash::make('password123'),
-                'NO_TELP'      => '082198765432',
+                'nama_lengkap' => 'siti aminah',
+                'email'        => 'siti@gmail.com',
+                'username'     => 'sitiaminah',
+                'password'     => Hash::make('password123'),
+                'no_telp'      => '082198765432',
             ],
 
             [
-                'NAMA_LENGKAP' => 'andrian pratama',
-                'EMAIL'        => 'andrian@gmail.com',
-                'USERNAME'     => 'andrianp',
-                'PASSWORD'     => Hash::make('password123'),
-                'NO_TELP'      => '085712345678'
+                'nama_lengkap' => 'andrian pratama',
+                'email'        => 'andrian@gmail.com',
+                'username'     => 'andrianp',
+                'password'     => Hash::make('password123'),
+                'no_telp'      => '085712345678'
             ],
         ];
 
         foreach ($donaturs as $donatur){
             Donatur::create($donatur);
         }
-        
+    
     }
 }
