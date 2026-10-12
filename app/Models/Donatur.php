@@ -9,52 +9,63 @@ class Donatur extends Model
 {
     use HasFactory;
 
-    // Nama tabel sesuai DDL
-    protected $table = 'DONATUR';
+    // Nama tabel
+    protected $table = 'donatur';
 
-    // Primary key non-incrementing string
-    protected $primaryKey = 'ID_DONATUR';
+    // Primary key
+    protected $primaryKey = 'id_donatur';
+
+    // ID berupa string, bukan auto increment
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'ID_DONATUR',
-        'NAMA_LENGKAP',
-        'EMAIL',
-        'USERNAME',
-        'PASSWORD',
-        'NO_TELP',
+        'id_donatur',
+        'nama_lengkap',
+        'email',
+        'username',
+        'password',
+        'no_telp',
     ];
 
     protected $hidden = [
-        'PASSWORD',
+        'password',
     ];
 
     /**
-     * Meniru logika TRIGGER trg_donatur_id dan SEQUENCE Oracle
+     * Generate ID otomatis:
+     * D00001
+     * D00002
+     * D00003
      */
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
-            // Auto generate ID_DONATUR format D00001 jika kosong
-            if (empty($model->ID_DONATUR)) {
-                $latest = static::orderBy('ID_DONATUR', 'desc')->first();
+
+            if (empty($model->id_donatur)) {
+
+                $latest = static::orderBy('id_donatur', 'desc')->first();
+
                 $nextNumber = 1;
 
-                if ($latest && preg_match('/D(\d+)/', $latest->ID_DONATUR, $matches)) {
-                    $nextNumber = intval($matches[1]) + 1;
+                if ($latest) {
+                    $nextNumber =
+                        ((int) substr($latest->id_donatur, 1)) + 1;
                 }
 
-                $model->ID_DONATUR = 'D' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+                $model->id_donatur =
+                    'D' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
             }
         });
 
-        // Meniru INITCAP pada INSERT maupun UPDATE
+        // Mengubah nama menjadi format "Budi Santoso"
         static::saving(function ($model) {
-            if (!empty($model->NAMA_LENGKAP)) {
-                $model->NAMA_LENGKAP = ucwords(strtolower($model->NAMA_LENGKAP));
+
+            if (!empty($model->nama_lengkap)) {
+                $model->nama_lengkap =
+                    ucwords(strtolower($model->nama_lengkap));
             }
         });
     }
