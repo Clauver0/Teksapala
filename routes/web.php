@@ -8,6 +8,6 @@ Route::get('/', function () {
 
 // testing menubar
 Route::get('/iwak',function(){
-    return view('sites.halamanDokumentasi');
+    return view('sites.halaman-dokumentasi');
     
 });
