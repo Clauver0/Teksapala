@@ -9,10 +9,7 @@
     <div class="main-layout" style="display: flex;">
         @include('components.menubar')
 
-        <main style="padding: 20px; flex-grow: 1;">
-            <h1>selamat datang di website kami!</h1>
-            <p>Ini adalah area konten utama.</p>
-        </main>
+        @include('components.eventContainer')
     </div>
 </body>
 </html>
