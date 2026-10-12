@@ -1,17 +1,14 @@
 <?php
 
 namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
 use App\Models\Donatur;
 use Illuminate\Support\Facades\Hash;
-
 class DonaturTableSeeder extends Seeder
 {
 
     /**
-     * Auto generated seed file
-     *
+    
      * @return void
      */
     public function run()
@@ -32,7 +29,6 @@ class DonaturTableSeeder extends Seeder
                 'password'     => Hash::make('password123'),
                 'no_telp'      => '082198765432',
             ],
-
             [
                 'nama_lengkap' => 'andrian pratama',
                 'email'        => 'andrian@gmail.com',
@@ -41,7 +37,6 @@ class DonaturTableSeeder extends Seeder
                 'no_telp'      => '085712345678'
             ],
         ];
-
         foreach ($donaturs as $donatur){
             Donatur::create($donatur);
         }

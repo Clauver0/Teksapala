@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('id_donasi',10);
             $table->foreign('id_donasi')->references('id_donasi')->on('donasi')->onDelete('cascade');
             $table->string('id_jadwal_tanaman', 10);
-            $table->foreign('id_jadwal_tanaman')->references('id_jadwal_tanaman')->on('Jadwal_tanaman')->onDelete('cascade');
+            $table->foreign('id_jadwal_tanaman')->references('id_jadwal_tanaman')->on('jadwal_tanaman')->onDelete('cascade');
         });
     }
 
