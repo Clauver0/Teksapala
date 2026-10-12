@@ -9,7 +9,7 @@
     <div class="main-layout" style="display: flex;">
         @include('components.menubar')
 
-        @include('components.eventContainer')
+        @include('components.document-container')
     </div>
 </body>
 </html>
