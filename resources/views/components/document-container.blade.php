@@ -14,3 +14,9 @@
         </table>
         <a href="#" class="doc-item">>> Detail</a>
     </div>
+        <div class="container">
+            <h1>Halaman Dokumentasi</h1>
+            <p>Hasil dari 5 + 10 adalah: <strong id="hasil-perhitungan">Memuat...</strong></p>
+        </div>
+
+        @vite(['resources/js/sites/dokumentasi.js'])
