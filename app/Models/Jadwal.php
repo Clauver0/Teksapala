@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // <-- 1. Import ini
 
 class Jadwal extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes; // <-- 2. Panggil trait SoftDeletes di sini
 
     protected $table = 'jadwal';
     protected $primaryKey = 'id_jadwal';
@@ -16,15 +16,16 @@ class Jadwal extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        
         'status_pelaksanaan',
         'lokasi_pelaksanaan',
         'tanggal_pelaksanaan',
-        'deskripsi', 'id_komunitas',
-       
+        'deskripsi', 
+        'id_komunitas', 
+        'jumlah_peserta',
+        'is_archived', // Cukup is_archived saja yang masuk fillable
     ];
 
-public function jadwalTanamans()
+    public function jadwalTanamans()
     {
         return $this->hasMany(JadwalTanaman::class, 'id_jadwal', 'id_jadwal');
     }
@@ -50,5 +51,3 @@ public function jadwalTanamans()
         });
     }
 }
-
-
