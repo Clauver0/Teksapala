@@ -10,7 +10,7 @@ class DokumentasiSeeder extends Seeder
 {
     // /**
     //  * Run the database seeds.
-    //  */
+    //  */ meow
     public function run(): void
     {
         $dokumentasis = [
