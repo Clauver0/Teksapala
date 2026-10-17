@@ -37,22 +37,20 @@ class Donatur extends Authenticatable
         return $this->hasMany(Donasi::class, 'id_donatur', 'id_donatur');
     }
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
+    static::creating(function ($model) {
+        if (empty($model->id_donatur)) {
+            $latest = static::max('id_donatur');
+            $number = $latest ? ((int) substr($latest, 1)) + 1 : 1;
+            $model->id_donatur = 'D' . str_pad($number, 5, '0', STR_PAD_LEFT);
+        }
+    });
 
-        static::creating(function ($model) {
-            if (empty($model->id_donatur)) {
-                $latest = static::orderBy('id_donatur', 'desc')->first();
-                $nextNumber = $latest ? ((int) substr($latest->id_donatur, 1)) + 1 : 1;
-                $model->id_donatur = 'D' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
-            }
-        });
-
-        static::saving(function ($model) {
-            if (!empty($model->nama_lengkap)) {
-                $model->nama_lengkap = ucwords(strtolower($model->nama_lengkap));
-            }
-        });
+    static::saving(function ($model) {
+        if (!empty($model->nama_lengkap)) {
+            $model->nama_lengkap = ucwords(strtolower($model->nama_lengkap));
+        }
+    });
     }
 }
