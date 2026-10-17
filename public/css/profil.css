@@ -10,151 +10,140 @@ body{
     color: #222;
 }
 
+/* LAYOUT HALAMAN */
+
+.container{
+    min-height: 100vh;
+}
+
+.main-content{
+    /* lebar menubar diatur di menubar.css */
+    margin-left: var(--menubar-width, 160px);
+    background: white;
+    min-height: 100vh;
+}
+
 /* HEADER */
 
-.display-name{
-    margin-top:20px;
-
-    font-size:40px;
-    font-weight:500;
-
-    text-align:center;
-}
-
-.username{
-    margin-top:8px;
-
-    color:#444;
-
-    font-size:20px;
-
-    text-align:center;
-}
-
 .profile-header{
-    width:100%;
-    height:260px;
-    overflow:hidden;
-    position:relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    position: relative;
 }
 
 .profile-header img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.display-name{
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.username{
+    margin-top: 8px;
+    color: #444;
+    font-size: 20px;
+    text-align: center;
 }
 
 /* PROFILE INFO */
 
 .profile-info{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    position:relative;
-
-    margin-top:-90px;
-
-    z-index:10;
+    position: relative;
+    margin-top: -90px;
+    z-index: 10;
 }
 
 .profile-info img{
-    display:block;
+    display: block;
 }
 
 .profile-photo-wrapper{
-    position:relative;
+    position: relative;
 }
 
 .profile-photo{
-    width:180px;
-    height:180px;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    border:8px solid #f5f5f5;
-
-    background:white;
-
-    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid #f5f5f5;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 .profile-placeholder{
-    width:180px;
-    height:180px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #ececec;
+    border: 8px solid #f5f5f5;
 
-    border-radius:50%;
-
-    background:#ececec;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:70px;
-
-    border:8px solid #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
 }
 
-/* BUTTON */
+/* TOMBOL */
 
 .edit-profile-btn{
-    position:absolute;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 
-    top:10px;
-    right:10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    text-decoration: none;
 
-    width:40px;
-    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
 
-    border-radius:50%;
-
-    background:white;
-
-    text-decoration:none;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
-
-    font-size:18px;
-
-    transition:0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: 0.2s;
 }
 
 .edit-profile-btn:hover{
-    transform:scale(1.1);
+    transform: scale(1.1);
 }
 
 .logout-form{
     position: absolute;
     top: 20px;
     right: 20px;
-
     z-index: 20;
 }
 
 .logout-btn{
-    background: #dc3545;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
     height: 44px;
     padding: 0 16px;
-
+    border: none;
     border-radius: 10px;
+    cursor: pointer;
+
+    background: #dc3545;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
 
     box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
@@ -163,217 +152,34 @@ body{
     background: #ed4b5b;
 }
 
-
-/* DONASI */
-
-.donation-section{
-    width: 95%;
-    margin: 40px auto;
-}
-
-.donation-section h2{
-    margin-bottom: 20px;
-}
-
-/* CARD DONASI */
-
-.donation-card{
-    background: #d8ccb4;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-
-.donation-top{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px 25px;
-}
-
-.donation-label{
-    font-size: 30px;
-    font-weight: bold;
-    color: #a68d67;
-    min-width: 120px;
-}
-
-.donation-title{
-    font-weight: bold;
-    color: #6b4d24;
-}
-
-.donation-image{
-    height: 12px;
-    background-image: url('../images/forest.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-.donation-bottom{
-    display: flex;
-    align-items: center;
-    padding: 15px 30px;
-    gap: 20px;
-}
-
-.donation-value-label{
-    font-size: 24px;
-    font-weight: bold;
-    color: #a68d67;
-}
-
-.donation-value{
-    font-size: 24px;
-    font-weight: bold;
-    color: #6b4d24;
-}
-
-.donation-meta{
-    padding: 0 25px;
-    padding-top: 20px;
-    margin-top: -5px;
-    margin-bottom: 10px;
-    color: #5a4a2a;
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-.donation-qty{
-    margin-left: auto;
-    font-size: 16px;
-    font-weight: bold;
-    color: #6b4d24;
-}
-
-.donation-card{
-    margin-bottom: 18px;
-    transition: 0.2s;
-}
-
-.donation-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-.donation-top{
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.donation-bottom{
-    justify-content: sp;
-}
-
-/*EDIT PROFIL*/
-
-.empty-header{
-    width:100%;
-    height:100%;
-    background:#d9d9d9;
-}
-
-.edit-header-btn{
-    position:absolute;
-
-    bottom:20px;
-    right:20px;
-    
-    z-index: 999;
-
-    width:50px;
-    height:50px;
-
-    border-radius:50%;
-
-    background:white;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    cursor:pointer;
-
-    font-size:22px;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.2);
-}
-
-.name-edit-section{
-    margin-top:20px;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.name-edit-section label{
-    margin-bottom:10px;
-    font-weight:bold;
-}
-
-.display-input{
-    width:300px;
-
-    padding:12px;
-
-    border:1px solid #ccc;
-    border-radius:10px;
-
-    text-align:center;
-    font-size:20px;
-}
-
-.save-section{
-    display:flex;
-    justify-content:center;
-
-    margin-top:40px;
-}
-
-.save-btn{
-    padding:15px 35px;
-
-    border:none;
-    border-radius:12px;
-
-    background:#7A8F45;
-
-    color:white;
-
-    font-size:18px;
-    cursor:pointer;
-}
-
-.save-btn:hover{
-    opacity:0.9;
-}
-
-.error-box{
-    background:#ffdede;
-    color:#b30000;
-
-    padding:15px;
-    margin:20px;
-
-    border-radius:10px;
-}
-
-.success-alert{
-    position: fixed;
+.back-btn{
+    position: absolute;
     top: 20px;
-    right: 20px;
-    background: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    z-index: 9999;
+    left: 20px;
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 10px;
+
+    background: white;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
 
-/* SECTION RIWAYAT DONASI */
+/* RIWAYAT DONASI */
+
 .profile-divider{
     width: 100%;
     max-width: 1000px;
-
     margin: 100px auto 20px;
 
     display: flex;
@@ -397,116 +203,193 @@ body{
 }
 
 .donation-section{
-    width:90%;
-    max-width:1200px;
-
-    margin:50px auto 80px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto 80px;
 }
 
+.donation-section h2,
 .section-title{
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
-.container{
-    display:flex;
-    min-height:100vh;
+.donation-card{
+    margin-bottom: 18px;
+    background: #d8ccb4;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transition: 0.2s;
 }
 
-.sidebar{
-    width:160px;
-    background:#7f944a;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
+.donation-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-.main-content{
-    margin-left:160px;
-    flex:1;
-    background:white;
+.donation-top{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-.menu-btn{
-    background:#f5f5f5;
-    color:black;
-    text-decoration:none;
-
-    padding:12px 18px;
-    border-radius:20px;
-
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    font-weight:600;
-
-    box-shadow:0 2px 5px rgba(0,0,0,.2);
+.donation-label{
+    min-width: 120px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #a68d67;
 }
 
-.back-btn-side{
-    margin-top:auto;
+.donation-title{
+    font-weight: bold;
+    color: #6b4d24;
+}
 
-    background:#745113;
-    color:white;
-    text-decoration:none;
+.donation-image{
+    height: 12px;
+    background-image: url('../images/forest.jpg');
+    background-size: cover;
+    background-position: center;
+}
 
-    padding:15px;
-    border-radius:15px;
-    text-align:center;
+.donation-meta{
+    padding: 20px 25px 0;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    color: #5a4a2a;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.donation-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px 30px;
+}
+
+.donation-value-label,
+.donation-value{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.donation-value-label{
+    color: #a68d67;
+}
+
+.donation-value{
+    color: #6b4d24;
+}
+
+.donation-qty{
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6b4d24;
+}
+
+/* EDIT PROFIL */
+
+.empty-header{
+    width: 100%;
+    height: 100%;
+    background: #d9d9d9;
+}
+
+.edit-header-btn{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+}
+
+.name-edit-section{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name-edit-section label{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.display-input{
+    width: 300px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.save-section{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.save-btn{
+    padding: 15px 35px;
+    border: none;
+    border-radius: 12px;
+    background: #7A8F45;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.save-btn:hover{
+    opacity: 0.9;
+}
+
+/* NOTIFIKASI */
+
+.error-box{
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #ffdede;
+    color: #b30000;
+}
+
+.success-alert{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #4CAF50;
+    color: white;
 }
 
 @media (max-width: 768px){
 
-    .container{
-        flex-direction:column;
-    }
-
-    .sidebar{
-        position:relative;
-        width:100%;
-        height:auto;
-        flex-direction:row;
-        justify-content:center;
-        flex-wrap:wrap;
-    }
-
     .main-content{
-        margin-left:0;
+        margin-left: 0;
+        padding-bottom: 80px; /* ruang untuk menubar yang pindah ke bawah */
     }
 
-}
-
-.menu-btn.active{
-    background:#ffffff87;
-    border:2px solid #7f944a;
-}
-
-.back-btn{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-
-    z-index: 20;
-
-    background: white;
-    text-decoration: none;
-    color: black;
-    font-size: 16px;
-    font-weight: 500;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    height: 44px;
-    padding: 0 16px;
-
-    border-radius: 10px;
-
-    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    .display-name{
+        font-size: 28px;
+    }
 }
