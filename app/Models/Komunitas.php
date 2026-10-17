@@ -9,37 +9,29 @@ class Komunitas extends Authenticatable
 {
     use HasFactory;
 
-    // Nama tabel di database
     protected $table = 'komunitas';
-
-    // Primary key kustom
     protected $primaryKey = 'id_komunitas';
-
-    // Set false karena primary key berupa string (bukan auto-increment integer)
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // Nonaktifkan timestamp default Laravel (created_at & updated_at)
-    public $timestamps = false;
-
-    // Kolom yang dapat diisi secara mass-assignment
     protected $fillable = [
         'id_komunitas',
+        'nama_komunitas',
+        'display_name',
         'peran',
         'email',
         'username',
         'password',
         'no_telp',
+        'profile_img',
+        'header_img',
     ];
 
-    // Sembunyikan kolom password saat data di-convert ke Array / JSON
     protected $hidden = [
         'password',
+        'remember_token',
     ];
 
-    /**
-     * Auto-generate ID otomatis dengan format K001 di level Laravel
-     */
     protected static function booted()
     {
         static::creating(function ($model) {

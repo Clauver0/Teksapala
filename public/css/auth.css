@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0), rgba(0,0,0,0.4)),
+        url('../img/background1.jpg');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+body::before{
+    content: '';
+    position: fixed;
+    inset: 0;
+
+    backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0);
+
+    z-index: 0;
+}
+
+.login-card{
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 450px;
+
+    background: rgba(255, 255, 255, 0.204);
+    backdrop-filter: blur(12px);
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.login-card h1{
+    text-align: center;
+
+    margin-bottom: 30px;
+
+    color: #ffffffda;
+
+    font-size: 28px;
+}
+
+.login-card ul{
+    list-style: none;
+}
+
+.login-card li{
+    margin-bottom: 20px;
+}
+
+.login-card label{
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+
+    color: #ffffffda;
+}
+
+.login-card input{
+    width: 100%;
+
+    padding: 12px 15px;
+
+    background: rgba(255,255,255,0.15);
+
+    color: #ffffffda;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    transition: .3s;
+}
+
+.login-card input::placeholder{
+    color: rgba(255,255,255,0.6);
+}
+
+.login-card input:focus{
+    outline: none;
+
+    border-color: rgba(255,255,255,0.5);
+
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+}
+
+.login-card button{
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    transition: .3s;
+}
+
+.login-card button[type="submit"]{
+    background: #7A8F45;
+    color: #ffffffe9;
+}
+
+.login-card button[type="submit"]:hover{
+    background: #96af57;
+}
+
+.login-card button[type="button"]{
+    background: #ffffffda;
+    color: #7A8F45;
+}
+
+.login-card button[type="button"]:hover{
+    background: #dcdcdc;
+}
+
+.error-msg{
+    margin-bottom: 20px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #ff8a8a;
+    background: rgba(220,38,38,0.15);
+
+    border: 1px solid rgba(220,38,38,0.3);
+}
