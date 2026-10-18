@@ -9,33 +9,29 @@ class JurnalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        $data=Jurnal::latest();
+    public function index(Request $request){
+    $data = Jurnal::latest();
 
-        if ($request->filled('cari')) {
+    if ($request->filled('cari')) {
         $data->where('judul', 'like', '%' . $request->cari . '%');
     }
-        $data1 = $data->get();
-        if($data1->isEmpty()){
 
-            return view('jurnals.index',[
-                'data1' => $data1,
-                'Pesan' => 'Data jurnal tidak ditemukan' 
-            ]);   
-           
-        }
-        return view('jurnals.index', compact('data1'));
+    $data1 = $data->get();
+
+    return view('Jurnal.Jurnal-kelola', [
+        'data1' => $data1,
+        'Pesan' => $data1->isEmpty() ? 'Data jurnal tidak ditemukan' : null,
+    ]);
+}
         
-        
-    }
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-           return view('jurnals.create');
+           return view('Jurnal.Jurnal-input');
     }
 
     /**
@@ -67,7 +63,7 @@ class JurnalController extends Controller
      */
     public function edit(jurnal $jurnal)
     {
-        return view('jurnals.edit', compact('jurnal'));
+        return view('Jurnal.Jurnal-edit', compact('jurnal'));
     }
 
     /**

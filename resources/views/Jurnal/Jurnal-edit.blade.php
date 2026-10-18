@@ -15,7 +15,7 @@
        </div>
     
     <div  class="card">
-      <div class="card-header">Jurnal</div>
+      <div class="card-header">Edit Jurnal</div>
          <div class="card-body">
           
             <div class="card-input">
@@ -26,4 +26,15 @@
                 <a href="/kelola-jurnal" class="btn btn-secondary">Kelola Jurnal</a>
             </div>
 </body>
+<script>
+        const card = document.getElementById('jurnalCard');
+        const btn = document.getElementById('btnExpand');
+
+        btn.addEventListener('click', () => {
+            card.classList.toggle('expanded');
+            const isBig = card.classList.contains('expanded');
+            btn.textContent = isBig ? '🗗' : '⛶';
+            btn.title = isBig ? 'Perkecil' : 'Perbesar';
+        });
+    </script>
 </html>

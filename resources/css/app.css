@@ -109,7 +109,6 @@ body {
     opacity: 0.8; /* Sedikit transparan agar card terbaca */
 }
 
-/* 3. Card Melayang */
 .card {
     position: absolute;
     top: 50%;
@@ -135,23 +134,24 @@ body {
 }
 
 .card-body {
-    width: 60px;
     padding: 20px;
     min-height: 250px;
-}
-.card-input1 {
-    border-radius: 12px;
     display: flex;
-    justify-content: center;
-    background-color: #d9cab0;
+    flex-direction: column;
+    justify-content: center; /* tengah vertikal */
+    align-items: center; /* tengah horizontal */
+    gap: 20px;
 }
+.card-input1,
 .card-input {
     border-radius: 12px;
-    display: flex;
+    width: 50%;
     justify-content: center;
     background-color: #d9cab0;
 }
-.btn {
+
+.btn.btn-primary,
+.btn.btn-secondary {
     font-size: 20px;
     display: inline-block;
     text-align: center;
@@ -160,9 +160,64 @@ body {
 .card-Jurnal-input {
     border-radius: 12px;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* isi tersusun dari atas ke bawah */
     background-color: #d9cab0;
     width: 100%;
-    padding: 100px;
-    min-height: 200px;
+    min-height: 200px; /* biar kotak kelihatan walau kosong */
+    padding: 20px;
+    box-sizing: border-box; /* padding tidak bikin lebar melebihi 100% */
+}
+.btn-expand {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #5c4018;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.card.card-resizable {
+    transition: max-width 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card.card-resizable .card-body {
+    flex: 1; /* body mengisi sisa tinggi card */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-Jurnal-input {
+    flex: 1; /* kotak beige ikut mengisi body */
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background-color: #d9cab0;
+    width: 100%;
+    min-height: 200px; /* tinggi minimal saat ukuran kecil */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.card.card-resizable.expanded {
+    max-width: 800px;
+    min-height: 80vh;
+}
+.aksi-jurnal {
+    display: flex;
+    justify-content: space-between; /* Batal di kiri, Simpan di kanan */
+    align-items: center;
+    gap: 15px;
+    width: 60%;
+    margin-top: 20px;
+}
+.btn.simpan-jurnal,
+.btn.batal-jurnal {
+    border-radius: 12px;
+    font-size: 15px;
+    display: inline-block;
+    width: 60%;
 }

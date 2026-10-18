@@ -18,13 +18,12 @@
        </div>
     
     <div  class="card">
-      <div class="card-header">Jurnal</div>
-         <div class="card-body">
-          
+      <div class="card-header">Jurnal</div> 
+         <div class="card-body"> 
             <div class="card-input">
                  <a href="/input-jurnal" class="btn btn-primary">Input Jurnal</a>
             </div>
-            &nbsp;&nbsp;      
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       
             <div class="card-input1">
                 <a href="/kelola-jurnal" class="btn btn-secondary">Kelola Jurnal</a>
             </div>
