@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Models\User;
@@ -24,11 +25,21 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
+});
+
+Route::get('/donasi',function(){
+    return view('Donasi');
+    
+});
+Route::get('/jurnal',function(){
+    return view('Jurnal.Jurnal');
+    
+});
+
+Route::get('/input-jurnal', function () {
+    return view('Jurnal.Jurnal-input');
 });
