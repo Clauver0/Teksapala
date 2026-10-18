@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\DonationController;
+use App\Http\Controllers\DonasiController;
 
 Route::redirect('/', '/profil');
 
@@ -27,6 +27,15 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/beranda', function () {
+    return view('Beranda.beranda');
+})->name('beranda');
+
+Route::get('/donasi', [DonasiController::class, 'index'])
+    ->name('donasi');
+
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
