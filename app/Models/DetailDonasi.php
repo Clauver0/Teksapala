@@ -9,10 +9,11 @@ class DetailDonasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'detail_donasis';
+    protected $table = 'detail_donasi';
     protected $primaryKey = 'id_detail_donasi';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;
 
     protected $fillable = [
         'id_detail_donasi',

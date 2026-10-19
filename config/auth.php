@@ -42,6 +42,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'donatur' => [
+            'driver' => 'session',
+            'provider' => 'donatur',
+        ],
+        'komunitas' => [
+            'driver' => 'session',
+            'provider' => 'komunitas',
+        ],
     ],
 
     /*
@@ -66,11 +74,14 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'donatur' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Donatur::class,
+        ],
+        'komunitas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Komunitas::class,
+        ],
     ],
 
     /*
@@ -113,5 +124,5 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
-
+    
 ];

@@ -18,8 +18,15 @@ return new class extends Migration
             $table->string('lokasi_pelaksanaan', 100)->nullable();
             $table->date('tanggal_pelaksanaan')->nullable();
             $table->string('deskripsi',255)->nullable();
+            $table->string('id_komunitas', 10);
+            $table->foreign('id_komunitas')->references('id_komunitas')->on('komunitas')->onDelete('cascade'); //foreignkey
+            $table->integer('jumlah_peserta')->nullable();
+            // tambahan agar bisa direstore
+            $table->timestamp('deleted_at')->nullable();
+            // tambahan karena ada sistem archive
+            $table->boolean('is_archived')->default(0);
 
-             $table->timestamps();
+            $table->timestamps();
         });
     }
 

@@ -24,6 +24,13 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call([DonaturTableSeeder::class]);
-        $this->call([JurnalSeeder::class,]);   
+        $this->call([KomunitasSeeder::class]);
+        $this->call([JurnalSeeder::class]);
+        $this->call([DonasiSeeder::class]);
+        $this->call([tanamanSeeder::class]);
+        $this->call([JadwalSeeder::class]);
+        $this->call([DokumentasiSeeder::class]);
+        $this->call([JadwalTanamanSeeder::class]);
+        $this->call([DetailDonasiSeeder::class]);
     }
 }

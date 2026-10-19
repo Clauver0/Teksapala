@@ -1,0 +1,64 @@
+.app-menubar {
+    background-color: #ffffff;
+    border-right: 1px solid #ddd; /* Ganti border-top jadi border-right karena posisinya di samping */
+
+    width: 220px; /* Berikan lebar tetap untuk sidebar */
+    height: 100vh; /* Tinggi penuh satu layar */
+    padding: 20px 0;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column; /* Membuat menu berjejer ke bawah */
+    justify-content: flex-start; /* Mengatur susunan dari atas */
+    align-items: stretch; /* Memanjang menyesuaikan lebar container */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center; /* Menjajarkan ikon dan teks secara horizontal */
+    gap: 12px; /* Memberikan jarak antara ikon dan teks */
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    padding: 12px 20px; /* Ruang klik yang nyaman */
+}
+
+.menu-item:hover {
+    background-color: #f5f5f5; /* Efek hover saat kursor diarahkan */
+}
+
+.menu-item img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0; /* Dihapus karena teksnya sekarang ada di samping ikon, bukan di bawahnya */
+}
+
+.doc-container {
+    /* Menumpuk warna gelap transparan di atas gambar */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/d/1rEdvyN1z7_Kfm5mf5DwXZslvWJS3ck3Q');
+    background-size: cover; /* Supaya gambarnya pas menutupi container */
+    background-position: center; /* Supaya posisi gambar di tengah */
+    
+    height: 190px;
+    width: 580px;
+    border-radius: 25px;
+    
+    /* Tambahan kalau ingin teks di dalamnya otomatis jadi warna putih supaya kontras */
+    color: #ffffff; 
+}
+.doc-item{
+    padding: 0 0 10 25;
+    font-size: 20px;
+    color: #ffffff;
+}
+.doc-container img{
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0;
+}
+.doc-container h1{
+    font-size: 20px;
+    padding-top: 20px;
+}
+
