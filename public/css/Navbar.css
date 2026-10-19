@@ -1,0 +1,77 @@
+/* ===== HP (default): sidebar kiri sempit, hanya ikon ===== */
+.app-menubar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 64px;
+    background: #5c451a;
+    border-right: 2px solid #e5e5e5;
+    z-index: 1000;
+    overflow-y: auto;
+
+    /* Tambahkan ini */
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Ikon berada di tengah vertikal */
+    flex: 3; /* Memenuhi tinggi sidebar */
+    padding-top: 0px; /* Hapus jarak atas sebelumnya */
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; /* ikon di tengah */
+    padding: 20px 0;
+    text-decoration: none;
+    color: #222;
+    font-size: 14px;
+}
+
+.menu-item img {
+    width: 30px;
+    height: px;
+}
+
+.menu-item span {
+    display: none; /* teks disembunyikan di HP */
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: #f3f3f3;
+}
+
+/* ruang untuk sidebar supaya isi halaman tidak tertutup */
+body {
+    padding-left: 64px;
+}
+
+/* ===== Laptop (992px ke atas): sidebar lebar, ikon + teks ===== */
+@media (min-width: 992px) {
+    .app-menubar {
+        width: 240px;
+    }
+    .menu-item {
+        justify-content: flex-start;
+        padding: 16px 24px;
+    }
+    .menu-item img {
+        margin-right: 16px;
+    }
+    .menu-item span {
+        display: inline; /* teks muncul di laptop */
+    }
+    body {
+        padding-left: 240px;
+    }
+}
+body {
+    margin: 0;
+}
