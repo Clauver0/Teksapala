@@ -1,9 +1,8 @@
-:root{
+:root {
     --menubar-width: 160px;
-    --menubar-bg: #7f944a;
 }
 
-.app-menubar{
+.app-menubar {
     position: fixed;
     top: 0;
     left: 0;
@@ -17,13 +16,13 @@
     z-index: 100;
 }
 
-.menu-container{
+.menu-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.menu-item{
+.menu-item {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -38,43 +37,42 @@
     font-size: 13px;
     font-weight: 600;
 
-    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: 0.2s;
 }
 
-.menu-item img{
+.menu-item img {
     width: 24px;
     height: 24px;
     object-fit: contain;
     flex-shrink: 0;
 }
 
-.menu-item:hover{
+.menu-item:hover {
     transform: translateX(3px);
 }
 
-.menu-item.active{
-    background: rgba(255,255,255,.55);
+.menu-item.active {
+    background: rgba(255, 255, 255, 0.55);
     border: 2px solid #fff;
 }
 
 /* Mobile: menubar pindah ke bawah layar */
-@media (max-width: 768px){
-
-    .app-menubar{
+@media (max-width: 768px) {
+    .app-menubar {
         top: auto;
         width: 100%;
         padding: 8px;
         overflow-y: visible;
     }
 
-    .menu-container{
+    .menu-container {
         flex-direction: row;
         justify-content: space-around;
         gap: 4px;
     }
 
-    .menu-item{
+    .menu-item {
         flex: 1;
         flex-direction: column;
         gap: 4px;
@@ -84,7 +82,7 @@
         text-align: center;
     }
 
-    .menu-item:hover{
+    .menu-item:hover {
         transform: none;
     }
 }
