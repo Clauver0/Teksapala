@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Jurnal</title>
      
+      @vite(['public/css/Navbar.css', 'resources/js/app.js'])
       @vite(['public/css/menubar.css', 'resources/js/app.js'])
       @vite(['resources/css/app.css', 'resources/js/app.js']) 
 </head>
@@ -17,6 +18,7 @@
       <div class="card-header">Input Jurnal <button type="button" class="btn-expand" id="btnExpand" title="Perbesar">⛶</button></div>
          <div class="card-body">  
             <div class="card-Jurnal-input">
+              
                <div class="judul-jurnal">
                   <label for="judul">Judul Jurnal :</label>
                   <input type="text" id="judul" name="judul" class="form-control">
