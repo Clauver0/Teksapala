@@ -3,6 +3,7 @@
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\EventController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -24,15 +25,33 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
 });
+<<<<<<< HEAD
+Route::get('/donasi',function(){
+    return view('Donasi');
+    
+});
+
+Route::get('/jurnal', function () {
+    return view('Jurnal.Jurnal');
+});
+
+Route::get('/kelola-jurnal', [JurnalController::class, 'index'])->name('jurnals.index');
+
+Route::get('/input-jurnal', [JurnalController::class, 'create'])->name('jurnals.create');
+Route::post('/input-jurnal', [JurnalController::class, 'store'])->name('jurnals.store');
+
+Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('jurnals.edit');
+Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
+
+Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
+=======
 // Testing halaman jadwal
 Route::get('/jadwal', function () {
     return view('sites.halaman-jadwal-penanaman');
 });
+>>>>>>> 497b3b27874d6fd203af3993b278a9a200ca0168
