@@ -3,11 +3,17 @@
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
 use Illuminate\Http\Request;
+=======
+use App\Http\Controllers\DonationController;
+use App\Livewire\KalenderJadwal;
+>>>>>>> 0297cb516911e0d65077b34412c47493bb5900a3
 
 Route::redirect('/', '/profil');
 
@@ -29,6 +35,7 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
         return view('components.kirim-bukti-donasi'); 
     })->name('kirim-bukti');
 
+<<<<<<< HEAD
     // Proses Upload Bukti Donasi
     Route::post('/kirim-bukti-donasi', function (Request $request) {
         // Validasi file (Wajib gambar, format jpg/png, maksimal 20MB)
@@ -56,13 +63,40 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
         return view('sertifikat'); 
     })->name('sertifikat');
 });
+=======
+>>>>>>> 0297cb516911e0d65077b34412c47493bb5900a3
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
 });
+<<<<<<< HEAD
 
 // Rute untuk Halaman Bantuan Pembayaran
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
+=======
+Route::get('/donasi',function(){
+    return view('Donasi');
+    
+});
+
+Route::get('/jurnal', function () {
+    return view('Jurnal.Jurnal');
+});
+
+Route::get('/kelola-jurnal', [JurnalController::class, 'index'])->name('jurnals.index');
+
+Route::get('/input-jurnal', [JurnalController::class, 'create'])->name('jurnals.create');
+Route::post('/input-jurnal', [JurnalController::class, 'store'])->name('jurnals.store');
+
+Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('jurnals.edit');
+Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
+
+Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
+// Testing halaman jadwal
+Route::get('/jadwal', function () {
+    return view('sites.halaman-jadwal-penanaman');
+});
+>>>>>>> 0297cb516911e0d65077b34412c47493bb5900a3
