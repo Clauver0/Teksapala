@@ -32,3 +32,7 @@ Route::get('/', function () {
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
 });
+// Testing halaman jadwal
+Route::get('/jadwal', function () {
+    return view('sites.halaman-jadwal-penanaman');
+});
