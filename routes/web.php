@@ -30,6 +30,7 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
 });
+<<<<<<< HEAD
 Route::get('/donasi',function(){
     return view('Donasi');
     
@@ -48,3 +49,9 @@ Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('ju
 Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
 
 Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
+=======
+// Testing halaman jadwal
+Route::get('/jadwal', function () {
+    return view('sites.halaman-jadwal-penanaman');
+});
+>>>>>>> 497b3b27874d6fd203af3993b278a9a200ca0168

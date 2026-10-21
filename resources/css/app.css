@@ -97,7 +97,6 @@ body {
     background-color: #000;
 }
 
-/* 2. Gambar Background */
 .jurnal-img {
     position: absolute;
     top: 0;
@@ -208,7 +207,7 @@ body {
 }
 .aksi-jurnal {
     display: flex;
-    justify-content: space-between; /* Batal di kiri, Simpan di kanan */
+    justify-content: space-between;
     align-items: center;
     gap: 15px;
     width: 60%;
@@ -220,4 +219,35 @@ body {
     font-size: 15px;
     display: inline-block;
     width: 60%;
+}
+.judul-jurnal,
+.tanggal-jurnal,
+.jenis-jurnal,
+.deskripsi,
+.unggah-file {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* kolom label | kolom input */
+    gap: 8px 16px;
+    align-items: start;
+    margin-bottom: 16px;
+}
+
+.form-control {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
 }
