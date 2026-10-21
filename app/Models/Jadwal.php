@@ -22,8 +22,16 @@ class Jadwal extends Model
         'deskripsi', 
         'id_komunitas', 
         'jumlah_peserta',
-        'is_archived', // Cukup is_archived saja yang masuk fillable
+        'is_archived', 
     ];
+
+    public function getTanggalFormattedAttribute()
+    {
+        if (!$this->tanggal_pelaksanaan) {
+            return '-';
+        }
+        return Carbon::parse($this->tanggal_pelaksanaan)->translatedFormat('d M Y');
+    }
 
     public function jadwalTanamans()
     {

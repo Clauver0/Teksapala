@@ -33,9 +33,13 @@ Route::get('/beranda', function () {
     return view('Beranda.beranda');
 })->name('beranda');
 
-Route::get('/donasi', [DonasiController::class, 'index'])
-    ->name('donasi');
+//Route::get('/donasi', [JadwalController::class, 'index'])
+  //  ->name('donasi');
 
+  //TESTING HALAMAN DONASI
+Route::get('/donasi', function () {
+    return view('donasi.lihat-informasi-donasi');
+})->name('donasi');
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {

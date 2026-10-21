@@ -13,7 +13,8 @@ class DetailDonasiController extends Controller
      */
     public function index()
     {
-        //
+        $detailDonasis = DetailDonasi::all();
+        return view('donasi.detail-index', compact('detailDonasis'));
     }
 
     /**
@@ -21,15 +22,14 @@ class DetailDonasiController extends Controller
      */
     public function create()
     {
-        //
+        return view('donasi.detail-create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(StoreDetailDonasiRequest $request)
     {
-        //
+       DetailDonasi::create($request->validated());
+        return redirect()->back()->with('selesai', 'Detail donasi berhasil disimpan!');
     }
 
     /**
@@ -37,7 +37,7 @@ class DetailDonasiController extends Controller
      */
     public function show(DetailDonasi $detailDonasi)
     {
-        //
+        return view('donasi.detail-show', compact('detailDonasi'));
     }
 
     /**
@@ -45,7 +45,7 @@ class DetailDonasiController extends Controller
      */
     public function edit(DetailDonasi $detailDonasi)
     {
-        //
+        return view('donasi.detail-edit', compact('detailDonasi'));
     }
 
     /**
@@ -53,7 +53,8 @@ class DetailDonasiController extends Controller
      */
     public function update(UpdateDetailDonasiRequest $request, DetailDonasi $detailDonasi)
     {
-        //
+        $detailDonasi->update($request->validated());
+        return redirect()->back()->with('success', 'Detail donasi berhasil diubah!');
     }
 
     /**
@@ -61,6 +62,7 @@ class DetailDonasiController extends Controller
      */
     public function destroy(DetailDonasi $detailDonasi)
     {
-        //
+       $detailDonasi->delete();
+        return redirect()->back()->with('success', 'Detail donasi berhasil dihapus!');
     }
 }
