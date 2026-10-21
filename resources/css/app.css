@@ -1,4 +1,5 @@
 /* ===== HP (default): sidebar kiri sempit, hanya ikon ===== */
+@import "tailwindcss";
 .app-menubar {
     position: fixed;
     top: 0;

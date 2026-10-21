@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DonationController;
+use App\Livewire\KalenderJadwal;
 
 Route::redirect('/', '/profil');
 
