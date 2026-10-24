@@ -22,7 +22,8 @@ class JadwalSeeder extends Seeder
                 'deskripsi'           => 'Kegiatan penanaman pohon di Desa Penari.',
                 'jumlah_peserta'      => 50,
                 'id_komunitas'        => 'K001', // Sesuaikan dengan ID komunitas yang ada di database kalian
-                'is_archived'         => 0, // Belum di-archive
+                'is_archived'         => 0,
+                'gambar'              => 'https://static.vecteezy.com/system/resources/thumbnails/057/047/715/small_2x/beautiful-nature-photo.jpg',
             ],
             [
                 'status_pelaksanaan'  => 'berlangsung',
@@ -32,6 +33,7 @@ class JadwalSeeder extends Seeder
                 'jumlah_peserta'      => 30,
                 'id_komunitas'        => 'K001',
                 'is_archived'         => 0,
+                'gambar'              => 'https://wallup.net/wp-content/uploads/2016/01/132930-nature-landscape-flowers.jpg',
             ],
             [
                 'status_pelaksanaan'  => 'Selesai',
@@ -40,7 +42,8 @@ class JadwalSeeder extends Seeder
                 'deskripsi'           => 'Kegiatan penanaman pohon di Pantai Parangtritis.',
                 'jumlah_peserta'      => 75,
                 'id_komunitas'        => 'K002',
-                'is_archived'         => 1, // Contoh data yang sudah di-archive
+                'is_archived'         => 1,
+                'gambar'              => 'https://wallpaperaccess.com/full/101952.jpg',
             ],
         ];
 

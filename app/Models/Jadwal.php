@@ -22,7 +22,8 @@ class Jadwal extends Model
         'deskripsi', 
         'id_komunitas', 
         'jumlah_peserta',
-        'is_archived', // Cukup is_archived saja yang masuk fillable
+        'is_archived',
+        'gambar' // Cukup is_archived saja yang masuk fillable
     ];
 
     public function jadwalTanamans()

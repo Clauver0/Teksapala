@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamp('deleted_at')->nullable();
             // tambahan karena ada sistem archive
             $table->boolean('is_archived')->default(0);
+            $table->string('gambar',255)->nullable();
 
             $table->timestamps();
         });

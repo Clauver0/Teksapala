@@ -3,17 +3,15 @@
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-<<<<<<< HEAD
 use Illuminate\Http\Request;
-=======
-use App\Http\Controllers\DonationController;
 use App\Livewire\KalenderJadwal;
->>>>>>> 0297cb516911e0d65077b34412c47493bb5900a3
+use App\Http\Controllers\JadwalController;
 
 Route::redirect('/', '/profil');
 
@@ -35,7 +33,6 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
         return view('components.kirim-bukti-donasi'); 
     })->name('kirim-bukti');
 
-<<<<<<< HEAD
     // Proses Upload Bukti Donasi
     Route::post('/kirim-bukti-donasi', function (Request $request) {
         // Validasi file (Wajib gambar, format jpg/png, maksimal 20MB)
@@ -63,20 +60,13 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
         return view('sertifikat'); 
     })->name('sertifikat');
 });
-=======
->>>>>>> 0297cb516911e0d65077b34412c47493bb5900a3
 
-// Testing halaman dokumentasi
-Route::get('/iwak', function () {
-    return view('sites.halaman-dokumentasi');
-});
-<<<<<<< HEAD
+
 
 // Rute untuk Halaman Bantuan Pembayaran
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
-=======
 Route::get('/donasi',function(){
     return view('Donasi');
     
@@ -95,8 +85,25 @@ Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('ju
 Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
 
 Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
-// Testing halaman jadwal
+
+
+
+
+
+// Testing halaman jadwal (jangan dibuang)
 Route::get('/jadwal', function () {
     return view('sites.halaman-jadwal-penanaman');
 });
->>>>>>> 0297cb516911e0d65077b34412c47493bb5900a3
+
+
+
+// Testing halaman dokumentasi (jangan dibuang)
+Route::get('/iwak', function () {
+    return view('sites.halaman-dokumentasi');
+});
+
+// Routing for Jadwal
+// kebutuhan : mengambil attribut untuk ditampilkan
+
+Route::get('/halaman-jadwal-penanaman', [JadwalController::class, 'tampilkanJadwal']);
+Route::get('/halaman-dokumentasi',[DokumentasiController::class, 'tampilkanDokumentasi']);
