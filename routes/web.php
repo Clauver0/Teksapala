@@ -8,11 +8,19 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
 use App\Http\Controllers\DonasiController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
+=======
+use Illuminate\Http\Request;
+use App\Livewire\KalenderJadwal;
+use App\Http\Controllers\DokumentasiController;
+use App\Http\Controllers\DonasiController;
+>>>>>>> 3dc17abd0fef710ab326bcdd75a575e949f265be
 
-Route::redirect('/', '/profil');
+
+Route::redirect('/', '/dokumentasi');
 
 Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -22,6 +30,9 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
 });
 
 Route::middleware('auth:donatur,komunitas')->group(function () {
+    Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
+    Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
+    
     Route::get('/profil', [AuthController::class, 'profile'])->name('profil');
     Route::get('/profil/edit', [AuthController::class, 'editProfile'])->name('profil.edit');
     Route::post('/profil/edit', [AuthController::class, 'updateProfile'])->name('profil.update');
@@ -82,7 +93,10 @@ Route::get('/iwak', function () {
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3dc17abd0fef710ab326bcdd75a575e949f265be
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');

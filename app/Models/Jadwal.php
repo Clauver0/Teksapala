@@ -43,9 +43,9 @@ class Jadwal extends Model
         return $this->belongsTo(Komunitas::class, 'id_komunitas', 'id_komunitas');
     }
 
-    public function dokumentasis()
+    public function dokumentasi()
     {
-        return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
+    return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
     }
 
     protected static function booted()
