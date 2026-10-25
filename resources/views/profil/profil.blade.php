@@ -6,7 +6,7 @@
     <title>Profil Saya</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/menubar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 </head>
 <body>
 <div class="container">
