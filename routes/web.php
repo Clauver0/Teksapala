@@ -11,10 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DonasiController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
-
 use App\Http\Controllers\DokumentasiController;
-=======
->>>>>>> 7305be1f75fa44763ef8eb3342a6c9109e437371
+
 
 Route::redirect('/', '/dokumentasi');
 
