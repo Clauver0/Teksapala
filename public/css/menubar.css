@@ -53,8 +53,13 @@
 }
 
 .menu-item.active {
+<<<<<<< HEAD
     background: #d9d9d9;
     border: 2px solid #ffffff;
+=======
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px solid #fff;
+>>>>>>> 7305be1f75fa44763ef8eb3342a6c9109e437371
 }
 
 /* Mobile: menubar pindah ke bawah layar */
