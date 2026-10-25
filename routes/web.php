@@ -10,8 +10,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
+use App\Http\Controllers\DokumentasiController;
 
-Route::redirect('/', '/profil');
+
+Route::redirect('/', '/dokumentasi');
 
 Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -21,6 +23,9 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
 });
 
 Route::middleware('auth:donatur,komunitas')->group(function () {
+    Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
+    Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
+    
     Route::get('/profil', [AuthController::class, 'profile'])->name('profil');
     Route::get('/profil/edit', [AuthController::class, 'editProfile'])->name('profil.edit');
     Route::post('/profil/edit', [AuthController::class, 'updateProfile'])->name('profil.update');

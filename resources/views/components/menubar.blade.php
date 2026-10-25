@@ -16,7 +16,8 @@
             <span>JADWAL</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a href="{{ route('dokumentasi.index') }}"
+           class="menu-item {{ request()->routeIs('dokumentasi.*') ? 'active' : '' }}">
             <img src="{{ asset('icons/dokumentasi-icon.png') }}" alt="Dokumentasi">
             <span>DOKUMENTASI</span>
         </a>
