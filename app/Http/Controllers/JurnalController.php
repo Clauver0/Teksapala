@@ -13,7 +13,7 @@ class JurnalController extends Controller
     $data = Jurnal::latest();
 
     if ($request->filled('cari')) {
-        $data->where('judul', 'like', '%' . $request->cari . '%');
+        $data->where('judul_jurnal', 'like', '%' . $request->cari . '%');
     }
 
     $data1 = $data->get();

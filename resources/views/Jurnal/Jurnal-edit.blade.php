@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Jurnal</title>
+   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     @vite([
-        'public/css/menubar.css',
-        'public/css/Navbar.css',
         'resources/css/jurnal.css',
         'resources/js/jurnal.js'
     ])
@@ -37,41 +36,40 @@
     @csrf
     @method('PUT')
 
-    <div class="mb-3">
-        <label for="judul_jurnal">Judul</label>
+    <div div class="jarak-bawah">
+        <label for="judul_jurnal">Judul Jurnal :</label>
         <input type="text" id="judul_jurnal" name="judul_jurnal"
                value="{{ old('judul_jurnal', $jurnal->judul_jurnal) }}"
                class="form-control" required>
     </div>
 
-    <div class="mb-3">
-        <label for="jenis_tanaman">Jenis Tanaman</label>
-        <input type="text" id="jenis_tanaman" name="jenis_tanaman"
-               value="{{ old('jenis_tanaman', $jurnal->jenis_tanaman) }}"
-               class="form-control" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="deskripsi">Deskripsi</label>
-        <textarea id="deskripsi" name="deskripsi" class="form-control">{{ old('deskripsi', $jurnal->deskripsi) }}</textarea>
-    </div>
-
-    <div class="mb-3">
-        <label for="tanggal_jurnal">Tanggal</label>
+    <div div class="jarak-bawah">
+        <label for="tanggal_jurnal">Tanggal:</label>
         <input type="date" id="tanggal_jurnal" name="tanggal_jurnal"
                value="{{ old('tanggal_jurnal', $jurnal->tanggal_jurnal) }}"
                class="form-control" required>
     </div>
 
-    <div class="mb-3">
-    <label>Gambar saat ini</label><br>
+      <div div class="jarak-bawah">
+        <label for="jenis_tanaman">Jenis Tanaman :</label>
+        <input type="text" id="jenis_tanaman" name="jenis_tanaman"
+               value="{{ old('jenis_tanaman', $jurnal->jenis_tanaman) }}"
+               class="form-control" required>
+    </div>
+    <div div class="jarak-bawah">
+        <label for="deskripsi">Deskripsi :</label>
+        <textarea id="deskripsi" name="deskripsi" class="form-control">{{ old('deskripsi', $jurnal->deskripsi) }}</textarea>
+    </div>
+
+    <div class="jarak-bawah">
+    <label>Gambar saat ini :</label>
     @if ($jurnal->gambar)
         <img src="{{ asset('storage/' . $jurnal->gambar) }}" alt="Gambar jurnal" style="max-width:200px;">
     @endif
 </div>
 
-<div class="mb-3">
-    <label for="gambar">Ganti gambar (kosongkan jika tidak diganti)</label>
+<div div class="jarak-bawah">
+    <label for="gambar">Ganti gambar :</label>
     <input type="file" id="gambar" name="gambar" class="form-control">
 </div>
 </div>  
@@ -82,8 +80,6 @@
     
 </div>
 </form>
-
-
         </div>
     </div>
 
