@@ -6,17 +6,18 @@
             <span>BERANDA</span>
         </a>
 
-        <a href="#" class="menu-item">
-            <img src="{{ asset('icons/donasi-icon.png') }}" alt="Donasi">
-            <span>DONASI</span>
-        </a>
+        <a href="{{ route('donasi') }}" class="menu-item active">
+    <img src="{{ asset('icons/donasi-icon.png') }}" alt="Donasi">
+    <span>DONASI</span>
+</a>
 
         <a href="#" class="menu-item">
             <img src="{{ asset('icons/jadwal-icon.png') }}" alt="Jadwal">
             <span>JADWAL</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a href="{{ route('dokumentasi.index') }}"
+           class="menu-item {{ request()->routeIs('dokumentasi.*') ? 'active' : '' }}">
             <img src="{{ asset('icons/dokumentasi-icon.png') }}" alt="Dokumentasi">
             <span>DOKUMENTASI</span>
         </a>

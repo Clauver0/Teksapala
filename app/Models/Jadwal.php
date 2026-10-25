@@ -22,8 +22,16 @@ class Jadwal extends Model
         'deskripsi', 
         'id_komunitas', 
         'jumlah_peserta',
-        'is_archived', // Cukup is_archived saja yang masuk fillable
+        'is_archived', 
     ];
+
+    public function getTanggalFormattedAttribute()
+    {
+        if (!$this->tanggal_pelaksanaan) {
+            return '-';
+        }
+        return Carbon::parse($this->tanggal_pelaksanaan)->translatedFormat('d M Y');
+    }
 
     public function jadwalTanamans()
     {
@@ -35,9 +43,9 @@ class Jadwal extends Model
         return $this->belongsTo(Komunitas::class, 'id_komunitas', 'id_komunitas');
     }
 
-    public function dokumentasis()
+    public function dokumentasi()
     {
-        return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
+    return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
     }
 
     protected static function booted()
