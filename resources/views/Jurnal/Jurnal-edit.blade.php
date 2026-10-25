@@ -7,8 +7,8 @@
     @vite([
         'public/css/menubar.css',
         'public/css/Navbar.css',
-        'resources/css/app.css',
-        'resources/js/app.js'
+        'resources/css/jurnal.css',
+        'resources/js/jurnal.js'
     ])
 </head>
 <body>

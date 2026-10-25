@@ -1,0 +1,33 @@
+/* Background Halaman */
+body {
+    font-family: 'Inter', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Warna Custom Card Sertifikat */
+.bg-card-header {
+    background-color: #e3cfb4; /* Coklat muda/beige */
+}
+
+.bg-card-footer {
+    background-color: #dbc3a4; /* Agak gelap sedikit dari header */
+}
+
+.text-card-dark {
+    color: #4a3b2a;
+}
+
+/* Efek Bayangan Lembut */
+.shadow-soft {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Penyesuaian Font */
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}

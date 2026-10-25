@@ -1,272 +1,77 @@
-.jurnal-img {
-    display: block;
-    width: 100%; /* selebar area di kanan sidebar */
-    height: 100vh; /* setinggi layar */
-    object-fit: cover; /* gambar terpotong rapi, tidak gepeng */
-}
-
-.jurnal-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.jurnal-hero {
-    position: relative; /* Wajib: Jadi patokan card */
-    width: 100%;
-    height: 100vh; /* Setinggi layar (bisa diubah ke 500px jika mau pendek) */
-
-    /* Lapisan gelap transparan agar card lebih menonjol */
-    background-color: #000;
-}
-
-.jurnal-img {
-    position: absolute;
+@import "tailwindcss";
+.app-menubar {
+    position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Agar gambar tidak gepeng */
-    z-index: 1; /* Berada di lapisan bawah */
-    opacity: 0.8; /* Sedikit transparan agar card terbaca */
-}
-
-.card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-
-    width: 90%;
-    max-width: 600px;
-    background-color: #f4f1ea;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-.card-header {
-    background-color: #5c4018;
-    color: white;
-    font-weight: bold;
-    padding: 15px;
-    text-align: center;
-    font-size: 25px;
-}
-
-.card-body {
-    padding: 20px;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* tengah vertikal */
-    align-items: center; /* tengah horizontal */
-    gap: 20px;
-}
-.card-input1,
-.card-input {
-    border-radius: 12px;
-    width: 50%;
-    justify-content: center;
-    background-color: #d9cab0;
-}
-
-.btn.btn-primary,
-.btn.btn-secondary {
-    font-size: 20px;
-    display: inline-block;
-    text-align: center;
-    width: 100%;
-}
-
-/* .btn-expand {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #5c4018;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.card.card-resizable {
-    transition:
-        max-width 0.25s ease,
-        min-height 0.25s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.card.card-resizable .card-body {
-    flex: 1; 
-display: flex;
-flex-direction: column;
- */
-
-.card-Jurnal-input {
-    flex: 1; /* kotak beige ikut mengisi body */
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    background-color: #d9cab0;
-    width: 100%;
-    min-height: 200px; /* tinggi minimal saat ukuran kecil */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.card-Jurnal-Kelola {
-    flex: 1; /* kotak beige ikut mengisi body */
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background-color: #d9cab0;
-    width: 100%;
-    min-height: 200px; /* tinggi minimal saat ukuran kecil */
-    padding: 20px;
-    box-sizing: border-box;
-}
-/* .card.card-resizable.expanded {
-    width: 95%;
-    max-width: 1000px;
-    min-height: 85vh;
-    max-height: 95vh;
+    width: 64px;
+    background: #5c451a;
+    border-right: 2px solid #e5e5e5;
+    z-index: 1000;
     overflow-y: auto;
-} */
-.aksi-jurnal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    margin: 20px auto 0;
-}
-.btn.simpan-jurnal,
-.btn.batal-jurnal {
-    border-radius: 12px;
-    font-size: 15px;
-    flex: 1;
-    max-width: 130px;
-    text-align: center;
-    padding: 5px 0;
-    cursor: pointer;
-}
-.judul-jurnal,
-.tanggal-jurnal,
-.jenis-jurnal,
-.deskripsi,
-.unggah-file {
-    display: grid;
-    grid-template-columns: 150px 1fr; /* kolom label | kolom input */
-    gap: 8px 16px;
-    align-items: start;
-    margin-bottom: 16px;
-}
 
-.form-control {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font: inherit;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: #4caf50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-}
-
-textarea.form-control {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.item-jurnal {
-    display: flex;
-    justify-content: space-between; /* judul di kiri, aksi di kanan */
-    align-items: center; /* sejajar vertikal */
-    gap: 50px;
-    width: 100%; /* penuh, bukan 90% */
-    box-sizing: border-box;
-    padding: 10px 20px;
-    border-radius: 10px;
-    height: 30px; /* tinggi tetap */
-    color: #fff;
-    background-color: #5c451a;
-}
-.link {
-    color: #fff;
-}
-.aksi {
-    display: flex;
-    flex-direction: row; /* sejajar ke samping */
-    align-items: center;
-    gap: 14px;
-    flex-shrink: 0;
-    white-space: nowrap; /* tidak boleh pindah baris */
-}
-.daftar-jurnal {
+    /* Tambahkan ini */
     display: flex;
     flex-direction: column;
-    gap: 10px; /* atur jaraknya: 10px, 14px, 20px, dst */
-}
-.card-Jurnal-Kelola {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 30px;
-    padding: 30px;
-    min-height: 400px;
 }
 
-.form-cari .input-cari {
-    border-radius: 12px;
-    width: 100%;
-    height: 40px;
-    box-sizing: border-box;
-    padding: 0 12px;
-}
-.card-body-kelola {
-    padding: 30px;
-    min-height: 250px;
+.menu-container {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* tengah vertikal */
-    align-items: center; /* tengah horizontal */
+    justify-content: center; /* Ikon berada di tengah vertikal */
+    flex: 3; /* Memenuhi tinggi sidebar */
+    padding-top: 0px; /* Hapus jarak atas sebelumnya */
 }
-.card-body-edit {
-    min-height: 250px;
+
+.menu-item {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 12px;
+    flex-direction: row;
     align-items: center;
-    background-color: #d9cab0;
-    width: 100%;
-    min-height: 200px; /* tinggi minimal saat ukuran kecil */
-    padding: 20px;
-    box-sizing: border-box;
+    justify-content: center; /* ikon di tengah */
+    padding: 20px 0;
+    text-decoration: none;
+    color: #222;
+    font-size: 14px;
 }
-.aksi-edit-jurnal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 60%;
-    margin: 20px auto 0;
+
+.menu-item img {
+    width: 30px;
+    height: auto;
 }
-.btn.btn-edit {
-    border-radius: 12px;
-    font-size: 15px;
-    flex: 1;
-    max-width: 130px;
-    text-align: center;
-    padding: 5px 0;
-    cursor: pointer;
+
+.menu-item span {
+    display: none; /* teks disembunyikan di HP */
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: #f3f3f3;
+}
+
+/* ruang untuk sidebar supaya isi halaman tidak tertutup */
+body {
+    padding-left: 64px;
+}
+
+/* ===== Laptop (992px ke atas): sidebar lebar, ikon + teks ===== */
+@media (min-width: 992px) {
+    .app-menubar {
+        width: 240px;
+    }
+    .menu-item {
+        justify-content: flex-start;
+        padding: 16px 24px;
+    }
+    .menu-item img {
+        margin-right: 16px;
+    }
+    .menu-item span {
+        display: inline; /* teks muncul di laptop */
+    }
+    body {
+        padding-left: 240px;
+    }
+}
+body {
+    margin: 0;
 }
