@@ -38,22 +38,27 @@ class JurnalController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-          $data = $request->validate([
-        'judul' => 'required|string|max:255',
+{
+    $data = $request->validate([
+        'judul_jurnal'   => 'required|string|max:100',
+        'jenis_tanaman'  => 'required|string|max:100',
+        'deskripsi'      => 'nullable|string',
+        'tanggal_jurnal' => 'required|date',
+        'gambar'         => 'required|image|max:2048',
     ]);
+
+    $data['gambar'] = $request->file('gambar')->store('jurnal', 'public');
+    $data['id_komunitas'] = \Illuminate\Support\Facades\Auth::guard('komunitas')->user()->id_komunitas;
 
     Jurnal::create($data);
 
-    return redirect()
-        ->route('jurnals.index')
-        ->with('success', 'Jurnal berhasil ditambahkan.');
-    }
+    return redirect()->route('jurnals.index')->with('success', 'Jurnal berhasil ditambahkan.');
+}
 
     /**
      * Display the specified resource.
      */
-    public function show(jurnal $jurnal)
+    public function show(Jurnal $jurnal)
     {
           return view('jurnals.show', compact('jurnal'));
     }
@@ -61,7 +66,7 @@ class JurnalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(jurnal $jurnal)
+    public function edit(Jurnal $jurnal)
     {
         return view('Jurnal.Jurnal-edit', compact('jurnal'));
     }
@@ -69,11 +74,15 @@ class JurnalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, jurnal $jurnal)
+    public function update(Request $request, Jurnal $jurnal)
     {
-        $data = $request->validate([
-            'judul' => 'required|string|max:255',
-        ]);
+         $data = $request->validate([
+        'judul_jurnal'   => 'required|string|max:100',
+        'jenis_tanaman'  => 'required|string|max:100',
+        'deskripsi'      => 'nullable|string',
+        'tanggal_jurnal' => 'required|date',
+        'gambar'         => 'required|image|max:2048',
+    ]);
 
         $jurnal->update($data);
 
@@ -85,7 +94,7 @@ class JurnalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(jurnal $jurnal)
+    public function destroy(Jurnal $jurnal)
     {
 
     $jurnal->delete();
@@ -94,6 +103,4 @@ class JurnalController extends Controller
 }
     
 
-
 }  
-?>

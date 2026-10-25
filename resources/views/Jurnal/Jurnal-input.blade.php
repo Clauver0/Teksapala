@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Jurnal</title>
-     
-      @vite(['public/css/Navbar.css', 'resources/js/app.js'])
       @vite(['public/css/menubar.css', 'resources/js/app.js'])
+      @vite(['public/css/Navbar.css', 'resources/js/app.js'])
       @vite(['resources/css/app.css', 'resources/js/app.js']) 
 </head>
 <body>
@@ -15,9 +14,9 @@
           <img src="/icons/jurnals-icon.jpeg" alt="Jurnal" class="jurnal-img"> 
     </div>
         <div class="card card-resizable" id="jurnalCard">
-            <div class="card-header">Input Jurnal <button type="button" class="btn-expand" id="btnExpand" title="Perbesar">⛶</button></div>
+            <div class="card-header">Input Jurnal</div>
               <div class="card-body"> 
-                  <form action="/jurnal" method="POST" enctype="multipart/form-data"> 
+                  <form action="{{ route('jurnals.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                       <div class="card-Jurnal-input">
                         <div class="judul-jurnal">
@@ -48,17 +47,5 @@
                   </form> 
                 </div>     
               </div>
-        </div>
-    <script>
-        const card = document.getElementById('jurnalCard');
-        const btn = document.getElementById('btnExpand');
-
-        btn.addEventListener('click', () => {
-            card.classList.toggle('expanded');
-            const isBig = card.classList.contains('expanded');
-            btn.textContent = isBig ? '🗗' : '⛶';
-            btn.title = isBig ? 'Perkecil' : 'Perbesar';
-        });
-    </script>
 </body>
 </html>
