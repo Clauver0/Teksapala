@@ -53,8 +53,8 @@
 }
 
 .menu-item.active {
-    background: #d9d9d9;
-    border: 2px solid #ffffff;
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px solid #fff;
 }
 
 /* Mobile: menubar pindah ke bawah layar */
