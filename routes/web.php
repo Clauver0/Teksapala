@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\DokumentasiController;
+use App\Http\Controllers\DonasiController;
 
 
 Route::redirect('/', '/dokumentasi');
@@ -64,6 +65,19 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
     })->name('sertifikat');
 });
 
+
+Route::get('/beranda', function () {
+    return view('Beranda.beranda');
+})->name('beranda');
+
+//Route::get('/donasi', [JadwalController::class, 'index'])
+  //  ->name('donasi');
+
+  //TESTING HALAMAN DONASI
+Route::get('/donasi', function () {
+    return view('donasi.lihat-informasi-donasi');
+})->name('donasi');
+
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
@@ -73,10 +87,6 @@ Route::get('/iwak', function () {
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
-Route::get('/donasi',function(){
-    return view('Donasi');
-    
-});
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');

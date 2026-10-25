@@ -6,10 +6,10 @@
             <span>BERANDA</span>
         </a>
 
-        <a href="#" class="menu-item">
-            <img src="{{ asset('icons/donasi-icon.png') }}" alt="Donasi">
-            <span>DONASI</span>
-        </a>
+        <a href="{{ route('donasi') }}" class="menu-item active">
+    <img src="{{ asset('icons/donasi-icon.png') }}" alt="Donasi">
+    <span>DONASI</span>
+</a>
 
         <a href="#" class="menu-item">
             <img src="{{ asset('icons/jadwal-icon.png') }}" alt="Jadwal">
