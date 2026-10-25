@@ -68,7 +68,6 @@ Route::get('/iwak', function () {
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
-
 Route::get('/donasi',function(){
     return view('Donasi');
     
@@ -92,4 +91,3 @@ Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('j
 Route::get('/jadwal', function () {
     return view('sites.halaman-jadwal-penanaman');
 });
-
