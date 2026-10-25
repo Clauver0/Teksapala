@@ -1,8 +1,7 @@
-
-/* UNTUK LATAR BELAKANG HALAMAN */
 .donasi-layout {
     min-height: 100vh;
     margin: 0;
+    margin-left: 240px; /* Lebar default sidebar desktop */
     display: flex;
     background-size: cover;
     background-position: center;
@@ -11,11 +10,10 @@
     font-family: Arial, sans-serif;
 }
 
-/* UNTUK KONTEN UTAMA */
+/* Pastikan konten utama menyesuaikan ruang sisa di sebelah kanan sidebar */
 .main-content {
     flex: 1;
-    min-width: 0;
-    min-height: 0;
+    width: calc(100% - 240px); /* Sisa lebar layar setelah dikurangi sidebar */
     padding: 28px;
     box-sizing: border-box;
     display: flex;

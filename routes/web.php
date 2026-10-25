@@ -9,6 +9,8 @@ use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DonasiController;
+use Illuminate\Http\Request;
+use App\Livewire\KalenderJadwal;
 
 Route::redirect('/', '/profil');
 
@@ -80,10 +82,7 @@ Route::get('/iwak', function () {
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
-Route::get('/donasi',function(){
-    return view('Donasi');
-    
-});
+
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');

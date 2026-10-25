@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lihat Informasi Donasi - Teksapala</title>
-    <link rel="stylesheet" href="{{ asset('css/menubar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
-    
-    @vite(['resources/css/donasi.css']) 
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/donasi.css') }}">
 </head>
-<body class="donasi-layout" style="background-image: url('{{ asset('icons/haldonasi.jpg') }}'); ">
+<body class="donasi-layout" style="background-image: url('{{ asset('icons/haldonasi.jpg') }}');">
 
-@include('components.menubar')
+    <!-- Sidebar dipanggil di luar kontainer utama -->
+    @include('components.menubar')
 
-    <!-- UNTUK KONTEN UTAMA -->
+    <!-- Konten Utama -->
     <div class="main-content">
         <div class="content-card">
 
@@ -53,12 +52,12 @@
                     </div>
                 </div>
 
-                <!-- untuk CARD 2  -->
+                <!-- untuk CARD 2 (Diperbaiki tag div-nya) -->
                 <div class="donation-item card-pinus" style="background-image: url('{{ asset('icons/don2.png') }}'); ">
-                    <div
+                    <div>
                         <h3 class="donation-title">PENANAMAN PINUS DI BANTUL</h3>
                         <div class="donation-info">
-                            <span>Donatur <strong class="highlight-num">2</strong> <img src="{{ asset('/icons/donatur.png') }}" class="nav-icon-inline" alt="Donator"></span>
+                            <span>Donator <strong class="highlight-num">2</strong> <img src="{{ asset('/icons/donatur.png') }}" class="nav-icon-inline" alt="Donator"></span>
                         </div>
                         <div class="donation-info">
                             <span>Donasi Terkumpul <strong class="donation-amount-highlight">Rp 100.000,00</strong> <img src="{{ asset('/icons/donasi-terkumpul.png') }}" class="nav-icon-inline" alt="Donasi Terkumpul"></span>
