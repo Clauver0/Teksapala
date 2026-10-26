@@ -1,5 +1,5 @@
         <div class="doc-container" style="--bg-gambar: url('{{ asset($jadwal->gambar) }}');">
-            <h1 class="doc-item">{{ $jadwal ? $jadwal->deskripsi : 'judul tidak tersedia' }}</h1>
+            <h1 class="doc-item">{{ $jadwal ? $jadwal->judul : 'judul tidak tersedia' }}</h1>
     <!-- Baris img di bawah ini opsional, jika sudah jadi background-image biasanya img tag ini bisa dihapus -->
             <table>                
                 <tr>

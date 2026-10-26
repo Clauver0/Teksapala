@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->string('id_jadwal', 10)->primary();
+            $table->string('judul', 50)->nullable();
             $table->string('status_pelaksanaan', 50)->nullable();
             $table->string('lokasi_pelaksanaan', 100)->nullable();
             $table->date('tanggal_pelaksanaan')->nullable();

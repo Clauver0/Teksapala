@@ -16,30 +16,33 @@ class JadwalSeeder extends Seeder
     {
         $jadwal = [
             [
+                'judul'               => 'Kegiatan penanaman pohon di Desa Penari.',
                 'status_pelaksanaan'  => 'Terjadwal',
                 'lokasi_pelaksanaan'  => 'Desa Penari',
                 'tanggal_pelaksanaan' => '2026-11-20',
-                'deskripsi'           => 'Kegiatan penanaman pohon di Desa Penari.',
+                'deskripsi'           => 'Lahan hijau nan subur terbentang luas di kaki pegunungan, menyimpan sejuta cerita tentang kearifan lokal para petani yang merawat bumi dengan penuh antargenerasi.',
                 'jumlah_peserta'      => 50,
                 'id_komunitas'        => 'K001', // Sesuaikan dengan ID komunitas yang ada di database kalian
                 'is_archived'         => 0,
                 'gambar'              => 'https://static.vecteezy.com/system/resources/thumbnails/057/047/715/small_2x/beautiful-nature-photo.jpg',
             ],
             [
+                'judul'               => 'Kegiatan penanaman pohon di Pantai Drini.',
                 'status_pelaksanaan'  => 'Berlangsung',
                 'lokasi_pelaksanaan'  => 'Pantai Drini',
                 'tanggal_pelaksanaan' => '2026-10-12',
-                'deskripsi'           => 'Kegiatan penanaman pohon di Pantai Drini.',
+                'deskripsi'           => 'Di sudut desa, terdapat sebuah balai pertemuan sederhana yang menjadi pusat aktivitas warga. Di tempat inilah gagasan-gagasan hebat sering kali lahir dari diskusi santa',
                 'jumlah_peserta'      => 30,
                 'id_komunitas'        => 'K001',
                 'is_archived'         => 0,
                 'gambar'              => 'https://wallup.net/wp-content/uploads/2016/01/132930-nature-landscape-flowers.jpg',
             ],
             [
+                'judul'               => 'Kegiatan penanaman pohon di Pantai Parangtritis.',
                 'status_pelaksanaan'  => 'Selesai',
                 'lokasi_pelaksanaan'  => 'Pantai Parangtritis',
                 'tanggal_pelaksanaan' => '2026-09-15',
-                'deskripsi'           => 'Kegiatan penanaman pohon di Pantai Parangtritis.',
+                'deskripsi'           => 'Kemajuan teknologi kini mulai merambah wilayah pedesaan, membawa angin perubahan',
                 'jumlah_peserta'      => 75,
                 'id_komunitas'        => 'K002',
                 'is_archived'         => 1,

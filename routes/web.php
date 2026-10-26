@@ -7,9 +7,11 @@ use App\Http\Controllers\JadwalController;
 
 // Rute Jadwal & Penanaman
 // Ubah dari yang tadinya pakai function() {} jadi begini:
-Route::get('/jadwal', [JadwalController::class, 'tampilkanJadwal'])->name('jadwal');
 
-// Halaman Testing / Lainnya
-Route::get('/iwak', function () {
-    return view('sites.halaman-dokumentasi');
-});
+// Rute Jadwal & Penanaman
+Route::get('/jadwal', [JadwalController::class, 'tampilkanJadwal'])->name('jadwal.index');
+Route::get('/iwak', [JadwalController::class, 'tampilkanDetailJadwal'])->name('jadwal.iwak');
+
+// Rute Form Input Jadwal
+Route::get('/formulir-jadwal', [JadwalController::class, 'create'])->name('jadwal.create');
+Route::post('/formulir-jadwal', [JadwalController::class, 'store'])->name('jadwal.store');

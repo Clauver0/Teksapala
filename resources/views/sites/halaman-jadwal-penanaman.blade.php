@@ -20,7 +20,20 @@
                 @endforeach
             </div>
         </td>
-    </tr>
     </table>
+
+    <table>
+        @foreach($jadwals as $jadwal)
+        <tr>
+            @include('components.detail-jadwal') <br>
+        </tr>
+        @endforeach
+        <tr>
+            @include('components.formulir-jadwal')
+        </tr>
+    </table>
+
+    
+
 </body>
 </html>

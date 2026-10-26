@@ -16,6 +16,7 @@ class Jadwal extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'judul',
         'status_pelaksanaan',
         'lokasi_pelaksanaan',
         'tanggal_pelaksanaan',
@@ -23,7 +24,7 @@ class Jadwal extends Model
         'id_komunitas', 
         'jumlah_peserta',
         'is_archived',
-        'gambar' // Cukup is_archived saja yang masuk fillable
+        'gambar', // Cukup is_archived saja yang masuk fillable
     ];
 
     public function jadwalTanamans()
