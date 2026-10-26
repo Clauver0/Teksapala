@@ -1,0 +1,228 @@
+/* =========================================
+   BASE & RESET
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+}
+
+/* =========================================
+   LAYOUT UTAMA
+   ========================================= */
+.main-wrapper {
+    margin-left: 16rem; /* Jarak dari Navbar (sesuaikan dengan lebar Navbar Anda) */
+    width: calc(100% - 16rem);
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.cards-wrapper {
+    width: 100%;
+    max-width: 1024px; /* Setara max-w-5xl Tailwind */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* =========================================
+   CARD SERTIFIKAT
+   ========================================= */
+.card {
+    background-color: #e3cfb4; /* Warna Custom Anda */
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(156, 163, 175, 0.3);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(156, 163, 175, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-header h2 {
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4a3b2a; /* Warna Custom Anda */
+}
+
+.card-header span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Area Gambar Card */
+.card-body {
+    position: relative;
+    width: 100%;
+    height: 8rem; /* Setara h-32 */
+}
+
+.card-body img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay Gradient Gelap */
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3), transparent);
+}
+
+/* Konten di atas Gambar */
+.card-content {
+    position: absolute;
+    inset: 0;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.peserta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.peserta-row .label {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.peserta-row .value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.donasi-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.donasi-row .label {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.donasi-row .value {
+    font-size: 1.125rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.detail-link {
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.detail-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer Card */
+.card-footer {
+    background-color: #dbc3a4; /* Warna Custom Anda */
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(156, 163, 175, 0.3);
+    width: 100%;
+}
+
+.card-footer .nilai-label {
+    font-size: 0.875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #4a3b2a;
+}
+
+.card-footer .nilai-value {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.btn-sertifikat {
+    background-color: white;
+    color: #6b7280;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 0.25rem 2rem;
+    border-radius: 9999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-sertifikat:hover {
+    background-color: #f3f4f6;
+}
+
+/* =========================================
+   RESPONSIVE (Desktop)
+   ========================================= */
+@media (min-width: 768px) {
+    .card-body {
+        height: 10rem; /* Setara h-40 */
+    }
+    .card-header h2 {
+        font-size: 1rem;
+    }
+    .peserta-row .label, .donasi-row .label {
+        font-size: 0.875rem;
+    }
+    .peserta-row .value {
+        font-size: 1.5rem;
+    }
+    .donasi-row .value {
+        font-size: 1.25rem;
+    }
+}

@@ -1,0 +1,318 @@
+/* =========================================
+   BASE & RESET
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #1f2937;
+}
+
+/* =========================================
+   LAYOUT KONTEN UTAMA
+   ========================================= */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 3rem 2rem; /* Padding atas untuk navbar */
+    position: relative;
+    width: 100%;
+}
+
+.overlay-dark {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+.main-panel {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(220, 220, 220, 0.85); /* Efek transparan */
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    border: 2px solid #5c4a32;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    padding: 0.5rem;
+}
+
+.header-title {
+    background-color: #5c4a32;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.header-title h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.panel-content {
+    padding: 0 1.5rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Tab Buttons */
+.tab-container {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-tab {
+    padding: 0.5rem 4rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid #9ca3af;
+}
+
+.btn-tab.active {
+    background-color: #ffffff;
+    color: #111827;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.btn-tab.inactive {
+    background-color: #d1d5db;
+    color: #374151;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Tombol Utama */
+.btn-primary {
+    background-color: #3b3ef5;
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0.75rem 3rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(59, 62, 245, 0.4);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   MODAL POP-UP (CSS MURNI)
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* KUNCI AGAR TIDAK MENABRAK NAVBAR */
+.modal-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 16rem; /* Sesuaikan dengan lebar Navbar Anda */
+}
+
+.modal-box {
+    background-color: #ffffff;
+    border: 2px solid #5c4a32;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 700px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /* Animasi */
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #6b4c2a;
+    padding: 0.75rem;
+    text-align: center;
+    position: relative;
+}
+
+.modal-header h3 {
+    color: #ffffff;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.btn-close {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.btn-close:hover { color: #fca5a5; }
+
+/* Modal Body */
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Upload Area */
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 12rem;
+    background-color: #f9fafb;
+    border: 2px dashed #9ca3af;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.upload-area:hover {
+    border-color: #8b5cf6;
+    background-color: #f5f3ff;
+}
+
+.upload-icon {
+    width: 4rem;
+    height: 4rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.upload-area:hover .upload-icon {
+    transform: translateY(-5px) scale(1.1);
+    color: #8b5cf6;
+}
+
+.upload-area p {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.upload-area span {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.timer-box {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fecaca;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.timer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #dc2626;
+}
+
+.timer-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #000000;
+    letter-spacing: 0.05em;
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-cancel {
+    background-color: #6b7280;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover { background-color: #4b5563; }
+
+.btn-submit {
+    background-color: #3b3ef5;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover { background-color: #2563eb; }
+
+/* Efek Blur */
+.blur-effect {
+    filter: blur(4px);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
