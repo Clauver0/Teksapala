@@ -1,109 +1,15 @@
 <?php
 
-use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DokumentasiController;
-use App\Http\Controllers\JurnalController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\DonationController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\JadwalController;
 
-Route::redirect('/', '/profil');
 
-Route::middleware('guest:donatur,komunitas')->group(function () {
-    Route::get('/login', [AuthController::class, 'loginView'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/registrasi', [AuthController::class, 'registerView'])->name('register');
-    Route::post('/registrasi', [AuthController::class, 'register']);
-});
+// Rute Jadwal & Penanaman
+// Ubah dari yang tadinya pakai function() {} jadi begini:
+Route::get('/jadwal', [JadwalController::class, 'tampilkanJadwal'])->name('jadwal');
 
-Route::middleware('auth:donatur,komunitas')->group(function () {
-    Route::get('/profil', [AuthController::class, 'profile'])->name('profil');
-    Route::get('/profil/edit', [AuthController::class, 'editProfile'])->name('profil.edit');
-    Route::post('/profil/edit', [AuthController::class, 'updateProfile'])->name('profil.update');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    
-    // Rute Kirim Bukti Donasi
-    Route::get('/kirim-bukti-donasi', function () {
-        return view('components.kirim-bukti-donasi'); 
-    })->name('kirim-bukti');
-
-    // Proses Upload Bukti Donasi
-    Route::post('/kirim-bukti-donasi', function (Request $request) {
-        // Validasi file (Wajib gambar, format jpg/png, maksimal 20MB)
-        $request->validate([
-            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:20480',
-        ]);
-
-        if ($request->hasFile('bukti_transfer')) {
-            // Simpan gambar ke folder storage/app/public/bukti_donasi
-            $path = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
-            
-            // Di sini Anda bisa menambahkan logika untuk menyimpan $path ke database
-            // Contoh: Auth::user()->update(['bukti_donasi' => $path]);
-            
-            return redirect()->back()->with('success', 'Bukti donasi berhasil diunggah!');
-        }
-
-        return redirect()->back()->with('error', 'Gagal mengunggah bukti donasi.');
-    })->name('kirim-bukti.store');
-
-    // ==========================================
-    // RUTE HALAMAN SERTIFIKAT (BARU DITAMBAHKAN)
-    // ==========================================
-    Route::get('/sertifikat', function () {
-        return view('sertifikat'); 
-    })->name('sertifikat');
-});
-
-
-
-// Rute untuk Halaman Bantuan Pembayaran
-Route::get('/help', function () {
-    return view('help'); 
-})->name('help');
-Route::get('/donasi',function(){
-    return view('Donasi');
-    
-});
-
-Route::get('/jurnal', function () {
-    return view('Jurnal.Jurnal');
-});
-
-Route::get('/kelola-jurnal', [JurnalController::class, 'index'])->name('jurnals.index');
-
-Route::get('/input-jurnal', [JurnalController::class, 'create'])->name('jurnals.create');
-Route::post('/input-jurnal', [JurnalController::class, 'store'])->name('jurnals.store');
-
-Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('jurnals.edit');
-Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
-
-Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
-
-
-
-
-
-// Testing halaman jadwal (jangan dibuang)
-Route::get('/jadwal', function () {
-    return view('sites.halaman-jadwal-penanaman');
-});
-
-
-
-// Testing halaman dokumentasi (jangan dibuang)
+// Halaman Testing / Lainnya
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
 });
-
-// Routing for Jadwal
-// kebutuhan : mengambil attribut untuk ditampilkan
-
-Route::get('/halaman-jadwal-penanaman', [JadwalController::class, 'tampilkanJadwal']);
-Route::get('/halaman-dokumentasi',[DokumentasiController::class, 'tampilkanDokumentasi']);

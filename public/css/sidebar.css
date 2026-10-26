@@ -1,33 +1,48 @@
 :root {
-    --menubar-width: 160px;
+    --menubar-width: 64px;
+    --menubar-bg: #5c451a;
 }
 
+body {
+    margin: 0;
+}
+
+/* ===== Menubar ===== */
 .app-menubar {
     position: fixed;
     top: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
 
     width: var(--menubar-width);
     padding: 20px 12px;
 
     background: var(--menubar-bg);
+    border-right: 2px solid #e5e5e5;
     overflow-y: auto;
-    z-index: 100;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .menu-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    flex: 1;
     gap: 12px;
 }
 
+/* ===== Menu item (pill) ===== */
 .menu-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 10px;
 
-    padding: 10px 14px;
+    padding: 8px;
     border-radius: 20px;
 
     background: #f5f5f5;
@@ -48,6 +63,10 @@
     flex-shrink: 0;
 }
 
+.menu-item span {
+    display: none; /* teks disembunyikan di layar sempit */
+}
+
 .menu-item:hover {
     transform: translateX(3px);
 }
@@ -57,12 +76,31 @@
     border: 2px solid #fff;
 }
 
-/* Mobile: menubar pindah ke bawah layar */
+/* ===== Desktop: sidebar lebar, ikon + teks ===== */
+@media (min-width: 992px) {
+    :root {
+        --menubar-width: 240px;
+    }
+
+    .menu-item {
+        justify-content: flex-start;
+        padding: 10px 14px;
+    }
+
+    .menu-item span {
+        display: inline;
+    }
+}
+
+/* ===== Mobile: menubar pindah ke bawah layar ===== */
 @media (max-width: 768px) {
+
     .app-menubar {
         top: auto;
         width: 100%;
         padding: 8px;
+        border-right: none;
+        border-top: 2px solid #e5e5e5;
         overflow-y: visible;
     }
 
@@ -80,6 +118,10 @@
         border-radius: 12px;
         font-size: 9px;
         text-align: center;
+    }
+
+    .menu-item span {
+        display: block; /* teks muncul lagi di bawah ikon */
     }
 
     .menu-item:hover {
