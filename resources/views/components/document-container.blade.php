@@ -8,7 +8,7 @@
             </tr>
             <tr>
                 <td><p>Tertanam</p></td>
-                <td><p class="value">60</p></td>
+                <td><p class="value">{{ number_format($dokumentasi->jadwal ? $dokumentasi->jadwal->jadwalTanaman->sum('terdonasi') : 0, 0, ',', '.') }}</p></td>
                 <td><img src="/icons/tertanam-icon.png" alt="Ikon Tertanam"></td>
             </tr>
         </table>

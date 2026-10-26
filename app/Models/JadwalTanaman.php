@@ -44,4 +44,9 @@ class JadwalTanaman extends Model
             }
         });
     }
+
+    public static function getTotalJumlah()
+    {
+        return self::sum('terdonasi');
+    }
 }

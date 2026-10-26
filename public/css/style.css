@@ -35,17 +35,14 @@
 }
 
 .doc-container {
-    /* Menumpuk warna gelap transparan di atas gambar */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/d/1rEdvyN1z7_Kfm5mf5DwXZslvWJS3ck3Q');
-    background-size: cover; /* Supaya gambarnya pas menutupi container */
-    background-position: center; /* Supaya posisi gambar di tengah */
-    
+    /* Gunakan variabel --bg-gambar di dalam url() */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--bg-gambar);
+    background-size: cover;
+    background-position: center;
     height: 190px;
     width: 580px;
     border-radius: 25px;
-    
-    /* Tambahan kalau ingin teks di dalamnya otomatis jadi warna putih supaya kontras */
-    color: #ffffff; 
+    color: #ffffff;
 }
 .doc-item{
     padding: 0 0 10 25;

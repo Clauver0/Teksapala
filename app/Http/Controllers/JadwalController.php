@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Jadwal;
+use App\Models\JadwalTanaman;
 
 class JadwalController extends Controller{
     public function tampilkanJadwal(){

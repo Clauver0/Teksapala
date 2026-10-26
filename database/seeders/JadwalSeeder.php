@@ -16,7 +16,7 @@ class JadwalSeeder extends Seeder
     {
         $jadwal = [
             [
-                'status_pelaksanaan'  => 'terjadwal',
+                'status_pelaksanaan'  => 'Terjadwal',
                 'lokasi_pelaksanaan'  => 'Desa Penari',
                 'tanggal_pelaksanaan' => '2026-11-20',
                 'deskripsi'           => 'Kegiatan penanaman pohon di Desa Penari.',
@@ -26,7 +26,7 @@ class JadwalSeeder extends Seeder
                 'gambar'              => 'https://static.vecteezy.com/system/resources/thumbnails/057/047/715/small_2x/beautiful-nature-photo.jpg',
             ],
             [
-                'status_pelaksanaan'  => 'berlangsung',
+                'status_pelaksanaan'  => 'Berlangsung',
                 'lokasi_pelaksanaan'  => 'Pantai Drini',
                 'tanggal_pelaksanaan' => '2026-10-12',
                 'deskripsi'           => 'Kegiatan penanaman pohon di Pantai Drini.',
