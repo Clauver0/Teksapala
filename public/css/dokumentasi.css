@@ -6,29 +6,47 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f5f5;
-    color: #222;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0), rgba(0,0,0,0.4)),
+        url('../img/background1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    /* HAPUS display:flex, justify-content, align-items, padding */
+}
+
+.container {
+    width: 100%;
 }
 
 .main-content {
     margin-left: var(--menubar-width, 64px);
     min-height: 100vh;
+    width: calc(100% - var(--menubar-width, 64px));
 }
 
 @media (max-width: 768px) {
     .main-content {
         margin-left: 0;
-        padding-bottom: 80px; /* ruang untuk menubar yang pindah ke bawah */
+        width: 100%;
+        padding-bottom: 80px;
     }
 }
+
+/* background putih dihapus, body yang jadi background */
 .dok-page {
-    background: #f5f5f5 url('../images/forest.jpg') center / cover fixed;
+    background: transparent;
     padding: 30px 20px;
 }
 
 .dok-panel {
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;   /* ubah sesuai selera, atau hapus agar penuh */
     margin: 0 auto;
     background: #e5e5e5;
     border-radius: 20px;
