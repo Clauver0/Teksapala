@@ -2,7 +2,7 @@
 .donasi-layout {
     min-height: 100vh;
     margin: 0;
-    padding-left: 240px; /* KUNCI UTAMA: Memberikan ruang tetap untuk sidebar selebar 240px */
+    padding-left: 310px !important; 
     display: flex;
     background-size: cover;
     background-position: center;
@@ -13,7 +13,7 @@
 }
 
 /* UNTUK KONTEN UTAMA */
-.main-content {
+.bagian-lihat-informasi-donasi {
     flex: 1;
     width: 100%;
     min-width: 0;
@@ -21,14 +21,14 @@
     padding: 28px;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 /* UNTUK KARTU UTAMA */
 .content-card {
     width: 100%;
-    max-width: 1100px;
+    max-width: 850px;
     min-width: 0;
     max-height: calc(100vh - 56px);
     display: flex;
@@ -79,18 +79,15 @@
     background-color: #ffffff;
 }
 
-.tab-btn.inactive {
-    background-color: #bdbdbd;
-}
 
 /* UNTUK DAFTAR KARTU DONASI */
-.donation-list {
+.daftar-kartu-donasi1{
     flex: 1;
     min-height: 0;
     padding: 12px 24px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     overflow-y: auto;
 }
 
@@ -99,12 +96,12 @@
     position: relative;
     isolation: isolate;
     flex-shrink: 0;
-    min-height: 270px;
+    min-height: 175px;
     box-sizing: border-box;
-    border-radius: 24px;
+    border-radius: 20px;
     overflow: hidden;
     color: #ffffff;
-    padding: 24px;
+    padding: 18px 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -119,15 +116,15 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.40);
+    background-color: rgba(0, 0, 0, 0.45);
     z-index: -1;
 }
 
 /* UNTUK JUDUL KEGIATAN */
 .donation-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
-    margin: 0 0 18px;
+    margin: 0 0 10px;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
@@ -137,39 +134,44 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 12px;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    margin-bottom: 6px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
-/* UNTUK  JUMLAH DONATUR DAN NOMINAL DONASI */
+.donation-info-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* UNTUK JUMLAH DONATUR DAN NOMINAL DONASI */
 .highlight-num,
 .donation-amount-highlight {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
-/*UNTUK LINK DETAIL */
+/* UNTUK LINK DETAIL */
 .btn-detail {
     flex-shrink: 0;
     color: #ffffff;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     text-decoration: underline;
+    font-weight: bold;
     white-space: nowrap;
     text-shadow: 1px 1px 3px #000000;
 }
 
-/* UNTUKBAGIAN BAWAH KARTU */
+/* UNTUK BAGIAN BAWAH KARTU */
 .donation-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    margin-top: 18px;
+    margin-top: 8px;
 }
 
 /* UNTUK TANGGAL PELAKSANAAN */
@@ -178,23 +180,17 @@
     align-items: center;
     gap: 6px;
     color: #ffffff;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* UNTUK IKON PENGGUNA DAN KALENDER */
 .nav-icon-inline {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     vertical-align: middle;
     flex-shrink: 0;
-}
-
-/* UNTUK NOMINAL DAN TANGGAL */
-.donation-date strong {
-    color: #ffffff;
-    font-weight: bold;
 }
 
 /* UNTUK TOMBOL AKSI */
@@ -206,18 +202,19 @@
 
 .btn-donate {
     display: inline-block;
-    padding: 8px 14px;
-    border-radius: 12px;
+    padding: 6px 14px;
+    border-radius: 10px;
     background-color: #e5e5e5;
     color: #333333;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
     white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 
-/* UNTUKTOMBOL BAGIAN PALING BAWAH */
-.content-footer {
+
+.tombol-bawah-bantu-donasi {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
@@ -238,6 +235,7 @@
     cursor: pointer;
 }
 
+
 .btn-bantu {
     position: absolute;
     right: 24px;
@@ -246,41 +244,19 @@
     font-weight: bold;
 }
 
-/* UNTUK TAMPILAN LAYAR KECIL */
-@media (max-width: 900px) {
-    .main-content {
-        padding: 12px;
-    }
-
-    .content-card {
-        max-height: calc(100vh - 24px);
-    }
-
-    .tab-container {
-        gap: 12px;
-        padding: 18px 12px;
-    }
-
-    .tab-btn {
-        width: 45%;
-    }
-
-    .donation-item {
-        min-height: 250px;
-        padding: 18px;
-    }
-
-    .donation-info {
-        flex-wrap: wrap;
-        gap: 8px 12px;
-    }
-
-    .donation-footer {
-        align-items: flex-start;
+@media (max-width: 768px) {
+    .donasi-layout {
+        padding-left: 0 !important; 
+        padding-bottom: 70px;
         flex-direction: column;
     }
 
-    .btn-bantu {
-        right: 12px;
+    .main-content {
+        padding: 12px;
+        justify-content: center;
+    }
+
+    .content-card {
+        max-height: none;
     }
 }

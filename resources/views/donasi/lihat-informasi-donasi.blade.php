@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lihat Informasi Donasi - Teksapala</title>
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/donasi.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    @vite(['resources/css/donasi.css'])
+    
 </head>
+
+
 <body class="donasi-layout" style="background-image: url('{{ asset('icons/haldonasi.jpg') }}');">
 
     <!-- Sidebar dipanggil di luar kontainer utama -->
     @include('components.menubar')
 
     <!-- Konten Utama -->
-    <div class="main-content">
+    <div class="bagian-lihat-informasi-donasi ">
         <div class="content-card">
 
             <div class="content-header">
@@ -22,20 +25,30 @@
 
             <div class="tab-container">
                 <button class="tab-btn active">Donasi</button>
-                <button class="tab-btn inactive">Catatan</button> 
+                
             </div>
 
-            <div class="donation-list">
+            <div class="daftar-kartu-donasi1">
 
-                <!-- untuk CARD 1  -->
-                <div class="donation-item card-mangrove" style="background-image: url('{{ asset('icons/don1.png') }}'); ">
+                
+                <div class="donation-item card-mangrove" style="background-image: url('{{ asset('icons/don1.png') }}');">
                     <div>
                         <h3 class="donation-title">PENANAMAN MANGROVE DI PANTAI CEMARA</h3>
+                        
                         <div class="donation-info">
-                            <span>Donator <strong class="highlight-num">3</strong> <img src="{{ asset('/icons/donatur.png') }}" class="nav-icon-inline" alt="Donator"></span>
+                            <div class="donation-info-left">
+                                <span>Donator</span>
+                                <strong class="highlight-num">3</strong> 
+                                <img src="{{ asset('/icons/donatur.png') }}" class="nav-icon-inline" alt="Donator">
+                            </div>
                         </div>
+
                         <div class="donation-info">
-                            <span>Donasi Terkumpul <strong class="donation-amount-highlight">Rp 300.000,00</strong> <img src="{{ asset('/icons/donasi-terkumpul.png') }}" class="nav-icon-inline" alt="Donasi Terkumpul"></span>
+                            <div class="donation-info-left">
+                                <span>Donasi Terkumpul</span>
+                                <strong class="donation-amount-highlight">Rp 300.000,00</strong> 
+                                <img src="{{ asset('/icons/donasi-terkumpul.png') }}" class="nav-icon-inline" alt="Donasi Terkumpul">
+                            </div>
                             <a href="#" class="btn-detail">&gt;&gt; Detail</a>
                         </div>
                     </div>
@@ -52,15 +65,25 @@
                     </div>
                 </div>
 
-                <!-- untuk CARD 2 (Diperbaiki tag div-nya) -->
-                <div class="donation-item card-pinus" style="background-image: url('{{ asset('icons/don2.png') }}'); ">
+                <!-- KARTU 2: PENANAMAN PINUS -->
+                <div class="donation-item card-pinus" style="background-image: url('{{ asset('icons/don2.png') }}');">
                     <div>
                         <h3 class="donation-title">PENANAMAN PINUS DI BANTUL</h3>
+                        
                         <div class="donation-info">
-                            <span>Donator <strong class="highlight-num">2</strong> <img src="{{ asset('/icons/donatur.png') }}" class="nav-icon-inline" alt="Donator"></span>
+                            <div class="donation-info-left">
+                                <span>Donator</span>
+                                <strong class="highlight-num">2</strong> 
+                                <img src="{{ asset('/icons/donatur.png') }}" class="nav-icon-inline" alt="Donator">
+                            </div>
                         </div>
+
                         <div class="donation-info">
-                            <span>Donasi Terkumpul <strong class="donation-amount-highlight">Rp 100.000,00</strong> <img src="{{ asset('/icons/donasi-terkumpul.png') }}" class="nav-icon-inline" alt="Donasi Terkumpul"></span>
+                            <div class="donation-info-left">
+                                <span>Donasi Terkumpul</span>
+                                <strong class="donation-amount-highlight">Rp 100.000,00</strong> 
+                                <img src="{{ asset('/icons/donasi-terkumpul.png') }}" class="nav-icon-inline" alt="Donasi Terkumpul">
+                            </div>
                             <a href="#" class="btn-detail">&gt;&gt; Detail</a>
                         </div>
                     </div>
@@ -76,9 +99,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="content-footer">
+            <div class="tombol-bawah-bantu-donasi">
                 <button class="btn-sukarela">Donasi Sukarela</button>
                 <button class="btn-bantu">Bantu?</button>
             </div>
