@@ -1,16 +1,28 @@
 <?php
+// app/Http/Controllers/DokumentasiController.php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Dokumentasi;
+use App\Models\Jadwal;
 
 class DokumentasiController extends Controller
 {
-    public function tampilkanDokumentasi()
+    public function index()
     {
-        // Ambil semua dokumentasi beserta relasi jadwal dan jadwal_tanaman-nya
-        $dokumentasis = Dokumentasi::with('jadwal.jadwalTanaman')->get();
+        // hanya jadwal yang sudah punya dokumentasi
+        $jadwals = Jadwal::whereHas('dokumentasi')
+            ->with(['dokumentasi' => fn ($q) => $q->orderBy('tanggal_unggah')])
+            ->get();
 
-        return view('sites.halaman-dokumentasi', compact('dokumentasis'));
+        return view('dokumentasi.index', compact('jadwals'));
+    }
+
+    public function show(string $id_jadwal)
+    {
+        $jadwal = Jadwal::with(['dokumentasi' => fn ($q) => $q->orderBy('tanggal_unggah')])
+            ->where('id_jadwal', $id_jadwal)
+            ->firstOrFail();
+
+        return view('dokumentasi.show', compact('jadwal'));
     }
 }
