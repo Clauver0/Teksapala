@@ -1,16 +1,14 @@
 <?php
 namespace App\Http\Controllers;
-
 use App\Models\Jurnal;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class JurnalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+// ==========================BAGIAN MENCARI JURNAL ( MENU EDIT)===================================
     public function index(Request $request){
-    $data = Jurnal::latest();
+   $data = Jurnal::latest('id_jurnal');
 
     if ($request->filled('cari')) {
         $data->where('judul_jurnal', 'like', '%' . $request->cari . '%');
@@ -23,49 +21,56 @@ class JurnalController extends Controller
         'Pesan' => $data1->isEmpty() ? 'Data jurnal tidak ditemukan' : null,
     ]);
 }
-        
+//==================================================================================================
     
 
-    /**
-     * Show the form for creating a new resource.
-     */
+//=======================BAGIAN UNTUK MENAMPILKAN HALAMAN JURNAL INPUT============================
     public function create()
     {
            return view('Jurnal.Jurnal-input');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+
+
+public function store(Request $request)
 {
     $data = $request->validate([
         'judul_jurnal'   => 'required|string|max:100',
         'jenis_tanaman'  => 'required|string|max:100',
         'deskripsi'      => 'nullable|string',
         'tanggal_jurnal' => 'required|date',
-        'gambar'         => 'required|image|max:2048',
+        'gambar'         => 'nullable|image|max:2048',
     ]);
 
-    $data['gambar'] = $request->file('gambar')->store('jurnal', 'public');
-    $data['id_komunitas'] = \Illuminate\Support\Facades\Auth::guard('komunitas')->user()->id_komunitas;
+    if ($request->hasFile('gambar')) {
+        $data['gambar'] = $request->file('gambar')->store('jurnal', 'public');
+    }
+
+    // Mengambil ID komunitas dari tabel komunitas
+    $komunitas = \App\Models\Komunitas::first();
+
+    if (!$komunitas) {
+        return back()->with('error', 'Data komunitas belum tersedia.');
+    }
+
+    $data['id_komunitas'] = $komunitas->id_komunitas;
 
     Jurnal::create($data);
 
-    return redirect()->route('jurnals.index')->with('success', 'Jurnal berhasil ditambahkan.');
+    return redirect()->route('jurnals.index')
+        ->with('success', 'Jurnal berhasil ditambahkan.');
 }
+   
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Jurnal $jurnal)
     {
           return view('jurnals.show', compact('jurnal'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+  
+    // =========================BAGIAN JURNAL EDIT
     public function edit(Jurnal $jurnal)
     {
         return view('Jurnal.Jurnal-edit', compact('jurnal'));
@@ -81,9 +86,15 @@ class JurnalController extends Controller
         'jenis_tanaman'  => 'required|string|max:100',
         'deskripsi'      => 'nullable|string',
         'tanggal_jurnal' => 'required|date',
-        'gambar'         => 'required|image|max:2048',
+        'gambar'         => 'nullable|image|max:2048',
     ]);
 
+       if ($request->hasFile('gambar')) {
+            if ($jurnal->gambar) {
+                Storage::disk('public')->delete($jurnal->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('jurnal', 'public');
+        }
         $jurnal->update($data);
 
         return redirect()
@@ -96,7 +107,9 @@ class JurnalController extends Controller
      */
     public function destroy(Jurnal $jurnal)
     {
-
+ if ($jurnal->gambar) {
+            Storage::disk('public')->delete($jurnal->gambar);
+        }
     $jurnal->delete();
 
     return redirect()->route('jurnals.index');

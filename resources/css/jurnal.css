@@ -1,4 +1,4 @@
-/* =====================BAGIAN DEPAN JURNAL====================== */
+/* ===========================BAGIAN DEPAN JURNAL============================= */
 .jurnal-img {
     display: block;
     width: 100%; /* selebar area di kanan sidebar */
@@ -12,13 +12,12 @@
     object-fit: cover;
 }
 .jurnal-hero {
-    position: relative; /* Wajib: Jadi patokan card */
+    position: relative;
     width: 100%;
     height: 100vh; /* Setinggi layar (bisa diubah ke 500px jika mau pendek) */
     /* Lapisan gelap transparan agar card lebih menonjol */
     background-color: #000;
 }
-
 .jurnal-img {
     position: absolute;
     top: 0;
@@ -79,8 +78,10 @@
     text-align: center;
     width: 100%;
 }
-.card-Jurnal-input,
-.card-Jurnal-Kelola {
+/* ==================================================================*/
+
+/* ==============================INPUT JURNAL======================== */
+.card-Jurnal-input {
     flex: 1; /* kotak beige ikut mengisi body */
     border-radius: 12px;
     display: flex;
@@ -142,6 +143,9 @@ textarea.form-control {
     resize: vertical;
 }
 
+/* ==================================================================================== */
+
+/* =====================================KELOLA JURNAL================================== */
 .item-jurnal {
     display: flex;
     justify-content: space-between; /* judul di kiri, aksi di kanan */
@@ -198,6 +202,9 @@ textarea.form-control {
     overflow: visible;
     max-height: none;
 }
+/* =========================================================================================== */
+
+/* =========================================JURNAL EDIT======================================= */
 .card-body-edit {
     flex: 1; /* kotak beige ikut mengisi body */
     border-radius: 12px;
@@ -232,3 +239,4 @@ textarea.form-control {
     align-items: start;
     margin-bottom: 10px;
 }
+/* =============================================================================================== */

@@ -13,12 +13,24 @@ return new class extends Migration
     {
         Schema::create('jurnal', function (Blueprint $table) {
             $table->string('id_jurnal',10)->primary()->nullable(false);
+             
+            // Relasi ke tabel komunitas
+            $table->string('id_komunitas', 10);
+
             $table->string('judul_jurnal',100)->nullable(false);
             $table->string('jenis_tanaman',100)->nullable(false);
             $table->text('deskripsi')->nullable();
-            $table->string('gambar',255);
+            $table->string('gambar', 255)->nullable();
             $table->date('tanggal_jurnal')->nullable(false);
             $table->timestamps();
+
+            // Foreign key
+            $table->foreign('id_komunitas')
+                  ->references('id_komunitas')
+                  ->on('komunitas')
+                  ->onDelete('restrict');
+        
+    
         });
     }
 

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,8 +17,12 @@ class Jurnal extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // Karena tabel Oracle tidak memiliki created_at dan updated_at
-    public $timestamps = false;
+   
+   public $timestamps = true;
+
+    protected $casts = [
+    'tanggal_jurnal' => 'date:Y-m-d',
+    ];
 
     // Kolom yang boleh diisi
     protected $fillable = [
