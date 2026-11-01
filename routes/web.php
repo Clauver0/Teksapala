@@ -8,10 +8,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DonasiController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\DokumentasiController;
-use App\Http\Controllers\DonasiController;
 
 
 Route::redirect('/', '/dokumentasi');
@@ -87,6 +87,7 @@ Route::get('/iwak', function () {
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
+
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');
