@@ -13,6 +13,7 @@ use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\DonasiController;
 
 
+
 Route::redirect('/', '/dokumentasi');
 
 Route::middleware('guest:donatur,komunitas')->group(function () {
@@ -73,9 +74,9 @@ Route::get('/beranda', function () {
   //  ->name('donasi');
 
   //TESTING HALAMAN DONASI
-Route::get('/donasi', function () {
-    return view('donasi.lihat-informasi-donasi');
-})->name('donasi');
+Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
+Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
+
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
@@ -105,6 +106,4 @@ Route::get('/jadwal', function () {
     return view('sites.halaman-jadwal-penanaman');
 });
 
-Route::get('/donasi-bulanan', function () {
-    return view('donasi.Donasi');
-});
+

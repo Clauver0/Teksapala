@@ -1,0 +1,221 @@
+.donasi-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(0.5); /* gambar terpotong rapi, tidak gepeng */
+}
+
+.Donasi-welpapaer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.donasi-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Setinggi layar (bisa diubah ke 500px jika mau pendek) */
+    /* Lapisan gelap transparan agar card lebih menonjol */
+    background-color: #000;
+}
+.donasi-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar gambar tidak gepeng */
+    z-index: 1; /* Berada di lapisan bawah */
+    opacity: 0.8; /* Sedikit transparan agar card terbaca */
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    width: 90%;
+    height: 600px;
+    max-width: 1000px;
+    background-color: rgba(
+        244,
+        241,
+        234,
+        0.7
+    ); /* 0 = transparan penuh, 1 = solid */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+    background-color: #5c4018;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.card-body {
+    padding: 20px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* tengah vertikal */
+    align-items: center; /* tengah horizontal */
+    gap: 20px;
+}
+
+.btn.btn-donasi {
+    border-radius: 12px;
+    font-size: 20px;
+    display: inline-block;
+    text-align: center;
+    width: 60%;
+}
+
+.card-input-donasi {
+    border-radius: 12px;
+    width: 80%;
+    position: relative;
+    top: -30px;
+    min-height: 400px;
+    background-color: #f1f1f1;
+    overflow: hidden; /* sudut gambar ikut membulat */
+}
+
+.card-input-donasi-header {
+    position: relative;
+    padding: 0; /* hapus padding supaya gambar menempel */
+    height: 100px; /* tinggi area foto di atas */
+}
+
+.donasi-input-header {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.3);
+}
+.header-teks {
+    position: absolute;
+    inset: 0; /* menutupi seluruh foto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.header-teks small {
+    font-size: 17px;
+}
+
+.header-teks h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-input-donasi-body {
+    border-radius: 12px;
+    width: 90%;
+    margin: 15px auto;
+    padding: 10px 0;
+    background-color: #d9cab0;
+}
+
+.daftar-tanaman {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px 15px;
+    overflow-x: auto;
+}
+
+.item-tanaman {
+    flex: 0 0 140px;
+    background-color: #c9b48a;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+}
+
+.item-tanaman img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-tanaman .nama {
+    font-weight: bold;
+    margin: 6px 0 2px;
+}
+.item-tanaman .harga {
+    font-size: 12px;
+    margin: 0;
+}
+
+/* Scrollbar: Chrome, Edge, Safari */
+.daftar-tanaman::-webkit-scrollbar {
+    height: 8px;
+}
+.daftar-tanaman::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    border-radius: 10px;
+}
+.daftar-tanaman::-webkit-scrollbar-thumb {
+    background: #5c4018;
+    border-radius: 10px;
+}
+
+/* Scrollbar: Firefox */
+.daftar-tanaman {
+    scrollbar-width: thin;
+    scrollbar-color: #5c4018 #e0e0e0;
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #d9d9d9; /* jalur abu-abu */
+    border-radius: 999px; /* bentuk pil */
+    padding: 3px;
+    margin-top: 8px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 20px;
+    border: none;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.qty-min {
+    background-color: #b8b8b8; /* abu-abu */
+    color: #000;
+}
+
+.qty-plus {
+    background-color: #5c4018; /* cokelat tua */
+    color: #fff;
+}
+
+.qty-angka {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+}

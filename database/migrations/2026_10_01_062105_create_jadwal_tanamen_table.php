@@ -21,6 +21,16 @@ return new class extends Migration
             $table->string('id_tanaman', 10);
 
             $table->timestamps();
+            $table->foreign('id_tanaman')
+              ->references('id_tanaman')
+              ->on('tanaman')
+              ->onDelete('cascade');
+
+            // $table->foreign('id_jadwal')
+            //     ->references('id_jadwal')
+            //     ->on('jadwal')
+            //     ->onDelete('cascade');
+              
         });
     }
 
