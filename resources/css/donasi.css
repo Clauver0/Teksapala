@@ -1,3 +1,5 @@
+
+
 /* UNTUK LATAR BELAKANG HALAMAN */
 .donasi-layout {
     min-height: 100vh;
@@ -13,7 +15,7 @@
 }
 
 /* UNTUK KONTEN UTAMA */
-.bagian-lihat-informasi-donasi {
+.main-content {
     flex: 1;
     width: 100%;
     min-width: 0;
@@ -79,9 +81,12 @@
     background-color: #ffffff;
 }
 
+.tab-btn.inactive {
+    background-color: #bdbdbd;
+}
 
 /* UNTUK DAFTAR KARTU DONASI */
-.daftar-kartu-donasi1{
+.donation-list {
     flex: 1;
     min-height: 0;
     padding: 12px 24px;
@@ -98,7 +103,7 @@
     flex-shrink: 0;
     min-height: 175px;
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     color: #ffffff;
     padding: 18px 22px;
@@ -116,7 +121,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.65);
     z-index: -1;
 }
 
@@ -191,6 +196,7 @@
     object-fit: contain;
     vertical-align: middle;
     flex-shrink: 0;
+    filter: brightness(0) invert(1);
 }
 
 /* UNTUK TOMBOL AKSI */
@@ -213,8 +219,8 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 
-
-.tombol-bawah-bantu-donasi {
+/* UNTUK TOMBOL BAGIAN PALING BAWAH */
+.content-footer {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
@@ -234,7 +240,6 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 }
-
 
 .btn-bantu {
     position: absolute;

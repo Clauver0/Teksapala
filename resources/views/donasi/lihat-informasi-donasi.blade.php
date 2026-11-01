@@ -16,7 +16,7 @@
     @include('components.menubar')
 
     <!-- Konten Utama -->
-    <div class="bagian-lihat-informasi-donasi ">
+    <div class="main-content">
         <div class="content-card">
 
             <div class="content-header">
@@ -25,12 +25,11 @@
 
             <div class="tab-container">
                 <button class="tab-btn active">Donasi</button>
-                
             </div>
 
-            <div class="daftar-kartu-donasi1">
+            <div class="donation-list">
 
-                
+                <!--kartu pertama -->
                 <div class="donation-item card-mangrove" style="background-image: url('{{ asset('icons/don1.png') }}');">
                     <div>
                         <h3 class="donation-title">PENANAMAN MANGROVE DI PANTAI CEMARA</h3>
@@ -65,7 +64,7 @@
                     </div>
                 </div>
 
-                <!-- KARTU 2: PENANAMAN PINUS -->
+                <!-- kartu kedua -->
                 <div class="donation-item card-pinus" style="background-image: url('{{ asset('icons/don2.png') }}');">
                     <div>
                         <h3 class="donation-title">PENANAMAN PINUS DI BANTUL</h3>
@@ -102,7 +101,7 @@
 
             </div>
 
-            <div class="tombol-bawah-bantu-donasi">
+            <div class="content-footer">
                 <button class="btn-sukarela">Donasi Sukarela</button>
                 <button class="btn-bantu">Bantu?</button>
             </div>
@@ -112,3 +111,6 @@
 
 </body>
 </html>
+
+
+
