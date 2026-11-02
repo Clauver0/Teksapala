@@ -5,12 +5,12 @@ body.beranda-layout {
     background-position: center;
     background-repeat: no-repeat;
     margin: 0;
-    /* Memberi jarak di sebelah kiri agar konten tidak tertutup menubar yang bersifat fixed */
-    padding-left: var(--menubar-width, 160px); 
+    width: 100vw;
     height: 100vh;
     display: flex;
+    flex-direction: row; /* Memastikan sidebar, konten, dan panel berjejer ke samping */
     overflow: hidden;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'inter', sans-serif;
     box-sizing: border-box;
 }
 
@@ -24,38 +24,51 @@ body.beranda-layout {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
     padding: 2rem;
+    min-width: 0; /* PENTING: Mencegah elemen teks mendorong layout berantakan */
 }
 
 .hehe-quote {
     color: #ffffff;
-    font-size: 3.2rem;
-    font-family: 'Georgia', serif;
-    font-weight: bold;
-    line-height: 1.2;
-    max-width: 500px;
-    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+    font-size: 3rem;
+    font-family: 'Josefin Slab', serif;
+    font-weight: 400; /* Regular */
+    line-height: 1.35;
+    max-width: 480px;
+    font-style: italic; /* Membuatnya berkesan kutipan yang estetik */
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
-/* Dashboard Panel Kanan */
-.dashboard-panel {
-    width: 380px;
-    padding: 1.5rem;
+/* Dashboard Panel Kanan / Latar Belakang di Belakang Kartu */
+.kartu-donasi {
+    width: 430px;      /* Diperbesar dari 350px menjadi 430px (bisa disesuaikan lagi) */
+    min-width: 430px;  /* Menyesuaikan min-width agar ukurannya tetap stabil */
+    height: 100vh;
+    padding: 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
     overflow-y: auto;
     flex-shrink: 0;
+    box-sizing: border-box;
+    
+    background-color: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(10px);            
+    -webkit-backdrop-filter: blur(10px);
+    
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
 }
 
 .dashboard-card {
     background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 1.2rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 1.8rem;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
 }
 
 .card-header-bar {
@@ -66,20 +79,28 @@ body.beranda-layout {
     text-align: right;
 }
 
-.card-header-donasi { background-color: #48bb78; }
-.card-header-jejak { background-color: #4a5568; }
-.card-header-jadwal { background-color: #a0aec0; }
+.card-header-donasi { 
+    background-color: 
+    #48bb78; }
+.card-header-jejak {
+     background-color: #4a5568; }
+.card-header-jadwal { 
+    background-color: #a0aec0; }
 
 .card-body-content {
     padding: 1rem 1.2rem;
     color: #2d3748;
 }
 
-.stat-row {
+/* Mengatur baris dokumentasi agar teks "Dokumentasi" di kiri dan "details" bergeser ke kanan */
+.stat-row.margin-top-sm {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+}
+
+/* Hanya mendorong tulisan details ke pojok kanan */
+.stat-row.margin-top-sm .link-details {
+    margin-left: auto;
 }
 
 .stat-label {
@@ -132,18 +153,21 @@ body.beranda-layout {
     width: 100%;
     font-size: 0.85rem;
     border-collapse: collapse;
-    text-align: center;
+    text-align: center; /* Mengatur teks agar berada di tengah kolom */
+    margin-top: 0.5rem;
 }
 
 .schedule-table th {
-    padding: 0.4rem;
-    border-bottom: 1px solid #cbd5e0;
+    padding: 0.6rem 0.4rem;
+    border-bottom: 2px solid #cbd5e0; /* Garis bawah header sedikit lebih tegas */
     font-weight: bold;
+    color: #1a202c;
 }
 
 .schedule-table td {
-    padding: 0.5rem 0.2rem;
+    padding: 0.6rem 0.4rem;
     border-bottom: 1px solid #e2e8f0;
+    color: #2d3748;
 }
 
 .link-details {
@@ -151,4 +175,5 @@ body.beranda-layout {
     text-decoration: none;
     font-weight: bold;
     font-size: 0.85rem;
+    margin-left: auto;
 }
