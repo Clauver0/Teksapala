@@ -32,31 +32,34 @@
             </div> 
             <div class="card-input-donasi-body">
     <div class="daftar-tanaman">
-        @foreach ($tanaman as $t)
-    <div class="item-tanaman"
-         data-harga="{{ $t->harga }}"
-         data-sisa="{{ $t->kouta - $t->terdonasi }}">
-        <img src="{{ asset('icons/' . $t->gambar) }}" alt="{{ $t->nama_tanaman }}">
-        <p class="nama">{{ $t->nama_tanaman }}</p>
-        <p class="harga">Rp {{ number_format($t->harga, 0, ',', '.') }},-</p>
+         @foreach ($tanaman as $t)
+            <div class="item-tanaman"
+                  data-harga="{{ $t->harga }}"
+                  data-sisa="{{ $t->kouta - $t->terdonasi }}">
+                  <img src="{{ asset('icons/' . $t->gambar) }}" alt="{{ $t->nama_tanaman }}">
+                  <p class="nama">{{ $t->nama_tanaman }}</p>
+                  <p class="harga">Rp {{ number_format($t->harga, 0, ',', '.') }},-</p>
 
-        <div class="qty">
-            <button type="button" class="qty-btn qty-min">-</button>
-            <span class="qty-angka">0</span>
-            <button type="button" class="qty-btn qty-plus">+</button>
+              <div class="qty">
+                 <button type="button" class="qty-btn qty-min">-</button>
+                 <span class="qty-angka">0</span>
+                 <button type="button" class="qty-btn qty-plus">+</button>
+              </div>     
+            </div> 
+             @endforeach
         </div>
-        <div class="daftar-tanaman">
-            @foreach ($tanaman as $t)
-       <div class="item-tanaman">...</div>
-          @endforeach
-</div>
+                     
+        </div>
+        <div class="card-total">
+       <div class="total-donasi">
+            <span>Total Donasi: </span>
+            <span id="total-donasi-amount">Rp 0,-</span>
+        </div> 
+        <button type="button" class="btn btn-donasi-bayar"
+            onclick="window.location.href='/Donasi-pembayaran'">Donasikan</button>
+        </div>
     </div>
-    
-@endforeach
-    </div>
-</div>
-       
-         </div>
-    </div>
+
+      
 </body>
 </html>

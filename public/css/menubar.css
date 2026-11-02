@@ -1,5 +1,7 @@
 :root {
     --menubar-width: 160px;
+
+    --menubar-bg: #5c1a25;
 }
 
 .app-menubar {
@@ -52,13 +54,8 @@
 }
 
 .menu-item.active {
-<<<<<<< HEAD
     background: rgba(255, 255, 255, 0.55);
     border: 2px solid #fff;
-=======
-    background: #d9d9d9;
-    border: 2px solid #ffffff;
->>>>>>> b0e8c0715a27f7a24da7823f9fc4c2bf012c3109
 }
 
 /* Mobile: menubar pindah ke bawah layar */

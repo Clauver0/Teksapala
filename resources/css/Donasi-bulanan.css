@@ -73,27 +73,36 @@
 }
 
 .btn.btn-donasi {
-    border-radius: 12px;
+    width: 34%;
+    min-height: 46px;
+    border: 1px solid #777777;
+    border-radius: 13px;
     font-size: 20px;
-    display: inline-block;
-    text-align: center;
-    width: 60%;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    color: #333333;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .card-input-donasi {
+    margin-bottom: 20px;
     border-radius: 12px;
     width: 80%;
     position: relative;
     top: -30px;
     min-height: 400px;
     background-color: #f1f1f1;
-    overflow: hidden; /* sudut gambar ikut membulat */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-input-donasi-header {
     position: relative;
     padding: 0; /* hapus padding supaya gambar menempel */
-    height: 100px; /* tinggi area foto di atas */
+    height: 100px;
+    flex-shrink: 0;
 }
 
 .donasi-input-header {
@@ -127,7 +136,7 @@
 .card-input-donasi-body {
     border-radius: 12px;
     width: 90%;
-    margin: 15px auto;
+    margin: auto auto 10px;
     padding: 10px 0;
     background-color: #d9cab0;
 }
@@ -164,23 +173,18 @@
     margin: 0;
 }
 
-/* Scrollbar: Chrome, Edge, Safari */
-.daftar-tanaman::-webkit-scrollbar {
-    height: 8px;
-}
-.daftar-tanaman::-webkit-scrollbar-track {
-    background: #e0e0e0;
-    border-radius: 10px;
-}
-.daftar-tanaman::-webkit-scrollbar-thumb {
-    background: #5c4018;
-    border-radius: 10px;
-}
-
-/* Scrollbar: Firefox */
 .daftar-tanaman {
-    scrollbar-width: thin;
-    scrollbar-color: #5c4018 #e0e0e0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 10px 15px;
+    overflow-x: scroll; /* scrollbar selalu tampil */
+    overflow-y: hidden;
+}
+.daftar-tanaman::after {
+    content: "";
+    flex: 0 0 600px; /* ruang kosong tambahan di ujung kanan */
 }
 
 .qty {
@@ -218,4 +222,318 @@
     flex: 1;
     text-align: center;
     font-size: 13px;
+}
+.card-total {
+    display: flex;
+    top: -30px;
+    align-items: center;
+    justify-content: left;
+    width: 70%;
+    height: 50px;
+    margin: auto auto 30px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.total-donasi {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* teks mulai dari kiri */
+    gap: 10px; /* jarak antara "Total Donasi:" dan "Rp 0,-" */
+    width: 100%;
+    box-sizing: border-box; /* padding tidak menambah lebar */
+    padding: 0 40px 0 30px; /* kiri 30px, kanan 40px */
+}
+
+.btn.btn-donasi-bayar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+    /* lebar mengikuti isi, bukan persen */
+    margin-right: 50px;
+    min-width: 130px;
+    height: 36px;
+    padding: 0 20px;
+    flex-shrink: 0; /* tidak menciut saat kotak sempit */
+    margin-left: auto; /* tetap di kanan */
+
+    border: 1px solid #777777;
+    border-radius: 12px;
+    background-color: #47a5ee;
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap; /* teks tidak turun ke baris baru */
+    text-decoration: none; /* kalau elemennya <a> */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
+}
+
+.btn.btn-donasi-bayar:hover {
+    background-color: #3a94dc;
+}
+
+.btn.btn-donasi-bayar:active {
+    transform: scale(0.97);
+}
+
+/* Tab Donasi / Catatan */
+.tab-baris {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.btn-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    min-width: 120px;
+    padding: 6px 0;
+    border: 1px solid #777777;
+    border-radius: 10px;
+    background-color: #d9d9d9;
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn-tab.aktif {
+    background-color: #ffffff;
+}
+
+/* Kotak besar "Metode Pembayaran" */
+.card-pembayaran {
+    width: 90%;
+    padding-bottom: 22px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-pembayaran-header {
+    padding: 12px;
+    background-color: #5c4018;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Dua kartu: BANK dan QRIS */
+.metode-baris {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 24px 20px 20px;
+}
+
+.metode-kartu {
+    display: flex;
+    flex-direction: column;
+    width: 184px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.metode-judul {
+    padding: 10px 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.metode-bank .metode-judul {
+    background-color: #b02525;
+}
+
+.metode-qris .metode-judul {
+    background-color: #2a7db5;
+}
+
+.metode-isi {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 12px;
+}
+
+/* Ikon kartu bank, digambar dengan CSS */
+.ikon-kartu {
+    position: relative;
+    width: 106px;
+    height: 68px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #5a6fb3, #3f559c);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ikon-kartu::before {
+    /* chip */
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    width: 26px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #e0b25a;
+}
+
+.ikon-kartu::after {
+    /* dua lingkaran logo */
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #e8506a;
+    box-shadow: -9px 0 0 #f0a24a;
+}
+
+.gambar-qris {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+/* Tombol */
+.btn-pilih {
+    width: 100%;
+    padding: 5px 0;
+    border: 1px solid #777777;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.btn-pilih:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-lanjut {
+    display: block;
+    margin: 0 auto;
+    padding: 9px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4156e0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-lanjut:hover {
+    background-color: #3447c4;
+}
+
+.btn-pilih:focus-visible,
+.btn-lanjut:focus-visible,
+.btn-tab:focus-visible {
+    outline: 3px solid #5c4018;
+    outline-offset: 2px;
+}
+
+.card-sukarela {
+    width: 90%;
+    margin-top: 20px;
+    padding-bottom: 22px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Isi: input di kiri, catatan di kanan */
+.sukarela-isi {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 28px 30px 20px;
+}
+
+.sukarela-label {
+    display: block;
+    margin-bottom: 12px;
+    color: #000000;
+    font-size: 20px;
+}
+
+.input-rupiah {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rupiah-simbol {
+    color: #000000;
+    font-size: 20px;
+}
+
+.input-rupiah input {
+    width: 160px;
+    padding: 6px 10px;
+    border: 1px solid #777777;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 20px;
+    text-decoration: underline;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.input-rupiah input:focus-visible {
+    outline: 3px solid #5c4018;
+    outline-offset: 2px;
+}
+
+.sukarela-catatan {
+    flex: 1;
+    min-width: 200px;
+    margin: 0;
+    color: #000000;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.sukarela-catatan strong {
+    font-style: normal;
+}
+
+/* Tombol Donasikan: pakai gaya .btn-lanjut, hanya ukurannya diubah */
+.btn-lanjut.btn-lebar {
+    width: 170px;
+    padding: 7px 0;
 }

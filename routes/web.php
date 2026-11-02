@@ -7,10 +7,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DonasiController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\DokumentasiController;
-use App\Http\Controllers\DonasiController;
 
 
 
@@ -76,7 +76,8 @@ Route::get('/beranda', function () {
   //TESTING HALAMAN DONASI
 Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
 Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
-
+Route::get('/donasi-pembayaran', [DonasiController::class, 'pembayaran']);
+Route::get('/donasi-sukarela', [DonasiController::class, 'sukarela'])->name('donasi.sukarela');
 
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
@@ -87,6 +88,7 @@ Route::get('/iwak', function () {
 Route::get('/help', function () {
     return view('help'); 
 })->name('help');
+
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');

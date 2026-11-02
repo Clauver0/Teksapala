@@ -7,6 +7,7 @@ use App\Models\Tanaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 
+
 class DonasiController extends Controller
 {
     /**
@@ -34,6 +35,19 @@ public function daftar()
 {
     return view('donasi.lihat-informasi-donasi');
 }
+
+public function pembayaran(Request $request)
+{
+    $total = $request->input('total');
+
+    return view('donasi.donasi-pembayaran', compact('total'));
+}
+
+public function sukarela()
+{
+    return view('donasi.donasi-sukarela');   // resources/views/donasi/donasi-sukarela.blade.php
+}
+
 }
    
 
