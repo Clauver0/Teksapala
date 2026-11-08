@@ -11,11 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+    $middleware->alias([
+        'auth.any' => \App\Http\Middleware\AuthAny::class,
+    ]);
+
     $middleware->redirectGuestsTo(fn () => route('login'));
     $middleware->redirectUsersTo(fn () => route('profil'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
+    
     
     

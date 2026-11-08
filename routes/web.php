@@ -24,9 +24,10 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::post('/registrasi', [AuthController::class, 'register']);
 });
 
+Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
+Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
+
 Route::middleware('auth:donatur,komunitas')->group(function () {
-    Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
-    Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
     
     Route::get('/profil', [AuthController::class, 'profile'])->name('profil');
     Route::get('/profil/edit', [AuthController::class, 'editProfile'])->name('profil.edit');
@@ -79,7 +80,6 @@ Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
 Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
 Route::get('/donasi-pembayaran', [DonasiController::class, 'pembayaran'])->name('donasi.pembayaran');
 Route::get('/donasi-sukarela', [DonasiController::class, 'sukarela'])->name('donasi.sukarela');
-Route::get('/donasi/bank', [DonasiController::class, 'bank'])->name('donasi.bank');
 Route::get('/donasi-detail/{idJadwal}', [DonasiController::class, 'detail'])->name('donasi.detail');
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
@@ -91,23 +91,20 @@ Route::get('/help', function () {
     return view('help'); 
 })->name('help');
 
-
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');
-});
+})->name('jurnal');
 
- 
+Route::middleware('auth:komunitas')->group(function () {
     Route::get('/kelola-jurnal', [JurnalController::class, 'index'])->name('jurnals.index');
     Route::get('/input-jurnal', [JurnalController::class, 'create'])->name('jurnals.create');
     Route::post('/input-jurnal', [JurnalController::class, 'store'])->name('jurnals.store');
     Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('jurnals.edit');
     Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
     Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
-
+});
 
 // Testing halaman jadwal
 Route::get('/jadwal', function () {
     return view('sites.halaman-jadwal-penanaman');
 });
-
-
