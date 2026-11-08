@@ -17,11 +17,9 @@
     <div class="card-header">LIHAT INFORMASI DONASI</div>
  
     <div class="card-body">
-        {{-- Tab --}}
-        <div class="tab-baris">
-            <a href="{{ route('donasi') }}" class="btn-tab aktif">Donasi</a>
-            <a href="#" class="btn-tab">Catatan</a>
-        </div>
+          <button type="button" class="btn btn-donasi"
+            onclick="window.location.href='/Donasi-sekarang'">Donasi</button>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
  
         {{-- Kotak metode pembayaran --}}
         <div class="card-pembayaran">
@@ -33,7 +31,7 @@
                     <div class="metode-judul">BANK</div>
                     <div class="metode-isi">
                         <div class="ikon-kartu" aria-hidden="true"></div>
-                        <button type="button" class="btn-pilih">Pilih Bank</button>
+                      <button type="button" class="btn-pilih" onclick="bukaBank()">Pilih Bank</button>
                     </div>
                 </div>
  
