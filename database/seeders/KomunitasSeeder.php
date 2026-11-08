@@ -2,50 +2,44 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Komunitas;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class KomunitasSeeder extends Seeder
 {
-
-    /**
-     * Auto generated seed file
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        $komunitass = [
+        $data = [
             [
-                'peran' => 'Sekretaris',
-                'email'      => 'sekretaris_komunitas@example.com',
-                'username'   => 'SekretarisKomunitas',
-                'password'   => Hash::make('password'),
-                'no_telp'    => '081234567890',
+                'nama_komunitas' => 'Komunitas Hijau Lestari',
+                'display_name'   => 'Hijau Lestari',
+                'email'          => 'hijaulestari@example.com',
+                'username'       => 'hijaulestari',
+                'no_telp'        => '081234567801',
             ],
-
             [
-                'peran' => 'Bendahara',
-                'email'      => 'bendahara_komunitas@example.com',
-                'username'   => 'BendaharaKomunitas',
-                'password'   => Hash::make('password'),
-                'no_telp'    => '081234567891',
+                'nama_komunitas' => 'Pecinta Pohon Nusantara',
+                'display_name'   => 'Pecinta Pohon',
+                'email'          => 'pecintapohon@example.com',
+                'username'       => 'pecintapohon',
+                'no_telp'        => '081234567802',
             ],
-
             [
-                'peran' => 'Divisi Reboisasi',
-                'email'      => 'Reboisasi@example.com',
-                'username'   => 'AnggotaKomunitas',
-                'password'   => Hash::make('password'),
-                'no_telp'    => '081234567892',
+                'nama_komunitas' => 'Gerakan Tanam Bersama',
+                'display_name'   => 'Tanam Bersama',
+                'email'          => 'tanambersama@example.com',
+                'username'       => 'tanambersama',
+                'no_telp'        => '081234567803',
             ],
-            
         ];
 
-        foreach ($komunitass as $komunitas){
-            Komunitas::create($komunitas);
+        foreach ($data as $row) {
+            // updateOrCreate supaya seeder aman dijalankan berulang kali
+            Komunitas::updateOrCreate(
+                ['username' => $row['username']],
+                $row + ['password' => Hash::make('password123')]
+            );
         }
-    
     }
 }
