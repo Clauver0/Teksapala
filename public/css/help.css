@@ -1,0 +1,163 @@
+/* =========================================
+   1. RESET & BASE STYLES (CSS MURNI)
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #1f2937;
+}
+
+/* =========================================
+   2. LAYOUT UTAMA
+   ========================================= */
+.main-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    padding-top: 8rem; /* Jarak untuk Navbar */
+    padding-bottom: 3rem;
+    width: 100%;
+}
+
+/* Kotak Putih Transparan */
+.content-wrapper {
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* =========================================
+   3. HEADER KONTEN
+   ========================================= */
+.content-header {
+    background-color: #dfd1ba;
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 1px solid #9ca3af;
+}
+
+.content-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #111827;
+}
+
+.content-body {
+    padding: 2rem;
+}
+
+/* =========================================
+   4. KOTAK PEMBAYARAN
+   ========================================= */
+.payment-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.payment-title {
+    background-color: #54462c;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.payment-title h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+}
+
+/* =========================================
+   5. GRID 2 KOLOM
+   ========================================= */
+.payment-content {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    color: #374151;
+}
+
+.col-title {
+    text-align: center;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #dfd1ba;
+    display: inline-block;
+    padding-bottom: 0.25rem;
+}
+
+.col-left ul {
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.col-left li::marker {
+    color: #54462c;
+    font-size: 1.2em;
+}
+
+.col-right p {
+    text-align: center;
+    background-color: #f1f5f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #54462c;
+}
+
+.divider-line {
+    display: none;
+}
+
+/* =========================================
+   6. RESPONSIVE (Desktop)
+   ========================================= */
+@media (min-width: 768px) {
+    .content-header h1 { font-size: 2rem; }
+    .content-body { padding: 2.5rem; }
+    .payment-content { grid-template-columns: 1fr 1fr; gap: 3rem; padding: 2.5rem; }
+    .col-left { padding-right: 1rem; }
+    .col-right { padding-left: 1rem; }
+    .col-right p { text-align: left; padding: 0; background-color: transparent; border-left: none; }
+
+    .divider-line {
+        display: block;
+        position: absolute;
+        border-left: 2px dashed #cbd5e1;
+        height: 70%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
