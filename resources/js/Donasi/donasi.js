@@ -14,3 +14,45 @@ document.addEventListener("click", function (e) {
 
     angka.textContent = nilai;
 });
+const overlayBukti = document.getElementById("modal-overlay");
+const panelUtama = document.getElementById("main-panel");
+
+function openModal() {
+    overlayBukti.classList.remove("hidden");
+    overlayBukti.classList.add("flex");
+    panelUtama.classList.add("blur-sm", "opacity-50");
+}
+function closeModal() {
+    overlayBukti.classList.add("hidden");
+    overlayBukti.classList.remove("flex");
+    panelUtama.classList.remove("blur-sm", "opacity-50");
+}
+
+// timer mundur
+let jam = 23,
+    menit = 59,
+    detik = 53;
+const elTimer = document.getElementById("countdown-timer");
+const timerBukti = setInterval(function () {
+    if (detik > 0) {
+        detik--;
+    } else if (menit > 0) {
+        menit--;
+        detik = 59;
+    } else if (jam > 0) {
+        jam--;
+        menit = 59;
+        detik = 59;
+    } else {
+        clearInterval(timerBukti);
+        elTimer.textContent = "Waktu Habis";
+        return;
+    }
+
+    elTimer.textContent =
+        String(jam).padStart(2, "0") +
+        ":" +
+        String(menit).padStart(2, "0") +
+        ":" +
+        String(detik).padStart(2, "0");
+}, 1000);

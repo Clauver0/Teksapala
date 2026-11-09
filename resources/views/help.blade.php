@@ -3,91 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bantuan Untuk Pembayaran</title>
+    <title>Unduh Sertifikat</title>
     
-    <!-- Menggunakan Tailwind via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 1. Panggil Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Panggil Vite & CSS Navbar Anda -->
-    @vite(['public/css/menubar.css', 'resources/js/app.js'])
-    @vite(['public/css/Navbar.css', 'resources/js/app.js'])
+    <!-- 2. Panggil CSS Navbar -->
+    <link rel="stylesheet" href="{{ asset('css/menubar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     
-    <style>
-        /* Background Gambar Hutan */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            margin: 0;
-            min-height: 100vh;
-        }
-
-        /* Warna Custom */
-        .bg-header-beige { background-color: #dfd1ba; }
-        .bg-box-light { background-color: #f2f2f2; }
-        .bg-title-olive { background-color: #54462c; }
-        
-        /* Efek Bayangan Tombol */
-        .shadow-btn { box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); }
-    </style>
+    <!-- 3. Panggil CSS Murni Halaman Ini -->
+    <link rel="stylesheet" href="{{ asset('css/sertifikat.css') }}">
 </head>
-<body class="flex flex-col">
+<body>
 
-    <!-- ================= NAVBAR ================= -->
+    <!-- NAVBAR KIRI -->
     @include('components.menubar')
 
-    <!-- ================= KONTEN UTAMA ================= -->
-    <div class="flex-1 flex items-center justify-center p-4 md:p-8 pt-32 pb-12 w-full">
+    <!-- KONTEN UTAMA (KANAN) -->
+    <div class="main-wrapper">
         
-        <div class="w-full max-w-[900px] bg-white/85 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden border border-gray-300">
+        <div class="card-container">
             
-            <div class="bg-header-beige py-6 text-center border-b border-gray-400">
-                <h1 class="text-2xl md:text-3xl font-bold text-black tracking-wide uppercase">Bantuan Untuk Pembayaran</h1>
-            </div>
-
-            <div class="p-6 md:p-10">
+            <!-- Pembungkus Kartu -->
+            <div class="cards-wrapper">
                 
-                <!-- Kotak Konten Pembayaran -->
-                <div class="bg-box-light border-2 border-gray-400 rounded-xl overflow-hidden shadow-lg relative">
+                <!-- ================= KARTU DONASI 1 ================= -->
+                <div class="card">
                     
-                    <!-- Judul Konten -->
-                    <div class="bg-title-olive text-white text-center py-3">
-                        <h2 class="text-xl md:text-2xl font-bold">Cara Melakukan Pembayaran</h2>
+                    <div class="card-header">
+                        <h2>DONASI PADA</h2>
+                        <span>Penanaman Bibit Bakau di Pantai Cemara</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2070&auto=format&fit=crop" alt="Hutan">
+                        <div class="card-overlay"></div>
+                        
+                        <div class="card-content">
+                            <div class="peserta-row">
+                                <span class="label">Peserta</span>
+                                <span class="value">20</span>
+                                <!-- Ikon User SVG -->
+                                <svg style="width: 1rem; height: 1rem; margin-bottom: 0.125rem;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div class="donasi-row">
+                                <span class="label">Total Donasi</span>
+                                <span class="value">Rp 700.000,00</span>
+                            </div>
+                            <a href="#" class="detail-link">
+                                <span>&gt;&gt;</span> Detail
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Isi Konten (2 Kolom) -->
-                    <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 text-sm text-gray-800 leading-relaxed relative">
-                        
-                        <!-- Garis Pembatas Tengah -->
-                        <div class="hidden md:block absolute border-l-2 border-gray-300 h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-
-                        <!-- Kolom Kiri (Bank) -->
-                        <div class="pr-0 md:pr-6">
-                            <h3 class="text-center font-bold text-black mb-4">Bank</h3>
-                            <ul class="list-disc pl-5 space-y-3">
-                                <li>Buka aplikasi bank BRI / Mandiri &rarr; pilih Transfer &rarr; pilih Bank BRI / Mandiri &rarr; masukan No Rek BRI 9876543210 / Mandiri 400012345678 &rarr; Transfer.</li>
-                                <li>Buka aplikasi Bri &rarr; pilih BRIVA &rarr; masukan No 123456789012345 &rarr; pilih bank BRI &rarr; masukan Nominal &rarr; Transfer</li>
-                                <li>Buka aplikasi Mandiri &rarr; pilih LIVIN BY MANDIRI &rarr; masukan No 8808123456789012 &rarr; pilih bank Mandiri &rarr; masukan Nominal &rarr; Transfer</li>
-                            </ul>
+                    <div class="card-footer">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="nilai-label">NILAI</span>
+                            <span class="nilai-value">RP 200.000,-</span>
                         </div>
-
-                        <!-- Kolom Kanan (Qiris) -->
-                        <div class="pl-0 md:pl-6 pt-4 md:pt-0">
-                            <h3 class="text-center font-bold text-black mb-4">Qiris</h3>
-                            <p class="text-center md:text-left">
-                                Buka aplikasi Bank &rarr; pilih metode QRIS &rarr; sken barkode Qris yang sudah di sediakan &rarr; masukan nominal &rarr; Transfer.
-                            </p>
-                        </div>
-
+                        <button class="btn-sertifikat">
+                            Sertifikat
+                        </button>
                     </div>
                 </div>
-                
+
+                <!-- ================= KARTU DONASI 2 ================= -->
+                <div class="card">
+                    
+                    <div class="card-header">
+                        <h2>DONASI PADA</h2>
+                        <span>Penanaman Bibit Pinus di Bantul</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=2070&auto=format&fit=crop" alt="Hutan Pinus">
+                        <div class="card-overlay"></div>
+                        
+                        <div class="card-content">
+                            <div class="peserta-row">
+                                <span class="label">Peserta</span>
+                                <span class="value">20</span>
+                                <svg style="width: 1rem; height: 1rem; margin-bottom: 0.125rem;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div class="donasi-row">
+                                <span class="label">Total Donasi</span>
+                                <span class="value">Rp 700.000,00</span>
+                            </div>
+                            <a href="#" class="detail-link">
+                                <span>&gt;&gt;</span> Detail
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="nilai-label">NILAI</span>
+                            <span class="nilai-value">RP 200.000,-</span>
+                        </div>
+                        <button class="btn-sertifikat">
+                            Sertifikat
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
 
+    </div>
 </body>
 </html>
