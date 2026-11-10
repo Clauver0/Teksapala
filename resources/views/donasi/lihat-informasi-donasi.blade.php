@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/help.css') }}">
     
-@vite(['resources/css/donasi.css', 'resources/js/help-model.js'] )
+@vite(['resources/css/donasi.css', 'resources/js/help-model.js'], )
 
+</head>
 
     
 </body>
@@ -28,7 +29,7 @@
             </div>
 
             <div class="tab-container">
-              
+                <button class="tab-btn active">Donasi</button>
             </div>
 
             <div class="donation-list">
