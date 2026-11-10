@@ -35,15 +35,23 @@ public function daftar()
 {
     $jadwal = DB::table('jadwal')
         ->leftJoin('donasi', 'donasi.id_jadwal', '=', 'jadwal.id_jadwal')
+        ->where('jadwal.is_archived', 0)
+        ->whereNull('jadwal.deleted_at')
         ->select(
             'jadwal.id_jadwal',
-            'jadwal.nama_kegiatan',
-            'jadwal.tanggal',
+            'jadwal.lokasi_pelaksanaan',
+            'jadwal.tanggal_pelaksanaan',
+            'jadwal.status_pelaksanaan',
             DB::raw('COUNT(donasi.id_jadwal) as jumlah_donatur'),
             DB::raw('COALESCE(SUM(donasi.nominal), 0) as total_donasi')
         )
-        ->groupBy('jadwal.id_jadwal', 'jadwal.nama_kegiatan', 'jadwal.tanggal')
-        ->orderBy('jadwal.tanggal')
+        ->groupBy(
+            'jadwal.id_jadwal',
+            'jadwal.lokasi_pelaksanaan',
+            'jadwal.tanggal_pelaksanaan',
+            'jadwal.status_pelaksanaan'
+        )
+        ->orderBy('jadwal.tanggal_pelaksanaan')
         ->get();
 
     return view('donasi.lihat-informasi-donasi', compact('jadwal'));

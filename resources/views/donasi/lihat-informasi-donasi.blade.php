@@ -6,6 +6,8 @@
     <title>Lihat Informasi Donasi - Teksapala</title>
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     @vite(['resources/css/donasi.css'])
+    @vite(['resources/js/donasi.js'])
+    @vite(['resources/css/Donasi-bulanan.css', 'resources/js/Donasi/donasi.js'])
     
 </head>
 

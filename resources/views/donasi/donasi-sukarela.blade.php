@@ -46,7 +46,8 @@
                     </p>
                 </div>
  
-                <button type="submit" class="btn-lanjut btn-lebar">Donasikan</button>
+              <button type="button" class="btn btn-donasi-bayar"
+            onclick="window.location.href='/Donasi-pembayaran'">Donasikan</button>
             </form>
         </div>
     </div>

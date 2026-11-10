@@ -6,18 +6,8 @@
     <title>DONASI</title>
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     @vite(['resources/css/Donasi-bulanan.css', 'resources/js/Donasi/donasi.js'])
-    <!-- <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { corePlugins: { preflight: false } };</script>
-    <style>
-        .bg-header-brown { background-color: #6b4c2a; }
-        .bg-modal-content { background-color: #ffffff; }
-        .bg-upload-box { background-color: #cccccc; }
-        @keyframes popUp {
-            from { opacity: 0; transform: scale(0.9); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        .animate-popup { animation: popUp 0.3s ease-out forwards; }
-    </style> -->
+   <link rel="stylesheet" href="{{ asset('css/kirim-bukti-donasi.css') }}">
+
 </head>
 <body>
     <div class="donasi">
@@ -29,7 +19,8 @@
         <div class="card-header">LIHAT INFORMASI DONASI</div>
 
         <div class="card-body">
-            <button type="button" class="btn btn-donasi"onclick="window.location.href='/donasi'">Donasi</button>
+             <button type="button" class="btn btn-donasi"
+            onclick="window.location.href='/Donasi-sekarang'">Donasi</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
             {{-- Kotak metode pembayaran --}}
@@ -50,12 +41,11 @@
                     <div class="metode-kartu metode-qris">
                         <div class="metode-judul">QRIS</div>
                         <div class="metode-isi">
-                            <img src="{{ asset('images/qris.png') }}" alt="Kode QRIS" class="gambar-qris">
+                             <button type="button" class="btn-pilih" onclick="bukaQris()">QRIS</button>
+                            
                         </div>
                     </div>
                 </div>
-
-                <button type="button" class="btn-lanjut" onclick="openModal()">Lanjutkan Pembayaran</button>
             </div>
         </div>
     </div>
@@ -79,115 +69,76 @@
                         @endforeach
                     </div>
                 @endforeach
-
                 <div class="bank-actions">
-                    <button type="button" class="bank-kembali" id="tutupBank">Kembali</button>
+                    <button type="button" class="bank-kembali" id="lanjutBank">Lanjutkan</button>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- MODAL BUKTI PEMBAYARAN --}}
-    <div id="modal-overlay" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+    {{-- MODAL QRIS --}}
+    <div class="qris-overlay" id="modalQRIS">
+        <div class="qris-card">
+            <div class="qris-header">Pembayaran dengan QRIS</div>
+            
+            <div class="qris-body">
+                <img src="{{ asset('images/qris.png') }}" alt="Kode QRIS" class="gambar-qris-modal">
 
-        <div class="relative bg-white border-2 border-[#5c4a32] rounded-lg overflow-hidden shadow-2xl mx-auto w-full max-w-3xl animate-popup">
-
-            <div class="bg-header-brown py-2 text-center relative">
-                <h3 class="text-white text-lg font-bold">Kirim Bukti Pembayaran</h3>
-                <button type="button" onclick="closeModal()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-red-300 text-xl font-bold">&times;</button>
-            </div>
-
-            <div class="bg-modal-content p-6">
-                <form action="{{ route('kirim-bukti.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <label for="file-upload" class="flex flex-col items-center justify-center w-full max-w-xl mx-auto h-48 bg-upload-box rounded-xl cursor-pointer hover:bg-gray-400 transition-colors mb-6 border-2 border-gray-500">
-                        <div class="flex flex-col items-center">
-                            <svg class="w-20 h-20 text-gray-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <p class="text-sm font-bold text-gray-800">UNGGAH BUKTI DONASI ANDA DISINI</p>
-                            <p class="text-xs text-gray-600">(Format: JPG, PNG. Maks: 20MB)</p>
-                        </div>
-                        <input id="file-upload" name="bukti_transfer" type="file" class="hidden" accept=".jpg, .jpeg, .png" required />
-                    </label>
-
-                    <div class="flex items-end justify-between mt-6 max-w-xl mx-auto">
-                        <div>
-                            <p class="text-sm font-bold text-red-600">Bayar Sebelum:</p>
-                            <p id="countdown-timer" class="text-3xl font-extrabold text-black tracking-wider">23:59:53</p>
-                        </div>
-                    </div>
-                </form>
+                <div class="qris-actions">
+                    <button type="button" class="qris-kembali" id="lanjutQris">Lanjutkan</button>
+                </div>
             </div>
         </div>
     </div>
 
-    {{-- Script modal --}}
-    <script>
-        /* ===== MODAL BANK ===== */
-        const modalBank = document.getElementById('modalBank');
 
-        function bukaBank()  { modalBank.classList.add('show'); }
-        function tutupBank() { modalBank.classList.remove('show'); }
+   
+    {{-- MODAL BUKTI PEMBAYARAN --}}
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-box">
 
-        document.getElementById('tutupBank').addEventListener('click', function (e) {
-            e.preventDefault();
-            tutupBank();
-        });
+                <div class="modal-header">
+                    <h3>Kirim Bukti Pembayaran</h3>
+                    <button type="button" onclick="closeModal()" class="btn-close">&times;</button>
+                </div>
 
-        modalBank.addEventListener('click', function (e) {
-            if (e.target === modalBank) tutupBank();
-        });
+                <div class="modal-body">
+                    <form action="{{ route('kirim-bukti.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
 
-        document.querySelectorAll('.bank-salin').forEach(function (el) {
-            el.addEventListener('click', function (e) {
-                e.preventDefault();
-                navigator.clipboard.writeText(el.dataset.nomor).then(function () {
-                    const teks = el.textContent;
-                    el.textContent = 'Tersalin!';
-                    setTimeout(function () { el.textContent = teks; }, 1500);
-                });
-            });
-        });
+                        <label for="file-upload" class="upload-area">
+                            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <p>UNGGAH BUKTI DONASI ANDA DISINI</p>
+                            <span>(Format: JPG, PNG. Maks: 20MB)</span>
+                            <input id="file-upload" name="bukti_transfer" type="file" style="display:none;" accept=".jpg,.jpeg,.png" required />
+                        </label>
 
-    //     /* ===== MODAL BUKTI ===== */
-    //     const overlayBukti = document.getElementById('modal-overlay');
-    //     const panelUtama = document.getElementById('main-panel');
+                        <div class="modal-footer">
+                            <div class="timer-box">
+                                <p class="timer-label">Bayar Sebelum:</p>
+                                <p id="countdown-timer" class="timer-value">23:59:53</p>
+                            </div>
 
-    //     function openModal() {
-    //         overlayBukti.classList.remove('hidden');
-    //         overlayBukti.classList.add('flex');
-    //         panelUtama.classList.add('blur-sm', 'opacity-50');
-    //     }
-    //     function closeModal() {
-    //         overlayBukti. classList.add('hidden');
-    //         overlayBukti.classList.remove('flex');
-    //         panelUtama.classList.remove('blur-sm', 'opacity-50');
-    //     }
+                            <div class="btn-group">
+                                <button type="button" onclick="closeModal()" class="btn-cancel">Batal</button>
+                                <button type="submit" class="btn-submit">Kirim</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    //     // timer mundur
-    //     let jam = 23, menit = 59, detik = 53;
-    //     const elTimer = document.getElementById('countdown-timer');
-    //     const timerBukti = setInterval(function () {
-    //         if (detik > 0) { detik--; }
-    //         else if (menit > 0) { menit--; detik = 59; }
-    //         else if (jam > 0) { jam--; menit = 59; detik = 59; }
-    //         else { clearInterval(timerBukti); elTimer.textContent = 'Waktu Habis'; return; }
-
-    //         elTimer.textContent =
-    //             String(jam).padStart(2, '0') + ':' +
-    //             String(menit).padStart(2, '0') + ':' +
-    //             String(detik).padStart(2, '0');
-    //     }, 1000);
-    // </script>
-
-    // @if (session('success'))
-    //     <script>alert(@json(session('success')));</script>
-    // @endif
-    // @if ($errors->any())
-    //     <script>alert(@json($errors->first()));</script>
-    // @endif
+    @if (session('success'))
+        <script>alert(@json(session('success')));</script>
+    @endif
+    @if ($errors->any())
+        <script>alert(@json($errors->first()));</script>
+    @endif
 </body>
 </html>

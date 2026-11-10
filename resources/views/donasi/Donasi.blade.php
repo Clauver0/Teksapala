@@ -55,8 +55,8 @@
             <span>Total Donasi: </span>
             <span id="total-donasi-amount">Rp 0,-</span>
         </div> 
-        <button type="button" class="btn btn-donasi-bayar"
-            onclick="window.location.href='/Donasi-pembayaran'">Donasikan</button>
+        <<button type="button" class="btn btn-donasi-bayar"
+    onclick="window.location.href='{{ route('donasi.pembayaran') }}'">Donasikan</button>
         </div>
     </div>
 
