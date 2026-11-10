@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lihat Informasi Donasi - Teksapala</title>
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-    @vite(['resources/css/donasi.css'])
+<link rel="stylesheet" href="{{ asset('css/help.css') }}">
     
+@vite(['resources/css/donasi.css', 'resources/js/help-model.js'], )
+
 </head>
 
+    
+</body>
+</html>
 
 <body class="donasi-layout" style="background-image: url('{{ asset('icons/haldonasi.jpg') }}');">
 
@@ -103,12 +108,15 @@
 
             <div class="content-footer">
                 <button class="btn-sukarela">Donasi Sukarela</button>
-                <button class="btn-bantu">Bantu?</button>
+                
+                <!-- Diubah menjadi button dengan pemanggil fungsi JavaScript -->
+               <button type="button" class="btn-bantu" onclick="openHelpModal()">Bantu?</button>
+
             </div>
 
         </div>
     </div>
-
+@include('donasi.help-modal')
 </body>
 </html>
 
