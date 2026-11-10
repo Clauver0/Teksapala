@@ -64,17 +64,7 @@
     letter-spacing: 1px;
 }
 
-/* =========================================
-   4. TAB DONASI
-   ========================================= */
-.tab-container {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 40px;
-    padding: 24px 50px 18px;
-}
+
 
 .tab-btn {
     width: 34%;

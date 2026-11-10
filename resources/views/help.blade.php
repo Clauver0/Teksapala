@@ -3,41 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <base target="_top">
     <title>Bantuan Untuk Pembayaran</title>
     
-    <!-- 1. Panggil Font -->
+    <!-- Panggil Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- 2. Panggil CSS Navbar (Pastikan ada di folder public/css/) -->
-    <link rel="stylesheet" href="{{ asset('css/menubar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
-    
+    <!--Panggil CSS Navbar (hanya kalau bukan pop-up) -->
+    @unless(request()->has('modal'))
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    @endunless
     <!-- 3. Panggil CSS Murni Halaman Ini -->
     <link rel="stylesheet" href="{{ asset('css/help.css') }}">
+
+     @if(request()->has('modal'))
+        <style>
+            .main-container { padding-top: 2rem; }
+        </style>
+    @endif
 </head>
 <body>
 
-    <!-- ================= NAVBAR ================= -->
-    @include('components.menubar')
+<!-- HANYA MUNCUL JIKA BUKAN POP-UP -->
+ @unless(request()->has('modal'))
+        @include('components.menubar')
+    @endunless
+    
 
+     @unless(request()->has('modal'))
     <!-- ================= KONTEN UTAMA ================= -->
     <div class="main-container">
-        
+       
         <div class="content-wrapper">
-            
+   @endunless
+        
+        
+          @unless(request()->has('modal'))
             <!-- Header Atas -->
             <div class="content-header">
                 <h1>BANTUAN UNTUK PEMBAYARAN</h1>
             </div>
+@endunless
 
+
+ @unless(request()->has('modal'))
             <!-- Area Konten -->
             <div class="content-body">
-                
+
                 <!-- Tombol Tab (Hanya Donasi) -->
                 <div class="tab-container" style="justify-content: center;">
                     <button class="btn-tab active" style="width: 250px;">Donasi</button>
                 </div>
-
+@endunless
                 <!-- Kotak Pembayaran -->
                 <div class="payment-box">
                     

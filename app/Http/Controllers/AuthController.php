@@ -29,7 +29,7 @@ class AuthController extends Controller
         foreach (self::GUARDS as $guard) {
             if (Auth::guard($guard)->attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended(route('profil'));
+                return redirect()->intended(route('beranda'));
             }
         }
 

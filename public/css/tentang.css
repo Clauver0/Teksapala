@@ -1,0 +1,74 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr 260px;
+    height: 100vh;
+}
+
+.about-menu {
+    background: #6b5a2a; /* sesuaikan dengan warna menu kamu */
+    padding: 16px;
+}
+
+.about-content {
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* penting supaya area scroll bisa menyusut */
+}
+
+.about-content h1 {
+    text-align: center;
+    margin: 0 0 16px;
+}
+
+.about-scroll {
+    flex: 1;
+    overflow-y: auto;
+    text-align: justify;
+    line-height: 1.5;
+    padding-right: 12px;
+}
+
+.about-contact {
+    background: url('public/img/background1.jpg') center / cover no-repeat;
+    padding: 24px;
+    color: #fff;
+}
+
+.about-contact h2 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.about-contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.about-contact a {
+    color: #fff;
+    font-size: 1.6rem;
+    text-decoration: none;
+}
+
+/* Layar kecil: tumpuk vertikal */
+@media (max-width: 900px) {
+    body { overflow: auto; height: auto; }
+    .about-layout { grid-template-columns: 1fr; height: auto; }
+    .about-scroll { overflow: visible; }
+    .about-contact { min-height: 220px; }
+}
