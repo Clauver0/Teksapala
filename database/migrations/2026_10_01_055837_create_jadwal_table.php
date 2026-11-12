@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal_pelaksanaan')->nullable();
             $table->string('deskripsi',255)->nullable();
             $table->string('id_komunitas', 10);
+            $table->string('gambar', 255);
             $table->foreign('id_komunitas')->references('id_komunitas')->on('komunitas')->onDelete('cascade'); //foreignkey
             $table->integer('jumlah_peserta')->nullable();
             // tambahan agar bisa direstore

@@ -22,7 +22,8 @@ class Jadwal extends Model
         'deskripsi', 
         'id_komunitas', 
         'jumlah_peserta',
-        'is_archived', 
+        'is_archived',
+        'gambar'
     ];
 
     public function getTanggalFormattedAttribute()
