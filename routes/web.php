@@ -102,9 +102,5 @@ Route::middleware('auth:komunitas')->group(function () {
     Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
 });
 
-// Testing halaman jadwal
-Route::get('/jadwal', function () {
-    return view('sites.halaman-jadwal-penanaman');
-});
 
 Route::view('/tentang-kami', 'tentang-kami')->name('tentang');
