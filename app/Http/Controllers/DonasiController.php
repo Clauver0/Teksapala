@@ -33,8 +33,19 @@ public function index($idJadwal)
 
 public function daftar()
 {
+    $perJadwal = DB::table('detail_donasi')
+        ->join('jadwal_tanaman', 'jadwal_tanaman.id_jadwal_tanaman', '=', 'detail_donasi.id_jadwal_tanaman')
+        ->join('donasi', 'donasi.id_donasi', '=', 'detail_donasi.id_donasi')
+        ->select(
+            'jadwal_tanaman.id_jadwal',
+            'donasi.id_donasi',
+            'donasi.id_donatur',
+            'donasi.nominal_donasi'
+        )
+        ->distinct();
+
     $jadwal = DB::table('jadwal')
-        ->leftJoin('donasi', 'donasi.id_jadwal', '=', 'jadwal.id_jadwal')
+        ->leftJoinSub($perJadwal, 'd', 'd.id_jadwal', '=', 'jadwal.id_jadwal')
         ->where('jadwal.is_archived', 0)
         ->whereNull('jadwal.deleted_at')
         ->select(
@@ -42,8 +53,8 @@ public function daftar()
             'jadwal.lokasi_pelaksanaan',
             'jadwal.tanggal_pelaksanaan',
             'jadwal.status_pelaksanaan',
-            DB::raw('COUNT(donasi.id_jadwal) as jumlah_donatur'),
-            DB::raw('COALESCE(SUM(donasi.nominal), 0) as total_donasi')
+            DB::raw('COUNT(DISTINCT d.id_donatur) as jumlah_donatur'),
+            DB::raw('COALESCE(SUM(d.nominal_donasi), 0) as total_donasi')
         )
         ->groupBy(
             'jadwal.id_jadwal',
@@ -61,16 +72,92 @@ public function sukarela()
 {
     return view('donasi.donasi-sukarela');   // resources/views/donasi/donasi-sukarela.blade.php
 }
-
-
-   public function pembayaran(Request $request)
+public function pembayaran(Request $request)
 {
-    $total = $request->input('total');
-    session(['total_donasi' => $total]);
+    // =================================
+    // DONASI SUKARELA
+    // =================================
+    if ($request->filled('nominal')) {
+
+        $nominal = (int) str_replace(
+            '.',
+            '',
+            $request->input('nominal')
+        );
+
+        if ($nominal < 1000) {
+            return back()->with('error', 'Minimal donasi Rp1.000.');
+        }
+
+        session([
+            'total_donasi' => $nominal,
+            'item_donasi' => [],
+            'jenis_donasi' => 'sukarela',
+        ]);
+
+        $total = $nominal;
+        $banks = $this->dataBank();
+
+        return view(
+            'donasi.donasi-pembayaran',
+            compact('total', 'banks')
+        );
+    }
+
+    // =================================
+    // DONASI TANAMAN
+    // =================================
+    $items = json_decode($request->input('items'), true) ?? [];
+
+    if (empty($items)) {
+        return back()->with('error', 'Pilih minimal satu pohon.');
+    }
+
+    $total = 0;
+
+    foreach ($items as $item) {
+
+        $harga = DB::table('jadwal_tanaman')
+            ->where('id_jadwal_tanaman', $item['id_jadwal_tanaman'])
+            ->value('harga');
+
+        $total += $harga * (int) $item['jumlah'];
+    }
+
+    session([
+        'total_donasi' => $total,
+        'item_donasi' => $items,
+        'jenis_donasi' => 'tanaman',
+    ]);
 
     $banks = $this->dataBank();
 
-    return view('donasi.donasi-pembayaran', compact('total', 'banks'));
+    return redirect()->route('donasi.pembayaran.tampil');
+}
+public function tampilPembayaran()
+{
+    // Ambil data dari session
+    $total = session('total_donasi');
+    $items = session('item_donasi', []);
+    $jenis = session('jenis_donasi');
+
+    // Cek apakah total donasi tersedia
+    if (!$total) {
+        return redirect()->route('donasi')
+            ->with('error', 'Data donasi tidak ditemukan.');
+    }
+
+    // Cek khusus donasi tanaman
+    if ($jenis == 'tanaman' && empty($items)) {
+        return back()->with('error', 'Data donasi tidak ditemukan.');
+    }
+
+    $banks = $this->dataBank();
+
+    return view(
+        'donasi.donasi-pembayaran',
+        compact('total', 'banks', 'items', 'jenis')
+    );
 }
 
 private function dataBank(): array
@@ -86,14 +173,20 @@ private function dataBank(): array
         ],
     ];
 }
-   public function detail($idJadwal)
+ public function detail($idJadwal)
 {
     $jadwal = DB::table('jadwal')->where('id_jadwal', $idJadwal)->first();
     abort_if(!$jadwal, 404);
 
     $donasi = DB::table('donasi')
-        ->where('id_jadwal', $idJadwal)
-        ->select('nama_donatur', 'nominal')
+        ->join('donatur', 'donatur.id_donatur', '=', 'donasi.id_donatur')
+        ->whereIn('donasi.id_donasi', function ($q) use ($idJadwal) {
+            $q->select('detail_donasi.id_donasi')
+              ->from('detail_donasi')
+              ->join('jadwal_tanaman', 'jadwal_tanaman.id_jadwal_tanaman', '=', 'detail_donasi.id_jadwal_tanaman')
+              ->where('jadwal_tanaman.id_jadwal', $idJadwal);
+        })
+        ->select('donatur.nama as nama_donatur', 'donasi.nominal_donasi as nominal')
         ->get();
 
     $total = $donasi->sum('nominal');

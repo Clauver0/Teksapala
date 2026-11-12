@@ -33,9 +33,10 @@
             <div class="card-input-donasi-body">
     <div class="daftar-tanaman">
          @foreach ($tanaman as $t)
-            <div class="item-tanaman"
-                  data-harga="{{ $t->harga }}"
-                  data-sisa="{{ $t->kouta - $t->terdonasi }}">
+          <div class="item-tanaman"
+     data-id="{{ $t->id_jadwal_tanaman }}"
+     data-harga="{{ $t->harga }}"
+     data-sisa="{{ $t->kouta - $t->terdonasi }}">
                   <img src="{{ asset('icons/' . $t->gambar) }}" alt="{{ $t->nama_tanaman }}">
                   <p class="nama">{{ $t->nama_tanaman }}</p>
                   <p class="harga">Rp {{ number_format($t->harga, 0, ',', '.') }},-</p>
@@ -55,8 +56,20 @@
             <span>Total Donasi: </span>
             <span id="total-donasi-amount">Rp 0,-</span>
         </div> 
-        <<button type="button" class="btn btn-donasi-bayar"
-    onclick="window.location.href='{{ route('donasi.pembayaran') }}'">Donasikan</button>
+        
+<form action="{{ route('donasi.pembayaran') }}"
+      method="POST"
+      id="form-donasi">
+
+    @csrf
+
+    <input type="hidden" name="items" id="items">
+
+    <button type="submit" class="btn btn-donasi-bayar">
+        Donasikan
+    </button>
+</form>
+
         </div>
     </div>
 

@@ -1,4 +1,3 @@
-/* ===== Tombol jumlah (+ / -) ===== */
 document.addEventListener("click", function (e) {
     const tombol = e.target.closest(".qty-btn");
     if (!tombol) return;
@@ -14,7 +13,45 @@ document.addEventListener("click", function (e) {
     }
 
     angka.textContent = nilai;
+    isiItemDonasi();
 });
+
+function isiItemDonasi() {
+    const inputItems = document.getElementById("items");
+    if (!inputItems) return;
+
+    const items = [];
+
+    document.querySelectorAll(".item-tanaman").forEach(function (el) {
+        const jumlah =
+            parseInt(el.querySelector(".qty-angka").textContent) || 0;
+
+        if (jumlah > 0) {
+            items.push({
+                id_jadwal_tanaman: el.dataset.id,
+                jumlah: jumlah,
+            });
+        }
+    });
+
+    inputItems.value = JSON.stringify(items);
+}
+
+// Proses submit donasi
+const formDonasi = document.getElementById("form-donasi");
+
+if (formDonasi) {
+    formDonasi.addEventListener("submit", function (e) {
+        isiItemDonasi();
+
+        const items = document.getElementById("items");
+
+        if (!items.value || items.value === "[]") {
+            e.preventDefault();
+            alert("Silakan pilih minimal satu tanaman!");
+        }
+    });
+}
 
 /* ===== Modal bukti pembayaran ===== */
 const overlayBukti = document.getElementById("modal-overlay");
@@ -109,4 +146,43 @@ if (elTimer) {
             ":" +
             String(detik).padStart(2, "0");
     }, 1000);
+
+    const fileInput = document.getElementById("file-upload");
+    const uploadText = document.getElementById("upload-text");
+
+    function tampilPopup(pesan, sukses = false) {
+        const lama = document.getElementById("popupNotif");
+        if (lama) lama.remove();
+
+        const el = document.createElement("div");
+        el.className = "popup-overlay";
+        el.id = "popupNotif";
+        el.innerHTML = `
+                <div class="popup-box">
+                    <div class="popup-icon ${sukses ? "sukses" : "gagal"}">${sukses ? "✓" : "!"}</div>
+                    <p></p>
+                    <button type="button">OK</button>
+                </div>`;
+        el.querySelector("p").textContent = pesan;
+        el.querySelector("button").onclick = () => el.remove();
+        document.body.appendChild(el);
+    }
+
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length) {
+            uploadText.textContent = fileInput.files[0].name;
+        }
+    });
+
+    document.getElementById("form-bukti").addEventListener("submit", (e) => {
+        if (!fileInput.files.length) {
+            e.preventDefault();
+            tampilPopup("Silakan pilih bukti pembayaran terlebih dahulu.");
+            return;
+        }
+        if (fileInput.files[0].size > 20 * 1024 * 1024) {
+            e.preventDefault();
+            tampilPopup("Ukuran file maksimal 20MB.");
+        }
+    });
 }

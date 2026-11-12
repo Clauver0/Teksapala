@@ -11,7 +11,8 @@ use App\Http\Controllers\DonasiController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\DokumentasiController;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 
@@ -25,6 +26,8 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
 });
 
 Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
+Route::get('/beranda', [DokumentasiController::class, 'index'])
+    ->name('beranda');
 Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
 
 Route::middleware('auth:donatur,komunitas')->group(function () {
@@ -42,43 +45,57 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
     // Proses Upload Bukti Donasi
     
 });
-Route::post('/kirim-bukti-donasi', function (Request $request) {
-        // Validasi file (Wajib gambar, format jpg/png, maksimal 20MB)
-        $request->validate([
-            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:20480',
-        ]);
-
-        if ($request->hasFile('bukti_transfer')) {
-            // Simpan gambar ke folder storage/app/public/bukti_donasi
-            $path = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
-            
-            // Di sini Anda bisa menambahkan logika untuk menyimpan $path ke database
-            // Contoh: Auth::user()->update(['bukti_donasi' => $path]);
-            
-            return redirect()->back()->with('success', 'Bukti donasi berhasil diunggah!');
-        }
-
-        return redirect()->back()->with('error', 'Gagal mengunggah bukti donasi.');
-    })->name('kirim-bukti.store');
-
-    // ==========================================
-    // RUTE HALAMAN SERTIFIKAT (BARU DITAMBAHKAN)
-    // ==========================================
-    Route::get('/sertifikat', function () {
-        return view('sertifikat'); 
-    })->name('sertifikat');
-
-Route::get('/beranda', function () {
-    return view('Beranda.beranda');
-})->name('beranda');
-
 //Route::get('/donasi', [JadwalController::class, 'index'])
   //  ->name('donasi');
 
   //TESTING HALAMAN DONASI
 Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
 Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
-Route::get('/donasi-pembayaran', [DonasiController::class, 'pembayaran'])->name('donasi.pembayaran');
+Route::get('/donasi-pembayaran', [DonasiController::class, 'tampilPembayaran'])
+    ->name('donasi.pembayaran.tampil');
+
+Route::post('/donasi-pembayaran', [DonasiController::class, 'pembayaran'])
+    ->name('donasi.pembayaran');
+Route::post('/kirim-bukti-donasi', function (Request $request) {
+    $request->validate([
+        'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:20480',
+    ]);
+
+    $items = session('item_donasi', []);
+    if (empty($items)) {
+        return back()->with('error', 'Data donasi tidak ditemukan.');
+    }
+
+    $path     = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
+    $donatur  = Auth::guard('donatur')->user();
+    $idDonasi = 'DN' . strtoupper(Str::random(8));
+
+    DB::transaction(function () use ($items, $path, $donatur, $idDonasi) {
+        DB::table('donasi')->insert([
+            'id_donasi'      => $idDonasi,
+            'nominal_donasi' => session('total_donasi'),
+            'waktu_donasi'   => now(),
+            'metode_donasi'  => 'Transfer',
+            'bukti_donasi'   => $path,
+            'id_donatur'     => $donatur->id_donatur,
+            'created_at'     => now(),
+            'updated_at'     => now(),
+        ]);
+
+        foreach ($items as $item) {
+            DB::table('detail_donasi')->insert([
+                'jumlah_tanaman'    => $item['jumlah'],
+                'id_donasi'         => $idDonasi,
+                'id_jadwal_tanaman' => $item['id_jadwal_tanaman'],
+            ]);
+        }
+    });
+
+    session()->forget(['item_donasi', 'total_donasi']);
+
+    return back()->with('success', 'Bukti donasi berhasil diunggah!');
+})->name('kirim-bukti.store');
+
 Route::get('/donasi-sukarela', [DonasiController::class, 'sukarela'])->name('donasi.sukarela');
 Route::get('/donasi-detail/{idJadwal}', [DonasiController::class, 'detail'])->name('donasi.detail');
 // Testing halaman dokumentasi

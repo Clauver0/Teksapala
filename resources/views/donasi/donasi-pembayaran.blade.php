@@ -20,7 +20,7 @@
 
         <div class="card-body">
              <button type="button" class="btn btn-donasi"
-            onclick="window.location.href='/Donasi-sekarang'">Donasi</button>
+            onclick="window.location.href='/donasi'">Donasi</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
             {{-- Kotak metode pembayaran --}}
@@ -103,42 +103,66 @@
                     <button type="button" onclick="closeModal()" class="btn-close">&times;</button>
                 </div>
 
-                <div class="modal-body">
-                    <form action="{{ route('kirim-bukti.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+              <div class="modal-body">
+    <form id="form-bukti" action="{{ route('kirim-bukti.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-                        <label for="file-upload" class="upload-area">
-                            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <p>UNGGAH BUKTI DONASI ANDA DISINI</p>
-                            <span>(Format: JPG, PNG. Maks: 20MB)</span>
-                            <input id="file-upload" name="bukti_transfer" type="file" style="display:none;" accept=".jpg,.jpeg,.png" required />
-                        </label>
+        <label for="file-upload" class="upload-area">
+            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <p id="upload-text">UNGGAH BUKTI DONASI ANDA DISINI</p>
+            <span>(Format: JPG, PNG. Maks: 20MB)</span>
+            <input id="file-upload" name="bukti_transfer" type="file" style="display:none;" accept=".jpg,.jpeg,.png" />
+        </label>
 
-                        <div class="modal-footer">
-                            <div class="timer-box">
-                                <p class="timer-label">Bayar Sebelum:</p>
-                                <p id="countdown-timer" class="timer-value">23:59:53</p>
-                            </div>
+        <div class="modal-footer">
+            <div class="timer-box">
+                <p class="timer-label">Bayar Sebelum:</p>
+                <p id="countdown-timer" class="timer-value">23:59:53</p>
+            </div>
 
-                            <div class="btn-group">
-                                <button type="button" onclick="closeModal()" class="btn-cancel">Batal</button>
-                                <button type="submit" class="btn-submit">Kirim</button>
-                            </div>
-                        </div>
-                    </form>
+            <div class="btn-group">
+                <button type="submit" class="btn-submit">Kirim</button>
+            </div>
+                           </div>
+                     </form>
                 </div>
             </div>
         </div>
     </div>
+@php
+        $popupPesan = session('success') ?? session('error') ?? ($errors->any() ? $errors->first() : null);
+        $popupSukses = session('success') ? true : false;
+    @endphp
 
-    @if (session('success'))
-        <script>alert(@json(session('success')));</script>
+    @if ($popupPesan)
+        <div class="popup-overlay" id="popupNotif">
+            <div class="popup-box">
+                <div class="popup-icon {{ $popupSukses ? 'sukses' : 'gagal' }}">
+                    {{ $popupSukses ? '✓' : '!' }}
+                </div>
+                <p>{{ $popupPesan }}</p>
+                <button type="button" onclick="document.getElementById('popupNotif').remove()">OK</button>
+            </div>
+        </div>
     @endif
-    @if ($errors->any())
-        <script>alert(@json($errors->first()));</script>
+    @php
+        $popupBatal = session('batal') ?? session('error') ?? ($errors->any() ? $errors->first() : null);
+        $popupSukses = session('batal') ? true : false;
+    @endphp
+
+    @if ($popupBatal)
+        <div class="popup-overlay" id="popupNotif">
+            <div class="popup-box">
+                <div class="popup-icon {{ $popupSukses ? 'sukses' : 'gagal' }}">
+                    {{ $popupSukses ? '✓' : '!' }}
+                </div>
+                <p>{{ $popupBatal }}</p>
+                <button type="button" onclick="document.getElementById('popupNotif').remove()">OK</button>
+            </div>
+        </div>
     @endif
 </body>
 </html>

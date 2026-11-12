@@ -27,28 +27,42 @@
             <div class="card-pembayaran-header">Donasi Sukarela</div>
  
             {{-- Ganti action="#" dengan route penyimpanan donasi kamu --}}
-            <form action="#" method="POST">
-                @csrf
- 
-                <div class="sukarela-isi">
-                    <div class="sukarela-input">
-                        <label for="nominal" class="sukarela-label">Masukkan Donasimu:</label>
-                        <div class="input-rupiah">
-                            <span class="rupiah-simbol">Rp</span>
-                            <input type="text" id="nominal" name="nominal" value="20.000"
-                                   inputmode="numeric" autocomplete="off">
-                        </div>
-                    </div>
- 
-                    <p class="sukarela-catatan">
-                        <strong>Catatan</strong>: Seluruh donasi sukarela akan dialokasikan pada
-                        kegiatan penanaman kami yang masih kekurangan pendanaan.
-                    </p>
-                </div>
- 
-              <button type="button" class="btn btn-donasi-bayar"
-            onclick="window.location.href='/Donasi-pembayaran'">Donasikan</button>
-            </form>
+          
+<form action="{{ route('donasi.pembayaran') }}" method="POST">
+    @csrf
+
+    <div class="sukarela-isi">
+        <div class="sukarela-input">
+            <label for="nominal" class="sukarela-label">
+                Masukkan Donasimu:
+            </label>
+
+            <div class="input-rupiah">
+                <span class="rupiah-simbol">Rp</span>
+                <input
+                    type="text"
+                    id="nominal"
+                    name="nominal"
+                    value="20.000"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+        </div>
+
+        <p class="sukarela-catatan">
+            <strong>Catatan</strong>: Seluruh donasi sukarela akan
+            dialokasikan pada kegiatan penanaman kami yang masih
+            kekurangan pendanaan.
+        </p>
+    </div>
+
+    <button type="submit" class="btn btn-donasi-bayar">
+        Donasikan
+    </button>
+</form>
+
         </div>
     </div>
 </div>
