@@ -6,7 +6,6 @@
     <title>Input Jurnal</title>
      
       @vite(['public/css/Navbar.css', 'resources/js/app.js'])
-      @vite(['public/css/menubar.css', 'resources/js/app.js'])
       @vite(['resources/css/app.css', 'resources/js/app.js']) 
 </head>
 <body>

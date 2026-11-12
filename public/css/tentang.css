@@ -3,26 +3,27 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    height: 100vh;
-    overflow: hidden;
 }
 
+/* ============ MOBILE: 1 kolom ============ */
 .about-layout {
     display: grid;
-    grid-template-columns: 240px 1fr 260px;
-    height: 100vh;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
 }
 
+/* wrapper menubar tidak perlu background/padding —
+   isi navbar sudah punya background sendiri.
+   Di mobile, menubar pakai position: fixed (lepas dari grid). */
 .about-menu {
-    background: #6b5a2a; /* sesuaikan dengan warna menu kamu */
-    padding: 16px;
+    /* sengaja kosong: jangan beri background / padding */
 }
 
 .about-content {
     padding: 24px 32px;
     display: flex;
     flex-direction: column;
-    min-height: 0; /* penting supaya area scroll bisa menyusut */
+    min-height: 0;
 }
 
 .about-content h1 {
@@ -31,44 +32,52 @@ body {
 }
 
 .about-scroll {
-    flex: 1;
-    overflow-y: auto;
     text-align: justify;
     line-height: 1.5;
-    padding-right: 12px;
 }
 
 .about-contact {
-    background: url('public/img/background1.jpg') center / cover no-repeat;
+    background: url('../img/background1.jpg') center / cover no-repeat;
     padding: 24px;
     color: #fff;
+    min-height: 220px;
 }
-
-.about-contact h2 {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
+.about-contact h2 { text-align: center; margin-bottom: 24px; }
 .about-contact ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
+    padding: 0; margin: 0;
+    display: flex; flex-direction: column;
+    gap: 20px; align-items: center;
 }
+.about-contact a { color: #fff; font-size: 1.6rem; text-decoration: none; }
 
-.about-contact a {
-    color: #fff;
-    font-size: 1.6rem;
-    text-decoration: none;
-}
+/* ============ DESKTOP: 2 kolom (Konten + Kontak) ============ */
+@media (min-width: 992px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .about-layout {
+        grid-template-columns: 1fr 260px; 
+        height: 100vh;
+    }
+    
+    /* 🚨 KUNCINYA DI SINI 🚨 */
+    /* Jangan gunakan display: none, gunakan display: contents */
+    .about-menu {
+        display: contents; 
+    }
 
-/* Layar kecil: tumpuk vertikal */
-@media (max-width: 900px) {
-    body { overflow: auto; height: auto; }
-    .about-layout { grid-template-columns: 1fr; height: auto; }
-    .about-scroll { overflow: visible; }
-    .about-contact { min-height: 220px; }
+    .about-content {
+        height: 100vh;
+        padding: 32px 48px;
+    }
+    
+    .about-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 12px;
+    }
+    .about-contact { min-height: 0; }
 }

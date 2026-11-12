@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dokumentasi</title>
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dokumentasi.css') }}">
 </head>
 <body>
