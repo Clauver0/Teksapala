@@ -1,0 +1,121 @@
+/* Custom Styling untuk Halaman Jadwal Penanaman */
+
+:root {
+  --primary-gold: #c2a649;
+  --primary-teal: #40bfa3;
+  --status-green: #2e7d32;
+  --status-red: #c62828;
+  --status-purple: #3f51b5;
+  --bg-card: #ffffff;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Card Item Daftar Jadwal */
+.schedule-card {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+}
+
+.schedule-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.schedule-card-img {
+  height: 120px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.schedule-card-body {
+  padding: 16px 20px;
+}
+
+.status-badge {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.status-badge.sedang-berjalan { color: var(--status-green); }
+.status-badge.ditunda { color: var(--status-red); }
+.status-badge.selesai { color: var(--status-purple); }
+
+/* Detail View Layout */
+.detail-container {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.detail-banner {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.stat-box-left {
+  background-color: var(--primary-gold);
+  color: #1a1a1a;
+  padding: 24px;
+  border-radius: 8px 0 0 8px;
+}
+
+.stat-box-right {
+  background-color: var(--primary-teal);
+  color: #1a1a1a;
+  padding: 24px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-donasi {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 12px;
+}
+.btn-donasi:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Modal Option Dropdown / Popover */
+.option-popover {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  width: 180px;
+  z-index: 100;
+}
+
+.option-item {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
+}
+
+.option-item:hover {
+  background-color: #f0f0f0;
+}

@@ -23,6 +23,7 @@ class JadwalSeeder extends Seeder
                 'jumlah_peserta'      => 50,
                 'id_komunitas'        => 'K001', // Sesuaikan dengan ID komunitas yang ada di database kalian
                 'is_archived'         => 0, // Belum di-archive
+                'gambar'              =>'https://img.freepik.com/premium-photo/group-planting-mangrove-trees-along-coastline_41097-16224.jpg?w=1380'
             ],
             [
                 'status_pelaksanaan'  => 'berlangsung',
@@ -32,6 +33,7 @@ class JadwalSeeder extends Seeder
                 'jumlah_peserta'      => 30,
                 'id_komunitas'        => 'K001',
                 'is_archived'         => 0,
+                'gambar'              =>'https://tse4.mm.bing.net/th/id/OIP.tp0mdH1xBRrCs4A8wMWP1AHaEc?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
             ],
             [
                 'status_pelaksanaan'  => 'Selesai',
@@ -41,6 +43,7 @@ class JadwalSeeder extends Seeder
                 'jumlah_peserta'      => 75,
                 'id_komunitas'        => 'K002',
                 'is_archived'         => 1, // Contoh data yang sudah di-archive
+                'gambar'              =>'https://blog.alfagift.id/wp-content/uploads/2025/01/jeruk-mandarin-1-1.jpg'
             ],
         ];
 
