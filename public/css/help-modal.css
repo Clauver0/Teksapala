@@ -1,0 +1,22 @@
+/* =========================================
+   CSS KHUSUS HALAMAN POP-UP
+   ========================================= */
+body.modal-help {
+    background-image: none !important;
+    background-color: #ffffff !important;
+    height: 100vh;
+}
+
+body.modal-help .payment-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+body.modal-help .payment-content {
+    flex: 1;
+}

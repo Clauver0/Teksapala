@@ -14,9 +14,14 @@ window.closeHelpModal = function() {
 };
 
 // Menutup modal jika area gelap di luar kotak diklik
-window.onclick = function(event) {
-    let modal = document.getElementById('helpModal');
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('helpModal');
     if (event.target === modal) {
         modal.style.display = 'none';
     }
-};
+});
+
+// Menutup modal dengan tombol Esc
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') window.closeHelpModal();
+});

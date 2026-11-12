@@ -16,13 +16,14 @@
     <!-- 3. Panggil CSS Murni Halaman Ini -->
     <link rel="stylesheet" href="{{ asset('css/help.css') }}">
 
-     @if(request()->has('modal'))
-        <style>
-            .main-container { padding-top: 2rem; }
-        </style>
-    @endif
+
+@if(request()->has('modal'))
+    <link rel="stylesheet" href="{{ asset('css/help-modal.css') }}">
+@endif
+     
 </head>
-<body>
+<body class="{{ request()->has('modal') ? 'modal-help' : '' }}">
+
 
 <!-- HANYA MUNCUL JIKA BUKAN POP-UP -->
  @unless(request()->has('modal'))
@@ -87,10 +88,10 @@
 
                     </div>
                 </div>
-
+@unless(request()->has('modal'))
             </div>
         </div>
     </div>
-
+ @endunless
 </body>
 </html>
