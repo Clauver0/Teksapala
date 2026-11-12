@@ -15,9 +15,6 @@ body {
 /* wrapper menubar tidak perlu background/padding —
    isi navbar sudah punya background sendiri.
    Di mobile, menubar pakai position: fixed (lepas dari grid). */
-.about-menu {
-    /* sengaja kosong: jangan beri background / padding */
-}
 
 .about-content {
     padding: 24px 32px;
