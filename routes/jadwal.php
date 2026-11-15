@@ -1,18 +1,22 @@
 <?php
 
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\JadwalController;
 use Illuminate\Support\Facades\Route;
 
-// Karena sudah pakai prefix 'jadwal', cukup tulis '/' atau '' untuk halaman utama
-Route::get('/', function () {
-    return view('jadwal.halaman-jadwal');
+Route::prefix('jadwal')->name('jadwal.')->group(function () {
+    Route::get('/', [JadwalController::class, 'index'])->name('index');           // halaman-jadwal.blade.php
+    Route::get('/create', [JadwalController::class, 'create'])->name('create');   // form tambah (harus di atas /{jadwal})
+    Route::post('/', [JadwalController::class, 'store'])->name('store');
+    Route::get('/arsip', [JadwalController::class, 'daftarArsip'])->name('daftar-arsip'); // harus di atas /{jadwal}
+
+    Route::get('/{jadwal}', [JadwalController::class, 'show'])->name('show');     // detail-jadwal.blade.php
+    Route::get('/{jadwal}/edit', [JadwalController::class, 'edit'])->name('edit');
+    Route::put('/{jadwal}', [JadwalController::class, 'update'])->name('update');
+    Route::patch('/{jadwal}/arsip', [JadwalController::class, 'arsip'])->name('arsip');
+    Route::patch('/{jadwal}/kembalikan', [JadwalController::class, 'kembalikan'])->name('kembalikan');
+    Route::delete('/{jadwal}', [JadwalController::class, 'destroy'])->name('destroy');
 });
 
-// Untuk detail, cukup tulis '/detail' (jadi aksesnya /jadwal/detail)
-Route::get('/detail', function () {
-    return view('jadwal.detail-jadwal');
-});
-
-// Untuk formulir, cukup tulis '/formulir' (jadi aksesnya /jadwal/formulir)
-Route::get('/formulir', function () {
-    return view('jadwal.formulir-jadwal');
-});
+// Dipisah dari grup agar namanya tetap "donasi.create" sesuai yang dipakai di view.
+Route::get('/jadwal/{jadwal}/donasi', [DonasiController::class, 'create'])->name('donasi.create');
