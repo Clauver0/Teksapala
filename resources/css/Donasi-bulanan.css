@@ -788,3 +788,50 @@ body {
     color: #fff;
     cursor: pointer;
 }
+.popup-donasi-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center; /* tengah vertikal */
+    justify-content: center; /* tengah horizontal */
+    z-index: 9999;
+}
+
+.popup-donasi-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    width: 90%;
+    max-width: 340px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.popup-donasi-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 52px;
+}
+
+.popup-donasi-box p {
+    margin: 0 0 18px;
+    font-size: 16px;
+    color: #333;
+}
+
+.popup-donasi-box button {
+    background: #5c4016;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 32px;
+    font-size: 15px;
+    cursor: pointer;
+}

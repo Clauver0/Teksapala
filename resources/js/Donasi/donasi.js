@@ -15,28 +15,26 @@ document.addEventListener("click", function (e) {
     angka.textContent = nilai;
     isiItemDonasi();
 });
+function tampilPopupTengah(pesan) {
+    const lama = document.getElementById("popupDonasi");
+    if (lama) lama.remove();
 
-function isiItemDonasi() {
-    const inputItems = document.getElementById("items");
-    if (!inputItems) return;
-
-    const items = [];
-
-    document.querySelectorAll(".item-tanaman").forEach(function (el) {
-        const jumlah =
-            parseInt(el.querySelector(".qty-angka").textContent) || 0;
-
-        if (jumlah > 0) {
-            items.push({
-                id_jadwal_tanaman: el.dataset.id,
-                jumlah: jumlah,
-            });
-        }
+    const el = document.createElement("div");
+    el.className = "popup-donasi-overlay";
+    el.id = "popupDonasi";
+    el.innerHTML = `
+        <div class="popup-donasi-box">
+            <div class="popup-donasi-icon">!</div>
+            <p></p>
+            <button type="button">OK</button>
+        </div>`;
+    el.querySelector("p").textContent = pesan;
+    el.querySelector("button").onclick = () => el.remove();
+    el.addEventListener("click", (e) => {
+        if (e.target === el) el.remove();
     });
-
-    inputItems.value = JSON.stringify(items);
+    document.body.appendChild(el);
 }
-
 // Proses submit donasi
 const formDonasi = document.getElementById("form-donasi");
 
@@ -48,7 +46,7 @@ if (formDonasi) {
 
         if (!items.value || items.value === "[]") {
             e.preventDefault();
-            alert("Silakan pilih minimal satu tanaman!");
+            tampilPopupTengah("Silakan pilih minimal satu tanaman!");
         }
     });
 }
@@ -185,4 +183,33 @@ if (elTimer) {
             tampilPopup("Ukuran file maksimal 20MB.");
         }
     });
+}
+
+function isiItemDonasi() {
+    const inputItems = document.getElementById("items");
+    if (!inputItems) return;
+
+    const items = [];
+    let total = 0;
+
+    document.querySelectorAll(".item-tanaman").forEach(function (el) {
+        const jumlah =
+            parseInt(el.querySelector(".qty-angka").textContent) || 0;
+        const harga = parseInt(el.dataset.harga) || 0;
+
+        if (jumlah > 0) {
+            total += harga * jumlah;
+            items.push({
+                id_jadwal_tanaman: el.dataset.id,
+                jumlah: jumlah,
+            });
+        }
+    });
+
+    inputItems.value = JSON.stringify(items);
+
+    const elTotal = document.getElementById("total-donasi-amount");
+    if (elTotal) {
+        elTotal.textContent = "Rp " + total.toLocaleString("id-ID") + ",-";
+    }
 }

@@ -30,27 +30,29 @@
                      <h3>PENANAMAN MANGROVE DI PANTAI CEMARA</h3>
                 </div>
             </div> 
-            <div class="card-input-donasi-body">
-    <div class="daftar-tanaman">
-         @foreach ($tanaman as $t)
-          <div class="item-tanaman"
-     data-id="{{ $t->id_jadwal_tanaman }}"
-     data-harga="{{ $t->harga }}"
-     data-sisa="{{ $t->kouta - $t->terdonasi }}">
-                  <img src="{{ asset('icons/' . $t->gambar) }}" alt="{{ $t->nama_tanaman }}">
-                  <p class="nama">{{ $t->nama_tanaman }}</p>
-                  <p class="harga">Rp {{ number_format($t->harga, 0, ',', '.') }},-</p>
 
-              <div class="qty">
-                 <button type="button" class="qty-btn qty-min">-</button>
-                 <span class="qty-angka">0</span>
-                 <button type="button" class="qty-btn qty-plus">+</button>
-              </div>     
-            </div> 
-             @endforeach
-        </div>
-                     
-        </div>
+           <div class="card-input-donasi-body">
+                    <div class="daftar-tanaman">
+                        @foreach ($tanaman as $t)
+                            <div class="item-tanaman"
+                                 data-id="{{ $t->id_jadwal_tanaman }}"
+                                 data-harga="{{ $t->harga }}"
+                                 data-sisa="{{ $t->kouta - $t->terdonasi }}">
+
+                                <img src="{{ asset('icons/' . $t->gambar) }}" alt="{{ $t->nama_tanaman }}">
+                                <p class="nama">{{ $t->nama_tanaman }}</p>
+
+                                <div class="qty">
+                                    <button type="button" class="qty-btn qty-min">-</button>
+                                    <span class="qty-angka">0</span>
+                                    <button type="button" class="qty-btn qty-plus">+</button>
+                                </div>
+
+                                <p class="harga">Rp {{ number_format($t->harga, 0, ',', '.') }},-</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
         <div class="card-total">
        <div class="total-donasi">
             <span>Total Donasi: </span>
