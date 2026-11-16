@@ -79,15 +79,17 @@ Route::get('/donasi', function () {
     return view('donasi.lihat-informasi-donasi');
 })->name('donasi');
 
+Route::get('/help', function () {
+    return view('help');
+})->name('help');
+
+
 // Testing halaman dokumentasi
 Route::get('/iwak', function () {
     return view('sites.halaman-dokumentasi');
 });
 
 // Rute untuk Halaman Bantuan Pembayaran
-Route::get('/help', function () {
-    return view('help'); 
-})->name('help');
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');

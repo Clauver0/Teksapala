@@ -1,6 +1,15 @@
+/* =========================================
+   1. RESET & BASE STYLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-
-/* UNTUK LATAR BELAKANG HALAMAN */
+/* =========================================
+   2. LATAR BELAKANG & LAYOUT UTAMA
+   ========================================= */
 .donasi-layout {
     min-height: 100vh;
     margin: 0;
@@ -14,7 +23,6 @@
     box-sizing: border-box;
 }
 
-/* UNTUK KONTEN UTAMA */
 .main-content {
     flex: 1;
     width: 100%;
@@ -27,7 +35,9 @@
     align-items: center;
 }
 
-/* UNTUK KARTU UTAMA */
+/* =========================================
+   3. KARTU UTAMA & HEADER
+   ========================================= */
 .content-card {
     width: 100%;
     max-width: 850px;
@@ -43,7 +53,6 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* UNTUK JUDUL HALAMAN */
 .content-header {
     flex-shrink: 0;
     background-color: #594019;
@@ -55,15 +64,7 @@
     letter-spacing: 1px;
 }
 
-/* UNTUK TAB DONASI DAN CATATAN */
-.tab-container {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 40px;
-    padding: 24px 50px 18px;
-}
+
 
 .tab-btn {
     width: 34%;
@@ -85,7 +86,9 @@
     background-color: #bdbdbd;
 }
 
-/* UNTUK DAFTAR KARTU DONASI */
+/* =========================================
+   5. DAFTAR KARTU DONASI
+   ========================================= */
 .donation-list {
     flex: 1;
     min-height: 0;
@@ -96,7 +99,6 @@
     overflow-y: auto;
 }
 
-/* UNTUK KARTU KEGIATAN DONASI */
 .donation-item {
     position: relative;
     isolation: isolate;
@@ -116,7 +118,6 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* UNTUK LAPISAN AGAR TEKS MUDAH DIBACA */
 .donation-item::before {
     content: "";
     position: absolute;
@@ -125,7 +126,6 @@
     z-index: -1;
 }
 
-/* UNTUK JUDUL KEGIATAN */
 .donation-title {
     font-size: 1.25rem;
     font-weight: bold;
@@ -134,7 +134,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* UNTUK INFORMASI DONASI */
 .donation-info {
     display: flex;
     align-items: center;
@@ -151,7 +150,6 @@
     gap: 8px;
 }
 
-/* UNTUK JUMLAH DONATUR DAN NOMINAL DONASI */
 .highlight-num,
 .donation-amount-highlight {
     font-size: 1.3rem;
@@ -160,7 +158,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
-/* UNTUK LINK DETAIL */
 .btn-detail {
     flex-shrink: 0;
     color: #ffffff;
@@ -171,7 +168,6 @@
     text-shadow: 1px 1px 3px #000000;
 }
 
-/* UNTUK BAGIAN BAWAH KARTU */
 .donation-footer {
     display: flex;
     justify-content: space-between;
@@ -179,7 +175,6 @@
     margin-top: 8px;
 }
 
-/* UNTUK TANGGAL PELAKSANAAN */
 .donation-date {
     display: inline-flex;
     align-items: center;
@@ -189,7 +184,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* UNTUK IKON PENGGUNA DAN KALENDER */
 .nav-icon-inline {
     width: 22px;
     height: 22px;
@@ -199,7 +193,6 @@
     filter: brightness(0) invert(1);
 }
 
-/* UNTUK TOMBOL AKSI */
 .action-buttons {
     display: flex;
     justify-content: flex-end;
@@ -219,7 +212,9 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 
-/* UNTUK TOMBOL BAGIAN PALING BAWAH */
+/* =========================================
+   6. FOOTER KARTU & TOMBOL BANTU?
+   ========================================= */
 .content-footer {
     flex-shrink: 0;
     display: flex;
@@ -239,6 +234,7 @@
     font-size: 1.1rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn-bantu {
@@ -247,8 +243,12 @@
     color: #7166ee;
     font-style: italic;
     font-weight: bold;
+    z-index: 10; /* Memastikan tombol berada di lapisan teratas agar bisa diklik */
 }
 
+/* =========================================
+   7. RESPONSIVE DESIGN
+   ========================================= */
 @media (max-width: 768px) {
     .donasi-layout {
         padding-left: 0 !important; 

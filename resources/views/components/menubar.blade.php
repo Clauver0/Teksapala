@@ -3,15 +3,19 @@
 
         <a href="{{ route('beranda') }}"
             class="menu-item {{ request()->routeIs('beranda') ? 'active' : '' }}">
+
             <img src="{{ asset('icons/beranda-icon.png') }}" alt="Beranda">
             <span>BERANDA</span>
         </a>
+
+
 
         <a href="{{ route('donasi') }}"
             class="menu-item {{ request()->routeIs('donasi') ? 'active' : '' }}">
             <img src="{{ asset('icons/donasi-icon.png') }}" alt="Donasi">
             <span>DONASI</span>
         </a>
+
 
         <a href="#" class="menu-item">
             <img src="{{ asset('icons/jadwal-icon.png') }}" alt="Jadwal">
