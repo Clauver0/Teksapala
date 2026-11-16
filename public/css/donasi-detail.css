@@ -1,0 +1,240 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-image: url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?q=80&w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: -1;
+}
+
+/* ===== CARD UTAMA ===== */
+.card {
+    width: 100%;
+    max-width: 900px;
+    background-color: #e5e7eb;
+    border: 4px solid #a8a29e;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== HEADER ===== */
+.card-header {
+    background-color: #5d4a2f;
+    color: #ffffff;
+    text-align: center;
+    padding: 16px 50px;
+    position: relative;
+}
+
+.card-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.card-header .icon-calendar {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+/* ===== KONTEN ===== */
+.card-body {
+    padding: 22px 24px 28px;
+}
+
+/* ===== TAB NAVIGATION ===== */
+.tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1px solid #9ca3af;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.2s ease;
+}
+
+.tab.active {
+    background-color: #ffffff;
+    color: #1f2937;
+}
+
+.tab.inactive {
+    background-color: #c5c5c5;
+    color: #4b5563;
+}
+
+.tab.inactive:hover {
+    background-color: #b8b8b8;
+}
+
+/* ===== BOX DETAIL DONASI ===== */
+.donation-box {
+    border: 2px solid #9ca3af;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f3f4f6;
+}
+
+/* Judul kegiatan */
+.activity-title {
+    position: relative;
+    background-color: #1f2937;
+    color: #ffffff;
+    text-align: center;
+    padding: 34px 16px;
+    overflow: hidden;
+}
+
+.activity-title img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+}
+
+.activity-title .activity-content {
+    position: relative;
+    z-index: 1;
+}
+
+.activity-title .activity-content p {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.activity-title .activity-content h3 {
+    font-size: 21px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== TABEL DONASI ===== */
+.donation-content {
+    padding: 18px 20px 24px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    color: #1f2937;
+    font-size: 15px;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.table-header span {
+    width: 50%;
+    text-align: center;
+}
+
+.donor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.donor-row {
+    display: flex;
+    gap: 8px;
+}
+
+.donor-row .box {
+    width: 50%;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 9px 14px;
+    font-size: 14px;
+    color: #374151;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.empty-message {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    padding: 16px 0;
+}
+
+/* ===== TOTAL DONASI ===== */
+.total-donation {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.total-donation .amount {
+    font-size: 26px;
+    font-weight: 800;
+    color: #000000;
+    margin-left: 6px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    .card-header h2 {
+        font-size: 18px;
+    }
+
+    .activity-title .activity-content h3 {
+        font-size: 16px;
+    }
+
+    .total-donation .amount {
+        font-size: 20px;
+    }
+
+    .donor-row {
+        flex-direction: column;
+    }
+
+    .donor-row .box {
+        width: 100%;
+    }
+}
