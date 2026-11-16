@@ -75,9 +75,8 @@ Route::get('/beranda', function () {
   //  ->name('donasi');
 
   //TESTING HALAMAN DONASI
-Route::get('/donasi', function () {
-    return view('donasi.lihat-informasi-donasi');
-})->name('donasi');
+Route::get('/donasi', [DonasiController::class, 'index'])
+    ->name('donasi');
 
 Route::get('/help', function () {
     return view('help');
