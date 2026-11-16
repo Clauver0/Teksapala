@@ -19,17 +19,17 @@ class TanamanSeeder extends Seeder
         $tanamans = [
             [
                 'nama_tanaman' => 'Pinus',
-                'gambar'        => 'Pinus.jpg',
+                'gambar'        => 'https://www.conifers.org/pi/pi/n/nigra09.jpg',
             ],
 
             [
                 'nama_tanaman' => 'Srikaya',
-                'gambar'        => 'Srikaya.jpg',
+                'gambar'        => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRihXEyHWfA-r-XeCNhDZyZ8WdeNtP-Nocu9a33L6IDbiYQilowHf2D2lnJ&s=10',
             ],
 
             [
                 'nama_tanaman' => 'Mangga',
-                'gambar'        => 'Mangga.jpg',
+                'gambar'        => 'https://gkmdblog.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2023/12/16193752/Blog-Mangga-Indonsia.jpeg',
             ],
         ];
 

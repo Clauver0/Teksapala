@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // <-- 1. Import ini
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Jadwal extends Model
 {
-    use HasFactory, SoftDeletes; // <-- 2. Panggil trait SoftDeletes di sini
+    use SoftDeletes;
 
     protected $table = 'jadwal';
     protected $primaryKey = 'id_jadwal';
@@ -16,47 +18,62 @@ class Jadwal extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'judul',
         'status_pelaksanaan',
         'lokasi_pelaksanaan',
         'tanggal_pelaksanaan',
-        'deskripsi', 
-        'id_komunitas', 
+        'deskripsi',
+        'id_komunitas',
+        'gambar',
         'jumlah_peserta',
         'is_archived',
-        'gambar'
     ];
 
-    public function getTanggalFormattedAttribute()
+    protected $casts = [
+        'tanggal_pelaksanaan' => 'date',
+        'is_archived'         => 'boolean',
+    ];
+
+    protected static function booted(): void
     {
-        if (!$this->tanggal_pelaksanaan) {
-            return '-';
-        }
-        return Carbon::parse($this->tanggal_pelaksanaan)->translatedFormat('d M Y');
+        // id_jadwal bukan auto-increment, jadi dibuat otomatis saat data dibuat.
+        static::creating(function (Jadwal $jadwal) {
+            $jadwal->id_jadwal ??= static::buatId();
+        });
     }
 
-    public function jadwalTanamans()
+    /** Format: JDW0000001 (10 karakter, sesuai string('id_jadwal', 10)). */
+    protected static function buatId(): string
+    {
+        $terakhir = static::withTrashed()->orderByDesc('id_jadwal')->value('id_jadwal');
+        $nomor = $terakhir ? ((int) substr($terakhir, 3)) + 1 : 1;
+
+        return 'J' . str_pad((string) $nomor, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function scopeTidakDiarsipkan($query)
+    {
+        return $query->where('is_archived', false);
+    }
+
+    protected function gambarUrl(): Attribute
+    {
+        return Attribute::get(fn () => Storage::url($this->gambar));
+    }
+
+    public function jadwalTanaman(): HasMany
     {
         return $this->hasMany(JadwalTanaman::class, 'id_jadwal', 'id_jadwal');
     }
 
-    public function komunitas()
+    /**
+     * Total donasi = jumlah (harga x terdonasi) dari semua tanaman di jadwal ini.
+     * Tabel donasi sendiri belum punya kolom penghubung ke jadwal, jadi angka diambil dari jadwal_tanaman.
+     */
+    protected function totalDonasi(): Attribute
     {
-        return $this->belongsTo(Komunitas::class, 'id_komunitas', 'id_komunitas');
-    }
-
-    public function dokumentasi()
-    {
-    return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
-    }
-
-    protected static function booted()
-    {
-        static::creating(function ($m) {
-            if (empty($m->id_jadwal)) {
-                $last = static::orderBy('id_jadwal', 'desc')->value('id_jadwal');
-                $n = $last ? (int) substr($last, 1) + 1 : 1;
-                $m->id_jadwal = 'J' . str_pad($n, 4, '0', STR_PAD_LEFT);
-            }
-        });
+        return Attribute::get(
+            fn () => (float) $this->jadwalTanaman->sum(fn (JadwalTanaman $jt) => $jt->nominal_terdonasi)
+        );
     }
 }

@@ -1,69 +1,30 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Jadwal Penanaman</title>
-    
-    <!-- Bootstrap CSS (via CDN / Vite / NPM) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/halaman-jadwal.css') }}">
-</head>
-<body>
+{{-- Halaman list jadwal --}}
+@extends('layouts.app')
 
-    <!-- Menubar Component -->
-    @include('jadwal.components.header')
+@section('konten')
+    <header class="kepala-halaman">
+        <h1 class="judul-halaman">Jadwal Penanaman</h1>
+        <a href="{{ route('jadwal.daftar-arsip') }}" class="tombol-arsip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="4" rx="1"/>
+                <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/>
+                <path d="M10 12h4"/>
+            </svg>
+            <span>Arsip</span>
+        </a>
+    </header>
 
-    <main class="container my-4">
-        <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-8">
-                
-                <!-- Filter / Header Tambahan jika diperlukan -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold m-0">Jadwal Penanaman</h5>
-                    <button class="btn btn-outline-secondary btn-sm">Filter Donasi ▾</button>
-                </div>
+    <section class="daftar-jadwal">
+        @forelse ($daftarJadwal as $jadwal)
+            @include('jadwal.komponen.kartu-jadwal', ['jadwal' => $jadwal])
+        @empty
+            <p>Belum ada jadwal.</p>
+        @endforelse
+    </section>
 
-                <!-- List Item Jadwal -->
-                @include('jadwal.components.card-item', [
-                    'title' => 'Penanaman Bibit Bakau Di Pantai Cemara',
-                    'status' => 'SEDANG BERJALAN',
-                    'statusClass' => 'sedang-berjalan',
-                    'date' => '13 JAN 2027',
-                    'image' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800'
-                ])
+    {{ $daftarJadwal->links('pagination::default') }}
+@endsection
 
-                @include('jadwal.components.card-item', [
-                    'title' => 'Penanaman Di Lahan Preservasi',
-                    'status' => 'DITUNDA',
-                    'statusClass' => 'ditunda',
-                    'date' => '1 APR 2026',
-                    'image' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800'
-                ])
-
-                @include('jadwal.components.card-item', [
-                    'title' => 'Penanaman Bersama Komunitas Sakura',
-                    'status' => 'SELESAI',
-                    'statusClass' => 'selesai',
-                    'date' => '2 JAN 2026',
-                    'endDate' => '2 MAR 2026',
-                    'image' => 'https://images.unsplash.com/photo-1522383225653-ed111181a951?w=800'
-                ])
-
-                @include('jadwal.components.card-item', [
-                    'title' => 'Penanaman Di Kaliurang',
-                    'status' => 'SELESAI',
-                    'statusClass' => 'selesai',
-                    'date' => '2 JAN 2026',
-                    'endDate' => '2 MAR 2026',
-                    'image' => 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800'
-                ])
-
-            </div>
-        </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@push('scripts')
+    <script src="{{ asset('js/kebab-menu.js') }}" defer></script>
+@endpush
