@@ -1,0 +1,307 @@
+/* =========================================================
+   Daftar & kartu jadwal
+   Dipakai oleh: jadwal/halaman-jadwal.blade.php
+                 jadwal/komponen/kartu-jadwal.blade.php
+   Muat SETELAH jadwal.css (file ini menimpa aturan .kontainer lama).
+   ========================================================= */
+
+:root {
+    /* Ukuran & bentuk: ubah di sini untuk menyesuaikan proporsi */
+    --lebar-daftar: 30rem;
+    --jarak-kartu: 0.75rem;
+    --radius-kartu: 0.75rem;
+    --rasio-banner: 8 / 1; /* lebar / tinggi gambar; mis. 5 / 1 agar lebih tinggi */
+
+    /* Warna */
+    --kartu-latar: #ffffff;
+    --kartu-teks: #1f2937;
+    --kartu-teks-redup: #6b7280;
+    --kartu-tanggal: #8b2e2e;
+    --status-berjalan: #2f8f2f;
+    --status-ditunda: #c9484a;
+    --status-selesai: #3b3fd1;
+    --status-belum: #b45309;
+}
+
+/* ---------- Daftar (halaman-jadwal) ---------- */
+
+.daftar-jadwal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--jarak-kartu);
+    max-width: var(--lebar-daftar);
+    margin: 0 auto;
+    padding: 0.75rem 1rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Pesan "Belum ada jadwal." */
+.daftar-jadwal > p {
+    margin: 2rem 0;
+    text-align: center;
+    color: var(--kartu-teks-redup);
+}
+
+/* ---------- Kartu ---------- */
+
+.kontainer {
+    position: relative; /* acuan untuk link kartu & kebab menu */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--kartu-latar);
+    color: var(--kartu-teks);
+    border-radius: var(--radius-kartu);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22), 0 1px 2px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.15s ease;
+    /* Jangan beri overflow:hidden / transform di sini: dropdown kebab akan terpotong
+       atau tertutup kartu di bawahnya. */
+}
+
+.kontainer:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.28), 0 2px 3px rgba(0, 0, 0, 0.14);
+}
+
+/* Gambar banner */
+.kontainer-gambar {
+    width: 100%;
+    aspect-ratio: var(--rasio-banner);
+    overflow: hidden;
+    border-radius: var(--radius-kartu) var(--radius-kartu) 0 0;
+    background: #e5e7eb;
+}
+
+.kontainer-gambar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Baris informasi: judul | status | tanggal */
+.kontainer-informasi {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 6.25rem 4.75rem; /* judul | status | tanggal */
+    column-gap: 0.5rem;
+    align-items: start;
+    padding: 0.5rem 0.75rem 0.7rem;
+}
+
+.judul {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0.3rem 0 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Seluruh kartu bisa diklik lewat pseudo-element pada link judul */
+.tautan-kartu {
+    color: inherit;
+    text-decoration: none;
+}
+
+.tautan-kartu::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-kartu);
+}
+
+.tautan-kartu:focus-visible {
+    outline: none;
+}
+
+.tautan-kartu:focus-visible::after {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* Status: tampil sebagai ": SEDANG BERJALAN", warna mengikuti nilai data-status */
+.status-pelaksanaan {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--kartu-teks-redup);
+}
+
+.status-pelaksanaan::before {
+    content: ": ";
+}
+
+.status-pelaksanaan[data-status="sedang-berjalan"] { color: var(--status-berjalan); }
+.status-pelaksanaan[data-status="ditunda"]         { color: var(--status-ditunda); }
+.status-pelaksanaan[data-status="selesai"]         { color: var(--status-selesai); }
+.status-pelaksanaan[data-status="belum-dilaksanakan"] { color: var(--status-belum); }
+
+/* Tanggal di kanan, rata kanan, sejajar dengan sisi atas baris informasi */
+.waktu-pelaksanaan {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: right;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-transform: uppercase;
+    color: var(--kartu-tanggal);
+}
+
+/* Lokasi tidak ada di desain: disembunyikan secara visual, tetap terbaca screen reader.
+   Hapus aturan ini kalau lokasi mau ditampilkan. */
+.lokasi-pelaksanaan {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Kebab menu di atas banner ---------- */
+
+.kontainer .kebab-menu {
+    top: 0.4rem;
+    right: 0.4rem;
+}
+
+/* Menu yang sedang terbuka harus di atas tombol kebab kartu di bawahnya */
+.kontainer .kebab-menu:has(.kebab-tombol[aria-expanded="true"]) {
+    z-index: 5;
+}
+
+.kontainer .kebab-tombol {
+    width: 1.75rem;
+    height: 1.75rem;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.kontainer .kebab-tombol:hover,
+.kontainer .kebab-tombol[aria-expanded="true"] {
+    background: #fff;
+}
+
+/* ---------- Kepala halaman: judul + tombol Arsip / Kembali ---------- */
+
+.kepala-halaman {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: var(--lebar-daftar);
+    margin: 0 auto;
+    padding: 1rem 1rem 0;
+    box-sizing: border-box;
+}
+
+.judul-halaman {
+    margin: 0;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--kartu-teks);
+    background: var(--kartu-latar);
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+}
+
+.tombol-arsip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    min-width: 2.75rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.6rem;
+    color: var(--kartu-teks);
+    text-decoration: none;
+    background: #f3f4f6;
+    border-radius: 0.6rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.tombol-arsip svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.tombol-arsip:hover {
+    background: #e5e7eb;
+}
+
+.tombol-arsip:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* ---------- Pesan sukses (flash dari controller) ---------- */
+
+.pesan-sukses {
+    width: calc(100% - 2rem);
+    max-width: calc(var(--lebar-daftar) - 2rem);
+    margin: 0.75rem auto 0;
+    padding: 0.6rem 0.9rem;
+    box-sizing: border-box;
+    font-size: 0.85rem;
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    border-radius: 0.5rem;
+}
+
+/* ---------- Pagination ($daftarJadwal->links('pagination::default')) ---------- */
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    max-width: var(--lebar-daftar);
+    margin: 0 auto 1.5rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+.pagination li > a,
+.pagination li > span {
+    display: block;
+    min-width: 2rem;
+    padding: 0.35rem 0.6rem;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--kartu-teks);
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+.pagination li > a:hover {
+    background: #f3f4f6;
+}
+
+.pagination .active > span {
+    color: #fff;
+    background: var(--kartu-teks);
+    border-color: var(--kartu-teks);
+}
+
+.pagination .disabled > span {
+    opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kontainer {
+        transition: none;
+    }
+}
