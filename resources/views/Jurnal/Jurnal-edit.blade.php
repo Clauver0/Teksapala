@@ -54,8 +54,9 @@
     <div  class="jarak-bawah">
         <label for="tanggal_jurnal">Tanggal:</label>
         <input type="date" id="tanggal_jurnal" name="tanggal_jurnal"
-               value="{{ old('tanggal_jurnal', $jurnal->tanggal_jurnal) }}"
-               class="form-control" required>
+                min="{{ date('Y-m-d') }}"
+                value="{{ old('tanggal_jurnal', \Carbon\Carbon::parse($jurnal->tanggal_jurnal)->format('Y-m-d')) }}"
+                class="form-control" required>
     </div>
 
       <div div class="jarak-bawah">
