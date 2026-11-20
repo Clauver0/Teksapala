@@ -58,11 +58,11 @@ Route::get('/help', function () {
 })->name('help');
 
 Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
-Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
+Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'tanaman'])->name('donasi.bulanan');
 Route::get('/donasi-pembayaran', [DonasiController::class, 'tampilPembayaran'])
     ->name('donasi.pembayaran.tampil');
     Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
-    Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
+    Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'tanaman'])->name('donasi.bulanan');
     Route::get('/donasi-pembayaran', [DonasiController::class, 'tampilPembayaran'])
       ->name('donasi.pembayaran.tampil');
 
