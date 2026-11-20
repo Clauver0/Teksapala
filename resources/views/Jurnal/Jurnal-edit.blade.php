@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Jurnal</title>
-   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-    @vite([
-        'resources/css/jurnal.css',
-        'resources/js/jurnal.js'
-    ])
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+
+@vite([
+    'resources/css/jurnal.css',
+    'resources/js/jurnal.js',
+
+])
+
 </head>
 <body>
 
@@ -21,8 +24,13 @@
         <div class="card-header">Edit Jurnal</div>
         <div class="card-body">
             <div class="card-body-edit">
-@if ($errors->any())
-    <div class="alert alert-danger">
+                 @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -43,7 +51,7 @@
                class="form-control" required>
     </div>
 
-    <div div class="jarak-bawah">
+    <div  class="jarak-bawah">
         <label for="tanggal_jurnal">Tanggal:</label>
         <input type="date" id="tanggal_jurnal" name="tanggal_jurnal"
                value="{{ old('tanggal_jurnal', $jurnal->tanggal_jurnal) }}"

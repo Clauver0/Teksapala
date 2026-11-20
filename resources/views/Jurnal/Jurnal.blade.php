@@ -6,6 +6,7 @@
     <title>JURNAL</title>
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
       @vite(['resources/css/jurnal.css', 'resources/js/app.js']) 
+ 
       
 </head>
 

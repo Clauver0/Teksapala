@@ -17,8 +17,6 @@ body{
 }
 
 .main-content{
-    /* lebar menubar diatur di menubar.css */
-    margin-left: var(--menubar-width, 160px);
     background: white;
     min-height: 100vh;
 }
