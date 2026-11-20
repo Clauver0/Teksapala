@@ -58,7 +58,7 @@ public function store(Request $request)
 
     Jurnal::create($data);
 
-    return redirect()->route('jurnals.index')
+    return redirect()->route('jurnals.create')
         ->with('success', 'Jurnal berhasil ditambahkan.');
 }
    
@@ -98,7 +98,7 @@ public function store(Request $request)
         $jurnal->update($data);
 
         return redirect()
-            ->route('jurnals.index')
+            ->route('jurnals.edit', $jurnal)
             ->with('success', 'Jurnal berhasil diperbarui.');
     }
 

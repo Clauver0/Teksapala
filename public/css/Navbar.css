@@ -1,73 +1,172 @@
+:root {
+    --menubar-bg: #5c451a;
+    --toggle-size: 44px;
+    --menubar-w: 260px; 
+}
+
+body { margin: 0; }
+
+/* ============ TOMBOL TOGGLE ============ */
+.menu-toggle {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--menubar-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    z-index: 1100;
+    transition: background .2s ease, transform .15s ease;
+}
+.menu-toggle:hover  { background: #f3f3f3; }
+.menu-toggle:active { transform: scale(.94); }
+
+.menu-toggle__icon {
+    grid-area: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .25s ease, transform .25s ease;
+}
+.menu-toggle__icon--open { flex-direction: column; gap: 4px; }
+.menu-toggle__icon--open span {
+    display: block;
+    width: 20px; height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+}
+.menu-toggle__icon--back { opacity: 0; transform: rotate(-90deg) scale(.6); }
+.menu-toggle__icon--back svg { width: 22px; height: 22px; display: block; }
+
+body.menu-open .menu-toggle__icon--open { opacity: 0; transform: rotate(90deg) scale(.6); }
+body.menu-open .menu-toggle__icon--back { opacity: 1; transform: rotate(0) scale(1); }
+
+/* ============ OVERLAY ============ */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(2px); 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+    z-index: 1040;
+}
+body.menu-open .menu-overlay { opacity: 1; visibility: visible; }
+
+/* ============ NAVBAR ============ */
 .app-menubar {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 64px;
-    background: #5c451a;
-    border-right: 2px solid #e5e5e5;
-    z-index: 1000;
+    top: 0; bottom: 0; left: 0;
+    width: var(--menubar-w);
+    /* Gradient modern */
+    background: linear-gradient(160deg, #523a05 0%, #292400 100%);
+    z-index: 1050;
     overflow-y: auto;
-
     display: flex;
     flex-direction: column;
+
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
 }
+body.menu-open .app-menubar {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, .4);
+}
+
+/* Custom Scrollbar */
+.app-menubar::-webkit-scrollbar { width: 6px; }
+.app-menubar::-webkit-scrollbar-track { background: transparent; }
+.app-menubar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+.app-menubar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
 
 .menu-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    flex: 3;
-    padding-top: 0px;
+    padding: 80px 16px 24px 16px; 
+    gap: 8px; 
 }
 
+/* ============ MENU ITEM ============ */
 .menu-item {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 20px 0;
+    justify-content: flex-start;
+    padding: 14px 16px;
     text-decoration: none;
-    color: #222;
+    color: rgba(255, 255, 255, 0.65); 
     font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 12px; /* Lebih membulat */
+    transition: all 0.3s ease;
 }
 
-.menu-item img {
-    width: 30px;
-    height: px;
+/* Ikon */
+.menu-item img { 
+    width: 24px; 
+    height: 24px; 
+    margin-right: 16px; 
+    object-fit: contain; 
+    filter: brightness(0) invert(1); 
+    opacity: 0.7;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.menu-item span {
-    display: none;
+/* Hover State: Menu bergeser dikit ke kanan */
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transform: translateX(4px); 
 }
+.menu-item:hover img { opacity: 1; }
 
-.menu-item:hover,
+/* Active State: Menggunakan inset shadow agar teks TIDAK bergeser */
 .menu-item.active {
-    background: #f3f3f3;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    box-shadow: inset 4px 0 0 #ffffff; /* Aksen hijau limau (mewakili gunung) */
+}
+.menu-item.active img {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
 }
 
-body {
-    padding-left: 64px;
-}
-
+/* ============ DESKTOP ============ */
 @media (min-width: 992px) {
-    .app-menubar {
-        width: 240px;
-    }
-    .menu-item {
-        justify-content: flex-start;
-        padding: 16px 24px;
-    }
-    .menu-item img {
-        margin-right: 16px;
-    }
-    .menu-item span {
-        display: inline;
-    }
-    body {
-        padding-left: 240px;
-    }
+    .menu-toggle { display: grid; }
+    .menu-overlay { display: block; }
+    .menu-container { padding-top: 88px; }
 }
-body {
-    margin: 0;
+
+/* ============ GAMBAR / LOGO DI NAVBAR ============ */
+.menu-image {
+    margin-top: auto; /* Mendorong logo mentok ke bawah */
+    padding: 30px 20px; 
+    display: flex;
+    justify-content: center; /* Bikin simetris tengah horizontal */
+    align-items: center;
+}
+
+.menu-image img {
+    width: 100%;
+    max-width: 140px; 
+    height: auto;
+    object-fit: contain;
+    opacity: 0.95; 
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5)); /* Efek bayangan pada logo */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-image img:hover {
+    opacity: 1;
+    transform: scale(1.05); /* Logo membesar sedikit saat di-hover */
 }

@@ -6,7 +6,8 @@ use App\Models\Donasi;
 use App\Models\Tanaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
-
+use App\Models\DetailDonasi;
+use Illuminate\Support\Facades\Auth;
 
 class DonasiController extends Controller
 {
@@ -79,11 +80,7 @@ public function pembayaran(Request $request)
     // =================================
     if ($request->filled('nominal')) {
 
-        $nominal = (int) str_replace(
-            '.',
-            '',
-            $request->input('nominal')
-        );
+        $nominal = (int) str_replace('.', '', $request->input('nominal'));
 
         if ($nominal < 1000) {
             return back()->with('error', 'Minimal donasi Rp1.000.');
@@ -91,17 +88,11 @@ public function pembayaran(Request $request)
 
         session([
             'total_donasi' => $nominal,
-            'item_donasi' => [],
+            'item_donasi'  => [],
             'jenis_donasi' => 'sukarela',
         ]);
 
-        $total = $nominal;
-        $banks = $this->dataBank();
-
-        return view(
-            'donasi.donasi-pembayaran',
-            compact('total', 'banks')
-        );
+        return redirect()->route('donasi.pembayaran.tampil');
     }
 
     // =================================
@@ -116,7 +107,6 @@ public function pembayaran(Request $request)
     $total = 0;
 
     foreach ($items as $item) {
-
         $harga = DB::table('jadwal_tanaman')
             ->where('id_jadwal_tanaman', $item['id_jadwal_tanaman'])
             ->value('harga');
@@ -126,11 +116,9 @@ public function pembayaran(Request $request)
 
     session([
         'total_donasi' => $total,
-        'item_donasi' => $items,
+        'item_donasi'  => $items,
         'jenis_donasi' => 'tanaman',
     ]);
-
-    $banks = $this->dataBank();
 
     return redirect()->route('donasi.pembayaran.tampil');
 }
@@ -193,5 +181,73 @@ private function dataBank(): array
 
     return view('donasi.detail-donasi', compact('jadwal', 'donasi', 'total'));
 }
+public function verifikasiIndex()
+{
+    $donasis = Donasi::with('donatur')
+        ->latest('waktu_donasi')
+        ->get();
 
+    return view('donasi.donasi-komunitas', compact('donasis'));
+}
+
+public function verifikasiUpdate(Request $request, Donasi $donasi)
+{
+    $request->validate([
+        'status_verifikasi' => 'required|in:Terverifikasi,Ditolak',
+    ]);
+
+    $donasi->update(['status_verifikasi' => $request->status_verifikasi]);
+
+    return back()->with('success', 'Status donasi diperbarui.');
+}
+public function store(Request $request)
+{
+    $request->validate([
+        'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:20480',
+    ]);
+
+    $total = session('total_donasi');
+    $items = session('item_donasi', []);
+    $jenis = session('jenis_donasi');
+
+    if (!$total || !$jenis) {
+        return back()->with('error', 'Data donasi tidak ditemukan.');
+    }
+
+    // Item wajib hanya untuk donasi tanaman
+    if ($jenis === 'tanaman' && empty($items)) {
+        return back()->with('error', 'Data donasi tidak ditemukan.');
+    }
+
+    $donatur = Auth::guard('donatur')->user();
+    if (!$donatur) {
+        return back()->with('error', 'Hanya donatur yang dapat berdonasi.');
+    }
+
+    $path = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
+
+    DB::transaction(function () use ($items, $path, $donatur, $total, $jenis) {
+        $donasi = Donasi::create([
+            'nominal_donasi' => $total,
+            'waktu_donasi'   => now(),
+            'metode_donasi'  => 'Transfer',
+            'bukti_donasi'   => $path,
+            'id_donatur'     => $donatur->id_donatur,
+        ]);
+
+        if ($jenis === 'tanaman') {
+            foreach ($items as $item) {
+                DetailDonasi::create([
+                    'jumlah_tanaman'    => $item['jumlah'],
+                    'id_donasi'         => $donasi->id_donasi,
+                    'id_jadwal_tanaman' => $item['id_jadwal_tanaman'],
+                ]);
+            }
+        }
+    });
+
+    session()->forget(['item_donasi', 'total_donasi', 'jenis_donasi']);
+
+    return redirect()->route('donasi')->with('success', 'Bukti donasi berhasil diunggah!');
+}
 }

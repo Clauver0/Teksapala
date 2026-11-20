@@ -1,10 +1,8 @@
-
-
 /* UNTUK LATAR BELAKANG HALAMAN */
 .donasi-layout {
     min-height: 100vh;
     margin: 0;
-    padding-left: 310px !important; 
+    padding-left: 310px !important;
     display: flex;
     background-size: cover;
     background-position: center;
@@ -216,7 +214,7 @@
     font-weight: bold;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 /* UNTUK TOMBOL BAGIAN PALING BAWAH */
@@ -251,7 +249,7 @@
 
 @media (max-width: 768px) {
     .donasi-layout {
-        padding-left: 0 !important; 
+        padding-left: 0 !important;
         padding-bottom: 70px;
         flex-direction: column;
     }
@@ -264,4 +262,66 @@
     .content-card {
         max-height: none;
     }
+}
+.list-pendonasi {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 8px 4px;
+}
+.row-donasi {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #ddd;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 12px;
+}
+.row-donasi .nama {
+    flex: 1;
+    font-size: 18px;
+}
+.row-donasi .tanggal,
+.row-donasi .nominal {
+    font-size: 12px;
+}
+.badge {
+    padding: 4px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    color: #fff;
+}
+.badge-pending {
+    background: #d97b7b;
+}
+.badge-ok {
+    background: linear-gradient(#5bb8ff, #2f9bff);
+}
+.badge-tolak {
+    background: #888;
+}
+.aksi form {
+    display: inline;
+}
+.aksi button,
+.aksi a {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+}
+.btn-terima {
+    background: #3aa655;
+    color: #fff;
+}
+.btn-tolak {
+    background: #c0392b;
+    color: #fff;
+}
+.alert-success {
+    background: #d4edda;
+    padding: 8px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }

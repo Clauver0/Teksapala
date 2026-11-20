@@ -19,7 +19,7 @@ class Donasi extends Model
         'id_donasi',
         'nominal_donasi',
         'waktu_donasi',
-        'metode_donansi',
+        'metode_donasi',
         'status_verifikasi',
         'bukti_donasi',
         'file_sertifikat',
@@ -34,19 +34,18 @@ class Donasi extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            // Auto generate ID_DONASI format DN00000001 jika kosong
-            if (empty($model->id_donasi)) {
-                $latest = static::orderBy('id_donasi', 'desc')->first();
-                $nextNumber = 1;
+          if (empty($model->id_donasi)) {
+             $latest = static::lockForUpdate()
+                 ->orderBy('id_donasi', 'desc')
+                 ->value('id_donasi');
 
-                if ($latest && preg_match('/DN(\d+)/', $latest->id_donasi, $matches)) {
-                    $nextNumber = intval($matches[1]) + 1;
-                }
+             $nextNumber = $latest && preg_match('/DN(\d+)/', $latest, $matches)
+                  ? intval($matches[1]) + 1
+                 : 1;
 
-                // Generates DN00000001, DN00000002, dst. (Total 10 karakter sesuai limit varchar 10)
-                $model->id_donasi = 'DN' . str_pad($nextNumber, 8, '0', STR_PAD_LEFT);
-            }
-        });
+        $model->id_donasi = 'DN' . str_pad($nextNumber, 8, '0', STR_PAD_LEFT);
+     }
+    });
     }
 
     /**
