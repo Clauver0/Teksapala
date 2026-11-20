@@ -28,6 +28,11 @@ class Tanaman extends Model
         'nama_tanaman',
         'gambar',
     ];
+
+    public function jadwalTanaman()
+    {
+        return $this->hasMany(JadwalTanaman::class, 'id_tanaman', 'id_tanaman');
+    }
   
     /**
      * Meniru logika TRIGGER trg_tanaman_id
