@@ -101,11 +101,11 @@
                 </span>
 
                 <div class="action-buttons">
-                    <a href="#"
-                       class="btn-donate">
-                        Donasi Sekarang
-                    </a>
-                </div>
+    <a href="{{ route('donasi.bulanan', ['idJadwal' => $jadwal->id_jadwal]) }}"
+       class="btn-donate">
+        Donasi Sekarang
+    </a>
+</div>
 
             </div>
 
@@ -121,11 +121,15 @@
 
 
             <div class="content-footer">
-                <button class="btn-sukarela">Donasi Sukarela</button>
+    <button type="button"
+            class="btn-sukarela"
+            onclick="window.location.href='{{ route('donasi.sukarela') }}'">
+        Donasi Sukarela
+    </button>
 
-                <!-- Membuka pop-up bantuan pembayaran -->
-                <button type="button" class="btn-bantu" onclick="openHelpModal()">Bantu?</button>
-            </div>
+    <!-- Membuka pop-up bantuan pembayaran -->
+    <button type="button" class="btn-bantu" onclick="openHelpModal()">Bantu?</button>
+</div>
 
         </div>
     </div>
