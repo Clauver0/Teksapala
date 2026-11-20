@@ -17,7 +17,11 @@
               <div class="card-body"> 
                   <form action="{{ route('jurnals.store') }}" method="POST" enctype="multipart/form-data">
                      @csrf
-
+                      @if (session('success'))
+                      <div class="alert alert-success">
+                      {{ session('success') }}
+                      </div>
+                      @endif
                      @if ($errors->any())
                          <div style="color:red;">
                            <ul>
@@ -35,14 +39,16 @@
                                oninvalid="this.setCustomValidity('Judul jurnal wajib diisi!')" 
                                oninput="this.setCustomValidity('')">
                         </div>
-                        <div class="tanggal-jurnal">
-                          <label for="tanggal">Tanggal Jurnal :</label>
-                          <input type="date" id="tanggal" name="tanggal_jurnal" class="form-control"
-                          required
-                              title="Tanggal jurnal wajib dipilih!" 
-                               oninvalid="this.setCustomValidity('Tanggal jurnal wajib dipilih!')" 
-                               oninput="this.setCustomValidity('')">
-                        </div>
+                       <div class="tanggal-jurnal">
+  <label for="tanggal">Tanggal Jurnal :</label>
+  <input type="date" id="tanggal" name="tanggal_jurnal" class="form-control"
+         required
+         min="{{ date('Y-m-d') }}"
+         value="{{ old('tanggal_jurnal') }}"
+         title="Tanggal jurnal wajib dipilih!"
+         oninvalid="if (this.validity.rangeUnderflow) { this.setCustomValidity('Tanggal tidak boleh sebelum hari ini!') } else { this.setCustomValidity('Tanggal jurnal wajib dipilih!') }"
+         oninput="this.setCustomValidity('')">
+</div>
                         <div class="jenis-jurnal">
                           <label for="jenis">Jenis Tanaman:</label>
                           <input type="text" id="jenis" name="jenis_tanaman" class="form-control"
@@ -66,5 +72,13 @@
                   </form> 
                 </div>     
               </div>
+           @if (session('success'))
+    <div id="toast" class="toast-sukses">{{ session('success') }}</div>
+    <script>
+        setTimeout(() => {
+            document.getElementById('toast').classList.add('hilang');
+        }, 3000);
+    </script>
+@endif
 </body>
 </html>

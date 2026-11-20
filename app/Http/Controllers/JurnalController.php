@@ -58,7 +58,7 @@ public function store(Request $request)
 
     Jurnal::create($data);
 
-    return redirect()->route('jurnals.create')
+    return redirect()->route('jurnal')
         ->with('success', 'Jurnal berhasil ditambahkan.');
 }
    
@@ -98,9 +98,10 @@ public function store(Request $request)
         $jurnal->update($data);
 
         return redirect()
-            ->route('jurnals.edit', $jurnal)
+            ->route('jurnals.index')
             ->with('success', 'Jurnal berhasil diperbarui.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -112,7 +113,9 @@ public function store(Request $request)
         }
     $jurnal->delete();
 
-    return redirect()->route('jurnals.index');
+    return redirect()
+        ->route('jurnals.index')
+        ->with('success', 'Jurnal berhasil dihapus.');
 }
     
 
