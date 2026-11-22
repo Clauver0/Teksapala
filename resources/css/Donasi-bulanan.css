@@ -35,8 +35,7 @@
 .card {
     position: absolute;
     top: 50%;
-    left: 60%;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%); /* hanya tengah vertikal */
     z-index: 10;
 
     width: 90%;
@@ -560,7 +559,7 @@ body {
     color: var(--text);
     display: grid;
     place-items: center;
-    padding: 24px;
+    padding: 24px 24px 24px 0; /* kiri 0 */
     background:
         radial-gradient(ellipse at 20% 30%, #6d8f45 0%, transparent 55%),
         radial-gradient(ellipse at 80% 70%, #3f5a24 0%, transparent 60%),
