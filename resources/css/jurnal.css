@@ -40,8 +40,14 @@
     max-width: 600px;
     background-color: #f4f1ea;
     border-radius: 12px;
-    overflow: hidden;
+
+    /* --- UBAH BAGIAN INI --- */
+    overflow: hidden; /* Tetap hidden di card induk */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+    max-height: 85vh; /* KUNCI: Card maksimal 85% tinggi layar */
+    display: flex; /* KUNCI: Jadikan flexbox */
+    flex-direction: column; /* Susun ke bawah (header di atas, body di bawah) */
 }
 
 .card-header {
@@ -148,14 +154,18 @@ textarea.form-control {
 /* =====================================KELOLA JURNAL================================== */
 .item-jurnal {
     display: flex;
-    justify-content: space-between; /* judul di kiri, aksi di kanan */
-    align-items: center; /* sejajar vertikal */
-    gap: 50px;
-    width: 100%; /* penuh, bukan 90% */
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
     box-sizing: border-box;
     padding: 10px 20px;
     border-radius: 10px;
-    height: 30px; /* tinggi tetap */
+
+    /* HAPUS height: 30px; GANTI DENGAN INI */
+    min-height: 40px;
+    height: auto;
+
     color: #fff;
     background-color: #5c451a;
 }
@@ -181,8 +191,13 @@ textarea.form-control {
     align-items: stretch;
     justify-content: flex-start;
     gap: 30px;
-    padding: 30px;
-    min-height: 400px;
+
+    /* --- UBAH BAGIAN INI --- */
+    padding: 0; /* Hapus padding 30px ini agar tidak melebar */
+    min-height: auto; /* Ganti 400px jadi auto agar tidak memaksa tinggi */
+
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-cari .input-cari {
@@ -194,13 +209,71 @@ textarea.form-control {
 }
 .card-body-kelola {
     padding: 30px;
-    min-height: 250px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* tengah vertikal */
-    align-items: center; /* tengah horizontal */
-    overflow: visible;
-    max-height: none;
+    align-items: center;
+
+    /* KUNCI SCROLL */
+    flex: 1 1 0%; /* Ubah dari auto ke 0% agar memaksa mengecil */
+    min-height: 0;
+
+    /* Paksa scroll */
+    overflow-y: scroll !important; /* Gunakan 'scroll' bukan 'auto' untuk tes */
+    overflow-x: hidden !important;
+
+    /* Memastikan area scroll bekerja */
+    height: 100%;
+}
+.card-Jurnal-Kelola {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 20px; /* Jarak antar elemen */
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ========================================= */
+/* MEMAKSA SCROLLBAR KLASIK SEPERTI DI GAMBAR */
+/* ========================================= */
+
+.card-body-kelola {
+    /* 1. Paksa selalu munculkan scrollbar */
+    overflow-y: scroll !important;
+
+    /* 2. Matikan fitur scrollbar modern yang disembunyikan */
+    scrollbar-width: auto; /* Untuk Firefox */
+}
+
+/* 3. Desain Scrollbar Webkit (Chrome, Edge, Safari, Opera) */
+.card-body-kelola::-webkit-scrollbar {
+    width: 16px !important; /* Lebar scrollbar standar Windows */
+    display: block !important;
+    background-color: #f0f0f0; /* Warna jalur (track) abu-abu terang */
+}
+
+.card-body-kelola::-webkit-scrollbar-track {
+    background-color: #f4f1ea; /* Samakan dengan warna background card Anda */
+    border-left: 1px solid #ccc; /* Garis batas kiri scrollbar */
+}
+
+.card-body-kelola::-webkit-scrollbar-thumb {
+    background-color: #a0a0a0; /* Warna batang scroll (abu-abu seperti gambar Anda) */
+    border-radius: 0; /* Kotak, tidak bulat */
+    border: 2px solid #f4f1ea; /* Memberi efek bingkai agar terlihat klasik */
+}
+
+.card-body-kelola::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Warna saat di-hover */
+}
+
+/* 4. Memunculkan Tombol Panah Atas & Bawah (Hanya berfungsi di Chrome/Edge versi tertentu) */
+.card-body-kelola::-webkit-scrollbar-button {
+    display: block !important;
+    height: 16px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
 }
 /* =========================================================================================== */
 

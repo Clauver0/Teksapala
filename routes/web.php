@@ -103,7 +103,7 @@ Route::middleware('auth:komunitas')->group(function () {
     Route::post('/input-jurnal', [JurnalController::class, 'store'])->name('jurnals.store');
     Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('jurnals.edit');
     Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
-    Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
+    Route::delete('/kelola-jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
 });
 
 
