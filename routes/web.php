@@ -29,7 +29,7 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
 });
 Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
-Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
+Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');
 
 Route::middleware('auth:donatur,komunitas')->group(function () {
     
@@ -83,7 +83,17 @@ Route::middleware('auth:komunitas')->group(function () {
     Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
     Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
 });
-
+Route::middleware('auth:komunitas')
+    ->prefix('komunitas/dokumentasi')
+    ->name('komunitas.dokumentasi.')
+    ->group(function () {
+        Route::get('/', [DokumentasiController::class, 'kelola'])->name('index');
+        Route::get('/create/{jadwal}', [DokumentasiController::class, 'create'])->name('create');
+        Route::post('/{jadwal}', [DokumentasiController::class, 'store'])->name('store');
+        Route::get('/{dokumentasi}/edit', [DokumentasiController::class, 'edit'])->name('edit');
+        Route::put('/{dokumentasi}', [DokumentasiController::class, 'update'])->name('update');
+        Route::delete('/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('destroy');
+    });
 
 Route::view('/tentang-kami', 'tentang-kami')->name('tentang');
 

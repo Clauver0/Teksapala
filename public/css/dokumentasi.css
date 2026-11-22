@@ -1,4 +1,4 @@
-/* ===== Dokumentasi: daftar & detail ===== */
+/* ===== Dokumentasi: daftar, detail, kelola & form ===== */
 
 :root {
     --dok-panel-bg: #e9e9e9;
@@ -7,6 +7,14 @@
     --dok-white: #ffffff;
     --dok-accent: #f5c518;
     --dok-radius: 14px;
+    --dok-green: #1f5f3b;
+    --dok-green-hover: #17482d;
+    --dok-blue: #1b5e88;
+    --dok-blue-hover: #144767;
+    --dok-amber: #b4650e;
+    --dok-amber-hover: #8f4f09;
+    --dok-red: #a62626;
+    --dok-red-hover: #7e1b1b;
 }
 
 .dok-layout {
@@ -37,19 +45,17 @@
     box-shadow: 0 0 0 3px var(--dok-accent);
 }
 
-/* Panel utama di kanan sidebar */
+/* Panel utama */
 .dok-panel {
     position: fixed;
     top: 56px;
     right: 24px;
     bottom: 24px;
-    left: 24px;        /* tadinya 260px */
-    max-width: none;   /* biar memenuhi lebar layar */
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+    left: 24px;
     max-width: 980px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     background: var(--dok-panel-bg);
     border-radius: var(--dok-radius);
     overflow: hidden;
@@ -76,7 +82,12 @@
     position: absolute;
     left: 14px;
     display: inline-flex;
+    align-items: center;
+    gap: 4px;
     color: var(--dok-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
     border-radius: 6px;
 }
 
@@ -84,12 +95,46 @@
 
 .dok-panel-body {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     overflow-y: auto;
     scrollbar-width: thin;
 }
 
-/* ===== Kartu di halaman daftar ===== */
+/* ===== Alert / Notifikasi ===== */
+
+.dok-panel-body .alert {
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.dok-panel-body .alert ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.dok-panel-body .alert-success {
+    background: #dff2e6;
+    color: #15472a;
+    border: 1px solid #9ad0af;
+}
+
+.dok-panel-body .alert-danger {
+    background: #fae3e3;
+    color: #7a1919;
+    border: 1px solid #e2a4a4;
+}
+
+.dok-panel-body .alert-info {
+    background: #e1eff8;
+    color: #134261;
+    border: 1px solid #a2cbe6;
+}
+
+/* ===== Kartu di halaman daftar & kelola ===== */
 
 .dok-card {
     min-height: 170px;
@@ -112,8 +157,7 @@
     box-sizing: border-box;
     padding: 14px 18px;
     color: var(--dok-white);
-    /* gelap di bawah supaya teks tetap terbaca di atas foto apa pun */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.12) 75%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.18) 78%);
 }
 
 .dok-card-title {
@@ -122,6 +166,26 @@
     font-weight: 800;
     letter-spacing: 0.01em;
     text-transform: uppercase;
+}
+
+.dok-card-status {
+    margin: 0;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.dok-card-info {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(2px);
+}
+
+.dok-info-title {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--dok-white);
 }
 
 .dok-stats {
@@ -152,6 +216,93 @@
 }
 
 .dok-detail-link:hover { color: var(--dok-accent); }
+
+/* ===== Tombol aksi di card (Buat, Detail, Edit, Hapus) ===== */
+
+.dok-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    color: var(--dok-white);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+}
+
+.btn-create {
+    background: var(--dok-green);
+}
+.btn-create:hover { background: var(--dok-green-hover); }
+
+.btn-detail {
+    background: var(--dok-blue);
+}
+.btn-detail:hover { background: var(--dok-blue-hover); }
+
+.btn-edit {
+    background: var(--dok-amber);
+}
+.btn-edit:hover { background: var(--dok-amber-hover); }
+
+.btn-delete {
+    background: var(--dok-red);
+}
+.btn-delete:hover { background: var(--dok-red-hover); }
+
+.dok-muted {
+    margin: 2px 0 0;
+    font-size: 0.84rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/* ===== Footer nav button di bawah panel ===== */
+
+.dok-panel-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--dok-panel-bg);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-kelola-dok {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 22px;
+    border-radius: 9px;
+    background: var(--dok-green);
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.btn-kelola-dok:hover {
+    background: var(--dok-green-hover);
+    transform: translateY(-1px);
+}
 
 /* ===== Halaman detail ===== */
 
@@ -216,7 +367,7 @@
     color: #666;
 }
 
-/* Kotak Foto & Video (link Google Drive) */
+/* Kotak link Google Drive */
 .dok-drive {
     display: flex;
     align-items: center;
@@ -227,18 +378,80 @@
     display: inline-block;
     padding: 8px 14px;
     border-radius: 8px;
-    background: #1f5f3b;
+    background: var(--dok-green);
     color: var(--dok-white);
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
 }
 
-.dok-drive-link:hover { background: #17482d; }
+.dok-drive-link:hover { background: var(--dok-green-hover); }
 
-.dok-media-kosong {
-    font-size: 0.85rem;
-    color: #777;
+/* ===== Form tambah & edit dokumentasi ===== */
+
+.dok-form-card {
+    box-sizing: border-box;
+    padding: 20px 24px;
+    background: var(--dok-white);
+    border-radius: 12px;
+}
+
+.dok-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.dok-form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dok-text);
+}
+
+.dok-form-group input[type="text"],
+.dok-form-group input[type="url"],
+.dok-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: var(--dok-text);
+    background: #fafafa;
+}
+
+.dok-form-group input:focus,
+.dok-form-group textarea:focus {
+    outline: none;
+    border-color: var(--dok-green);
+    background: var(--dok-white);
+    box-shadow: 0 0 0 3px rgba(31, 95, 59, 0.15);
+}
+
+.dok-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.dok-form-card button[type="submit"] {
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    background: var(--dok-green);
+    color: var(--dok-white);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.18s ease;
+}
+
+.dok-form-card button[type="submit"]:hover {
+    background: var(--dok-green-hover);
 }
 
 .dok-empty {
@@ -251,9 +464,228 @@
 /* Fokus keyboard terlihat */
 .dok-back:focus-visible,
 .dok-detail-link:focus-visible,
-.dok-drive-link:focus-visible {
+.dok-drive-link:focus-visible,
+.btn-kelola-dok:focus-visible,
+.btn-action:focus-visible,
+.dok-form-card button[type="submit"]:focus-visible {
     outline: 3px solid var(--dok-accent);
     outline-offset: 2px;
+}
+
+/* ===== Modal Konfirmasi Hapus ===== */
+
+.dok-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.dok-modal-backdrop.is-open {
+    display: flex;
+}
+
+.dok-modal {
+    width: 100%;
+    max-width: 400px;
+    background: var(--dok-white);
+    color: var(--dok-text);
+    border-radius: var(--dok-radius);
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    animation: dokModalPop 0.16s ease-out;
+}
+
+@keyframes dokModalPop {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dok-modal-header {
+    padding: 10px 16px;
+    background: var(--dok-header-bg);
+    color: var(--dok-white);
+}
+
+.dok-modal-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.dok-modal-body {
+    padding: 16px 18px;
+}
+
+.dok-modal-text {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.5;
+    color: var(--dok-text);
+}
+
+.dok-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 18px 16px;
+}
+
+.btn-modal-cancel {
+    padding: 7px 14px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    background: var(--dok-panel-bg);
+    color: var(--dok-text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.btn-modal-cancel:hover {
+    background: #dcdcdc;
+}
+
+.dok-modal-backdrop .btn-action:focus-visible,
+.btn-modal-cancel:focus-visible {
+    outline: 3px solid var(--dok-accent);
+    outline-offset: 2px;
+}
+/* ===== Form tambah & edit dokumentasi ===== */
+
+.dok-form-card,
+.dok-panel-body > form {
+    box-sizing: border-box;
+    max-width: 720px;
+    margin: 4px auto;
+    padding: 20px 24px;
+    background: var(--dok-white);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.dok-form-jadwal {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border-left: 4px solid var(--dok-green);
+    border-radius: 6px;
+    background: #f3f6f4;
+    font-size: 0.92rem;
+    color: var(--dok-text);
+}
+
+.dok-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.dok-form-group label,
+.dok-panel-body form > div > label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--dok-text);
+}
+
+.dok-form-hint {
+    font-size: 0.78rem;
+    color: #666;
+}
+
+.dok-form-group input[type="text"],
+.dok-form-group input[type="url"],
+.dok-form-group textarea,
+.dok-panel-body form input[type="text"],
+.dok-panel-body form input[type="url"],
+.dok-panel-body form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--dok-text);
+    background: #fafafa;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.dok-form-group textarea,
+.dok-panel-body form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.dok-form-group input:focus,
+.dok-form-group textarea:focus,
+.dok-panel-body form input:focus,
+.dok-panel-body form textarea:focus {
+    outline: none;
+    border-color: var(--dok-green);
+    background: var(--dok-white);
+    box-shadow: 0 0 0 3px rgba(31, 95, 59, 0.15);
+}
+
+.dok-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.dok-form-card button[type="submit"],
+.dok-panel-body form button[type="submit"] {
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    background: var(--dok-green);
+    color: var(--dok-white);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.dok-form-card button[type="submit"]:hover,
+.dok-panel-body form button[type="submit"]:hover {
+    background: var(--dok-green-hover);
+    transform: translateY(-1px);
+}
+
+.btn-form-cancel {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    background: var(--dok-panel-bg);
+    color: var(--dok-text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.btn-form-cancel:hover {
+    background: #dcdcdc;
 }
 
 /* ===== Responsif ===== */
@@ -269,6 +701,6 @@
 }
 
 @media (max-width: 520px) {
-    .dok-media { grid-template-columns: 1fr; }
     .dok-card-title { font-size: 1.05rem; }
+    .dok-form-card { padding: 16px; }
 }

@@ -13,8 +13,6 @@
     @include('components.menubar')
 </div>
 
-<span class="dok-badge">Dokumentasi</span>
-
 <main class="dok-panel">
     <header class="dok-panel-header">
         <h1>Planting</h1>
@@ -34,10 +32,6 @@
                             <dt>Partisipan</dt>
                             <dd>{{ $jadwal->jumlah_peserta ?? 0 }}</dd>
                         </div>
-                        <div class="dok-stat">
-                            <dt>Tertanam</dt>
-                            <dd>{{ $jadwal->jumlah_tertanam ?? '-' }}</dd>
-                        </div>
                     </dl>
 
                     <a class="dok-detail-link" href="{{ route('dokumentasi.show', $jadwal->id_jadwal) }}">
@@ -51,6 +45,19 @@
             </p>
         @endforelse
     </div>
+
+    {{-- Area Bawah Container: Button Kelola Dokumentasi untuk Komunitas --}}
+    <footer class="dok-panel-footer">
+        @auth('komunitas')
+            <a href="{{ route('komunitas.dokumentasi.index') }}" class="btn-kelola-dok">
+                Kelola Dokumentasi
+            </a>
+        @else
+            <a href="{{ route('login') }}" class="btn-kelola-dok">
+                Kelola Dokumentasi (Login Komunitas)
+            </a>
+        @endauth
+    </footer>
 </main>
 
 </body>

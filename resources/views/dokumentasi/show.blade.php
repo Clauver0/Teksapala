@@ -13,8 +13,6 @@
     @include('components.menubar')
 </div>
 
-<span class="dok-badge dok-badge-aktif">Detail Dokumentasi</span>
-
 <main class="dok-panel">
     <header class="dok-panel-header">
         <a class="dok-back" href="{{ route('dokumentasi.index') }}" aria-label="Kembali ke daftar dokumentasi">
@@ -44,29 +42,31 @@
                 <p class="dok-deskripsi">{{ $jadwal->deskripsi }}</p>
             @endif
 
-            @forelse ($jadwal->dokumentasi as $dok)
+            @php($dok = $jadwal->dokumentasi)
+
+            @if ($dok)
                 <section class="dok-entry">
-                    <h3 class="dok-entry-title">{{ $dok->judul_foto }}</h3>
+                    <h3 class="dok-entry-title">{{ $dok->judul_dokumentasi }}</h3>
                     <p class="dok-entry-date">
-                        Diunggah {{ $dok->tanggal_unggah?->translatedFormat('d F Y') }}
+                        Diunggah {{ $dok->tanggal_unggah?->translatedFormat('d F Y') ?? '-' }}
                     </p>
 
                     @if ($dok->deskripsi)
                         <p class="dok-deskripsi">{{ $dok->deskripsi }}</p>
                     @endif
 
-<div class="dok-drive">
-    @if ($dok->file_foto)
-        <a class="dok-drive-link" href="{{ $dok->file_foto }}"
-           target="_blank" rel="noopener noreferrer">
-            Buka foto & video di Google Drive
-        </a>
-    @endif
-</div>
+                    <div class="dok-drive">
+                        @if ($dok->link_gdrive)
+                            <a class="dok-drive-link" href="{{ $dok->link_gdrive }}"
+                            target="_blank" rel="noopener noreferrer">
+                                Buka dokumentasi di Google Drive
+                            </a>
+                        @endif
+                    </div>
                 </section>
-            @empty
-                <p class="dok-empty">Belum ada foto atau video untuk kegiatan ini.</p>
-            @endforelse
+            @else
+                <p class="dok-empty">Belum ada dokumentasi untuk kegiatan ini.</p>
+            @endif
         </article>
     </div>
 </main>
