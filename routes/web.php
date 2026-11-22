@@ -37,6 +37,8 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
     Route::get('/profil/edit', [AuthController::class, 'editProfile'])->name('profil.edit');
     Route::post('/profil/edit', [AuthController::class, 'updateProfile'])->name('profil.update');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    Route::get('/donasi/{donasi}/detail', [DonasiController::class, 'detailUser'])->name('donasi.detail-user');
 
     // Rute Kirim Bukti Donasi
     Route::get('/kirim-bukti-donasi', function () {

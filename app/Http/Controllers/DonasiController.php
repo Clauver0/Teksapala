@@ -270,4 +270,19 @@ public function store(Request $request)
 
     return redirect()->route('donasi')->with('success', 'Bukti donasi berhasil diunggah!');
 }
+public function detailUser(Donasi $donasi)
+{
+    $donatur = Auth::guard('donatur')->user();
+    
+    // Pastikan hanya donatur pemilik donasi ini yang bisa melihat
+    abort_if(!$donatur || $donasi->id_donatur !== $donatur->id_donatur, 403);
+
+    $donasi->load([
+        'donatur',
+        'detailDonasis.jadwalTanaman.tanaman',
+        'detailDonasis.jadwalTanaman.jadwal',
+    ]);
+
+    return view('donasi.detail-donasi-user', compact('donasi'));
+}
 }
