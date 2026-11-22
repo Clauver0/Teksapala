@@ -48,10 +48,17 @@
         @if(Auth::guard('komunitas')->check())
             <a href="{{ route('jurnal') }}"
                 class="menu-item {{ request()->routeIs('jurnal', 'jurnals.*') ? 'active' : '' }}">
-                <img src="{{ asset('icons/jurnal-icon.png') }}" alt="Jurnal">
+                <img src="{{ asset('icons/Jurnal.png') }}" alt="Jurnal">
                 <span>JURNAL</span>
             </a>
+
+            <a href="{{ route('komunitas.donasi.riwayat') }}"
+                class="menu-item {{ request()->routeIs('komunitas.donasi.*') ? 'active' : '' }}">
+                <img src="{{ asset('icons/donasi-icon.png') }}" alt="Riwayat Donasi">
+                <span>RIWAYAT DONASI</span>
+            </a>
         @endif
+        
 
         @php
             $loggedIn = Auth::guard('donatur')->check() || Auth::guard('komunitas')->check();

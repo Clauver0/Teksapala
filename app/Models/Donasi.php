@@ -55,4 +55,8 @@ class Donasi extends Model
     {
         return $this->belongsTo(Donatur::class, 'id_donatur', 'id_donatur');
     }
+    public function detailDonasis()
+{
+    return $this->hasMany(DetailDonasi::class, 'id_donasi', 'id_donasi');
+}
 }

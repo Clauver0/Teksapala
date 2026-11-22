@@ -396,3 +396,29 @@ textarea.form-control {
     padding: 7px 2;
     cursor: pointer;
 }
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-overlay.tampil {
+    display: flex;
+}
+.modal-box {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+.modal-aksi {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+}

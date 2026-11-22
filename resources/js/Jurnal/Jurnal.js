@@ -1,35 +1,36 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("modalHapus");
+(function () {
+    var modal = document.getElementById("modalHapus");
     if (!modal) return;
 
-    const pesan = document.getElementById("modalPesan");
-    let formTarget = null;
+    var pesan = document.getElementById("modalPesan");
+    var formTarget = null;
 
-    document.querySelectorAll(".btn-hapus").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            formTarget = btn.closest("form");
-            pesan.textContent =
-                'Apakah Anda yakin ingin menghapus jurnal "' +
-                btn.dataset.judul +
-                '"?';
-            modal.classList.add("tampil");
-        });
-    });
-
-    document.getElementById("btnBatalHapus").addEventListener("click", () => {
+    function tutup() {
         modal.classList.remove("tampil");
         formTarget = null;
+    }
+
+    document.addEventListener("click", function (e) {
+        var btn = e.target.closest(".btn-hapus");
+        if (!btn) return;
+        e.preventDefault();
+        formTarget = btn.closest("form");
+        pesan.textContent =
+            'Apakah Anda yakin ingin menghapus jurnal "' +
+            btn.dataset.judul +
+            '"?';
+        modal.classList.add("tampil");
     });
 
-    document.getElementById("btnYaHapus").addEventListener("click", () => {
-        if (formTarget) formTarget.submit();
-    });
+    document.getElementById("btnBatalHapus").addEventListener("click", tutup);
 
-    // klik area gelap = tutup
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.classList.remove("tampil");
-            formTarget = null;
-        }
+    document
+        .getElementById("btnYaHapus")
+        .addEventListener("click", function () {
+            if (formTarget) formTarget.submit();
+        });
+
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal) tutup();
     });
-});
+})();

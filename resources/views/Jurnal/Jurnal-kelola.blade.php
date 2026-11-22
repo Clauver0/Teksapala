@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Jurnal</title>
   <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
-      @vite(['resources/css/jurnal.css', 'resources/js/app.js']) 
+    @vite(['resources/css/jurnal.css', 'resources/js/app.js', 'resources/js/Jurnal/Jurnal.js'])
+      
 </head>
 <body>
      <div class="jurnal-hero">
@@ -36,11 +37,7 @@
                               <form action="{{ route('jurnals.destroy', $jurnal->id_jurnal) }}" method="POST" style="display: inline;">
     @csrf
     @method('DELETE')
-    <button type="button" class="link btn-hapus"
-            data-judul="{{ $jurnal->judul_jurnal }}"
-            style="background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; font-size: inherit; text-decoration: underline;">
-        Hapus
-    </button>
+    <a href="#" class="link btn-hapus" data-judul="{{ $jurnal->judul_jurnal }}">Hapus</a>
 </form>
                           </div>
                     </div>    
@@ -54,8 +51,17 @@
                   <button type="button" class="btn kembali-jurnal"onclick="window.location.href='/jurnal'">Kembali</button>
               </div>    
          </div>
-           
-
+           <div id="modalHapus" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Konfirmasi Hapus</h3>
+            <p id="modalPesan"></p>
+            <div class="modal-aksi">
+                <button type="button" id="btnBatalHapus" class="btn">Batal</button>
+                <button type="button" id="btnYaHapus" class="btn modal-ya">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+<script src="{{ asset('js/Jurnal.js') }}"></script>
 </body>
 
 </html>

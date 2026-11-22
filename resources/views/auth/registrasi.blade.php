@@ -8,11 +8,12 @@
 </head>
 <body>
     <form action="{{ route('register') }}" method="post" class="login-card">
-        @csrf <h1>Registrasi Akun</h1>
+        @csrf
+        <h1>Registrasi Akun</h1>
 
         @if ($errors->any())
             <div class="error-msg">
-                <ul style="margin: 0; padding: 0; list-style: none;">
+                <ul class="error-list">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -40,6 +41,11 @@
                 <button type="button" onclick="window.location.href='{{ route('login') }}'">
                     Sudah punya akun? Login
                 </button>
+            </li>
+            <li class="guest-action">
+                <a href="{{ route('beranda') }}" class="btn-guest">
+                    Masuk sebagai Tamu
+                </a>
             </li>
         </ul>
     </form>

@@ -90,7 +90,7 @@ public function tanaman($idJadwal)
 {
      $jadwal = DB::table('jadwal')->where('id_jadwal', $idJadwal)->first();
     abort_if(!$jadwal, 404);
-    
+
     $tanaman = DB::table('jadwal_tanaman')
         ->join('tanaman', 'tanaman.id_tanaman', '=', 'jadwal_tanaman.id_tanaman')
         ->where('jadwal_tanaman.id_jadwal', $idJadwal)
@@ -274,16 +274,34 @@ private function dataBank(): array
 }
 public function verifikasiIndex()
 {
-    $donasis = DB::table('donasi')
-        ->join('donatur', 'donatur.id_donatur', '=', 'donasi.id_donatur')
-        ->select(
-            'donasi.*',
-            DB::raw('COALESCE(donatur.nama_lengkap, donatur.display_name, donatur.username) as nama_donatur')
-        )
-        ->orderByDesc('donasi.waktu_donasi')
+    $donasis = Donasi::with([
+            'donatur',
+            'detailDonasis.jadwalTanaman.tanaman',
+            'detailDonasis.jadwalTanaman.jadwal',
+        ])
+        ->latest('waktu_donasi')
         ->get();
 
     return view('donasi.donasi-komunitas', compact('donasis'));
+}
+
+public function verifikasiShow($idDonasi)
+{
+    $donasi = Donasi::with([
+            'donatur',
+            'detailDonasis.jadwalTanaman.tanaman',
+            'detailDonasis.jadwalTanaman.jadwal',
+        ])
+        ->where('id_donasi', $idDonasi)
+        ->firstOrFail();
+
+    $jadwals = $donasi->detailDonasis
+        ->map(fn ($detail) => $detail->jadwalTanaman?->jadwal)
+        ->filter()
+        ->unique('id_jadwal')
+        ->values();
+
+    return view('donasi.detail-donasi-komunitas', compact('donasi', 'jadwals'));
 }
 
 public function verifikasiUpdate(Request $request, $idDonasi)
