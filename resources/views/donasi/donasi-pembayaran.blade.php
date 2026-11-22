@@ -6,6 +6,7 @@
     <title>DONASI</title>
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     @vite(['resources/css/Donasi-bulanan.css', 'resources/js/Donasi/donasi.js'])
+    @vite(['resources/css/jurnal.css', 'resources/js/app.js', 'resources/js/Jurnal/Jurnal.js'])
    <link rel="stylesheet" href="{{ asset('css/kirim-bukti-donasi.css') }}">
 
 </head>
