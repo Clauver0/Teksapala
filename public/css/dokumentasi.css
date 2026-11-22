@@ -1,30 +1,72 @@
 /* ===== Dokumentasi: daftar, detail, kelola & form ===== */
 
 :root {
-    --dok-panel-bg: #e9e9e9;
-    --dok-header-bg: #4a4a4a;
+    --dok-primary: #594019;
+    --dok-primary-dark: #3e2c10;
+    --dok-primary-soft: #f6f1e9;
+    --dok-panel-bg: #efeae2;
+    --dok-header-bg: var(--dok-primary);
     --dok-text: #1b1b1b;
     --dok-white: #ffffff;
     --dok-accent: #f5c518;
     --dok-radius: 14px;
-    --dok-green: #1f5f3b;
-    --dok-green-hover: #17482d;
+    --dok-green: var(--dok-primary);
+    --dok-green-hover: var(--dok-primary-dark);
     --dok-blue: #1b5e88;
     --dok-blue-hover: #144767;
     --dok-amber: #b4650e;
     --dok-amber-hover: #8f4f09;
     --dok-red: #a62626;
     --dok-red-hover: #7e1b1b;
+
+    /* Variabel opsi background halaman (.dok-layout) */
+    --dok-bg-color: #2f220d;
+    --dok-bg-image: none;
+    --dok-bg-overlay: linear-gradient(135deg, rgba(89, 64, 25, 0.45), rgba(27, 20, 9, 0.65));
 }
 
 .dok-layout {
     margin: 0;
     min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: var(--dok-bg-color);
+    background-image: var(--dok-bg-overlay), var(--dok-bg-image);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-attachment: fixed, fixed;
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     color: var(--dok-text);
+}
+
+/* === Opsi Background Halaman (pakai salah satu class di <body class="dok-layout ...">) === */
+
+/* 1. Pakai gambar background dari inline style Blade + tint #594019 */
+.dok-layout.dok-bg-photo {
+    --dok-bg-overlay: linear-gradient(135deg, rgba(89, 64, 25, 0.52), rgba(24, 17, 7, 0.68));
+}
+
+/* 2. Background solid/gradasi penuh warna utama #594019 tanpa foto */
+.dok-layout.dok-bg-solid {
+    --dok-bg-color: #594019;
+    --dok-bg-image: none;
+    --dok-bg-overlay: linear-gradient(160deg, #6b4e20 0%, #594019 55%, #3b2a0f 100%);
+}
+
+/* 3. Background terang lembut bernuansa #594019 */
+.dok-layout.dok-bg-soft {
+    --dok-bg-color: #e8e0d2;
+    --dok-bg-image: none;
+    --dok-bg-overlay: radial-gradient(circle at top right, rgba(89, 64, 25, 0.16), rgba(89, 64, 25, 0.04) 70%);
+}
+
+/* 4. Background pola titik/grid halus dengan nuansa #594019 */
+.dok-layout.dok-bg-pattern {
+    --dok-bg-color: #463213;
+    --dok-bg-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    --dok-bg-overlay: none;
+}
+
+.dok-layout.dok-bg-pattern {
+    background-size: 22px 22px;
 }
 
 /* Lencana halaman di kiri atas */
@@ -35,7 +77,7 @@
     z-index: 20;
     padding: 6px 14px;
     border-radius: 10px;
-    background: #111;
+    background: var(--dok-primary-dark);
     color: var(--dok-white);
     font-size: 0.9rem;
     font-weight: 500;
@@ -140,7 +182,7 @@
     min-height: 170px;
     margin-bottom: 12px;
     border-radius: 12px;
-    background-color: #2d3a2d;
+    background-color: var(--dok-primary-dark);
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -157,7 +199,7 @@
     box-sizing: border-box;
     padding: 14px 18px;
     color: var(--dok-white);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.18) 78%);
+    background: linear-gradient(to top, rgba(28, 19, 6, 0.86), rgba(89, 64, 25, 0.16) 78%);
 }
 
 .dok-card-title {
@@ -282,7 +324,7 @@
     align-items: center;
     padding: 10px 16px;
     background: var(--dok-panel-bg);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(89, 64, 25, 0.16);
 }
 
 .btn-kelola-dok {
@@ -389,11 +431,25 @@
 
 /* ===== Form tambah & edit dokumentasi ===== */
 
-.dok-form-card {
+.dok-form-card,
+.dok-panel-body > form {
     box-sizing: border-box;
+    max-width: 720px;
+    margin: 4px auto;
     padding: 20px 24px;
     background: var(--dok-white);
     border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(89, 64, 25, 0.08);
+}
+
+.dok-form-jadwal {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border-left: 4px solid var(--dok-primary);
+    border-radius: 6px;
+    background: var(--dok-primary-soft);
+    font-size: 0.92rem;
+    color: var(--dok-text);
 }
 
 .dok-form-group {
@@ -403,15 +459,25 @@
     margin-bottom: 14px;
 }
 
-.dok-form-group label {
-    font-size: 0.9rem;
+.dok-form-group label,
+.dok-panel-body form > div > label {
+    display: block;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--dok-text);
 }
 
+.dok-form-hint {
+    font-size: 0.78rem;
+    color: #666;
+}
+
 .dok-form-group input[type="text"],
 .dok-form-group input[type="url"],
-.dok-form-group textarea {
+.dok-form-group textarea,
+.dok-panel-body form input[type="text"],
+.dok-panel-body form input[type="url"],
+.dok-panel-body form textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 10px 12px;
@@ -419,25 +485,38 @@
     border-radius: 8px;
     font-family: inherit;
     font-size: 0.92rem;
+    line-height: 1.5;
     color: var(--dok-text);
     background: #fafafa;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.dok-form-group textarea,
+.dok-panel-body form textarea {
+    min-height: 110px;
+    resize: vertical;
 }
 
 .dok-form-group input:focus,
-.dok-form-group textarea:focus {
+.dok-form-group textarea:focus,
+.dok-panel-body form input:focus,
+.dok-panel-body form textarea:focus {
     outline: none;
-    border-color: var(--dok-green);
+    border-color: var(--dok-primary);
     background: var(--dok-white);
-    box-shadow: 0 0 0 3px rgba(31, 95, 59, 0.15);
+    box-shadow: 0 0 0 3px rgba(89, 64, 25, 0.18);
 }
 
 .dok-form-actions {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 
-.dok-form-card button[type="submit"] {
+.dok-form-card button[type="submit"],
+.dok-panel-body form button[type="submit"] {
     padding: 9px 18px;
     border: none;
     border-radius: 8px;
@@ -447,11 +526,31 @@
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.18s ease;
+    transition: background-color 0.18s ease, transform 0.12s ease;
 }
 
-.dok-form-card button[type="submit"]:hover {
+.dok-form-card button[type="submit"]:hover,
+.dok-panel-body form button[type="submit"]:hover {
     background: var(--dok-green-hover);
+    transform: translateY(-1px);
+}
+
+.btn-form-cancel {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    background: var(--dok-panel-bg);
+    color: var(--dok-text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.btn-form-cancel:hover {
+    background: #dcdcdc;
 }
 
 .dok-empty {
@@ -563,129 +662,6 @@
 .btn-modal-cancel:focus-visible {
     outline: 3px solid var(--dok-accent);
     outline-offset: 2px;
-}
-/* ===== Form tambah & edit dokumentasi ===== */
-
-.dok-form-card,
-.dok-panel-body > form {
-    box-sizing: border-box;
-    max-width: 720px;
-    margin: 4px auto;
-    padding: 20px 24px;
-    background: var(--dok-white);
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-}
-
-.dok-form-jadwal {
-    margin: 0 0 16px;
-    padding: 10px 14px;
-    border-left: 4px solid var(--dok-green);
-    border-radius: 6px;
-    background: #f3f6f4;
-    font-size: 0.92rem;
-    color: var(--dok-text);
-}
-
-.dok-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 14px;
-}
-
-.dok-form-group label,
-.dok-panel-body form > div > label {
-    display: block;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--dok-text);
-}
-
-.dok-form-hint {
-    font-size: 0.78rem;
-    color: #666;
-}
-
-.dok-form-group input[type="text"],
-.dok-form-group input[type="url"],
-.dok-form-group textarea,
-.dok-panel-body form input[type="text"],
-.dok-panel-body form input[type="url"],
-.dok-panel-body form textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px 12px;
-    border: 1px solid #c5c5c5;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.92rem;
-    line-height: 1.5;
-    color: var(--dok-text);
-    background: #fafafa;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-}
-
-.dok-form-group textarea,
-.dok-panel-body form textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-.dok-form-group input:focus,
-.dok-form-group textarea:focus,
-.dok-panel-body form input:focus,
-.dok-panel-body form textarea:focus {
-    outline: none;
-    border-color: var(--dok-green);
-    background: var(--dok-white);
-    box-shadow: 0 0 0 3px rgba(31, 95, 59, 0.15);
-}
-
-.dok-form-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    margin-top: 18px;
-}
-
-.dok-form-card button[type="submit"],
-.dok-panel-body form button[type="submit"] {
-    padding: 9px 18px;
-    border: none;
-    border-radius: 8px;
-    background: var(--dok-green);
-    color: var(--dok-white);
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.18s ease, transform 0.12s ease;
-}
-
-.dok-form-card button[type="submit"]:hover,
-.dok-panel-body form button[type="submit"]:hover {
-    background: var(--dok-green-hover);
-    transform: translateY(-1px);
-}
-
-.btn-form-cancel {
-    display: inline-flex;
-    align-items: center;
-    padding: 9px 16px;
-    border: 1px solid #c5c5c5;
-    border-radius: 8px;
-    background: var(--dok-panel-bg);
-    color: var(--dok-text);
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.15s ease;
-}
-
-.btn-form-cancel:hover {
-    background: #dcdcdc;
 }
 
 /* ===== Responsif ===== */

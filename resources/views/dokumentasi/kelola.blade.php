@@ -37,9 +37,9 @@
 
         @forelse ($jadwals as $jadwal)
             <article class="dok-card"
-                     @if ($jadwal->gambar)
-                         style="background-image: url('{{ $jadwal->gambar_url }}');"
-                     @endif>
+                @if ($jadwal->gambar_url)
+                    style="background-image: url('{{ $jadwal->gambar_url }}');"
+                @endif>
                 <div class="dok-card-overlay">
                     <h2 class="dok-card-title">{{ $jadwal->judul }}</h2>
                     <p class="dok-card-status">

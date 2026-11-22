@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Jadwal extends Model
 {
@@ -59,7 +60,17 @@ class Jadwal extends Model
 
     protected function gambarUrl(): Attribute
     {
-        return Attribute::get(fn () => Storage::url($this->gambar));
+        return Attribute::get(function (): ?string {
+            if (blank($this->gambar)) {
+                return null;
+            }
+
+            if (Str::startsWith($this->gambar, ['http://', 'https://'])) {
+                return $this->gambar;
+            }
+
+            return Storage::url(ltrim($this->gambar, '/'));
+        });
     }
 
     public function jadwalTanaman(): HasMany
