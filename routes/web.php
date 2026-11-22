@@ -49,28 +49,49 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
 //Route::get('/donasi', [JadwalController::class, 'index'])
   //  ->name('donasi');
 
-  //TESTING HALAMAN DONASI
-    Route::get('/donasi', [DonasiController::class, 'daftar'])->name('donasi');
-    Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'index'])->name('donasi.bulanan');
+  
+    // Halaman Lihat Informasi Donasi
+    Route::get('/donasi', [DonasiController::class, 'index'])
+        ->name('donasi');
+
+    Route::get('/help', function () {
+        return view('help');
+    })->name('help');
+
+    // Halaman Donasi Bulanan (hasil pull branch cia)
+    Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'tanaman'])
+        ->name('donasi.bulanan');
+
+    // Halaman Pembayaran Donasi
     Route::get('/donasi-pembayaran', [DonasiController::class, 'tampilPembayaran'])
-      ->name('donasi.pembayaran.tampil');
+        ->name('donasi.pembayaran.tampil');
 
     Route::post('/donasi-pembayaran', [DonasiController::class, 'pembayaran'])
         ->name('donasi.pembayaran');
-    Route::post('/kirim-bukti-donasi', [DonasiController::class, 'store'])->name('kirim-bukti.store');
-    Route::get('/daftar-pendonasi', [DonasiController::class, 'verifikasiIndex'])->name('donasi.verifikasi');
-    Route::patch('/daftar-pendonasi/{donasi}', [DonasiController::class, 'verifikasiUpdate'])->name('donasi.verifikasi.update');
 
-    Route::get('/donasi-sukarela', [DonasiController::class, 'sukarela'])->name('donasi.sukarela');
-    Route::get('/donasi-detail/{idJadwal}', [DonasiController::class, 'detail'])->name('donasi.detail');
+    // Kirim Bukti Donasi
+    Route::post('/kirim-bukti-donasi', [DonasiController::class, 'store'])
+        ->name('kirim-bukti.store');
+
+    // Daftar Pendonasi
+    Route::get('/daftar-pendonasi', [DonasiController::class, 'verifikasiIndex'])
+        ->name('donasi.verifikasi');
+
+    Route::patch('/daftar-pendonasi/{donasi}', [DonasiController::class, 'verifikasiUpdate'])
+        ->name('donasi.verifikasi.update');
+
+    // Donasi Sukarela
+    Route::get('/donasi-sukarela', [DonasiController::class, 'sukarela'])
+        ->name('donasi.sukarela');
+
+    // Detail Donasi
+    Route::get('/donasi-detail/{idJadwal}', [DonasiController::class, 'detail'])
+        ->name('donasi.detail');
 
 });
 
 
 // Rute untuk Halaman Bantuan Pembayaran
-Route::get('/help', function () {
-    return view('help'); 
-})->name('help');
 
 Route::get('/jurnal', function () {
     return view('Jurnal.Jurnal');

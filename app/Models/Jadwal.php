@@ -57,9 +57,11 @@ class Jadwal extends Model
     }
 
     protected function gambarUrl(): Attribute
-    {
-        return Attribute::get(fn () => Storage::url($this->gambar));
-    }
+{
+    return Attribute::get(function () {
+        return $this->gambar;
+    });
+}
 
     public function jadwalTanaman(): HasMany
     {
