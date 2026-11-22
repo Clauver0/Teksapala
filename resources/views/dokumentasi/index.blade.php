@@ -1,52 +1,64 @@
-{{-- resources/views/dokumentasi/index.blade.php --}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dokumentasi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi - Teksapala</title>
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dokumentasi.css') }}">
 </head>
-<body>
+<body class="dok-layout dok-bg-photo"
+      style="background-image: url('{{ asset('img/background-dokumentasi.png') }}');">
+<div class="sidebar">
     @include('components.menubar')
+</div>
 
-    <div class="container">
-        <main class="main-content dok-page">
-            <div class="dok-panel">
-                <h1 class="dok-panel-title">Planting</h1>
+<main class="dok-panel">
+    <header class="dok-panel-header">
+        <h1>Planting</h1>
+    </header>
 
-                <div class="dok-list">
-                    @forelse ($jadwals as $jadwal)
-                        @php
-                            $cover = $jadwal->dokumentasi->first();
-                            $bg = $cover
-                                ? asset('storage/' . $cover->file_foto)
-                                : asset('images/forest.jpg');
-                        @endphp
+    <div class="dok-panel-body">
+        @forelse ($jadwals as $jadwal)
+            <article class="dok-card"
+                @if ($jadwal->gambar_url)
+                    style="background-image: url('{{ $jadwal->gambar_url }}');"
+                @endif>
+                <div class="dok-card-overlay">
+                    <h2 class="dok-card-title">{{ $jadwal->judul }}</h2>
 
-                        <a href="{{ route('dokumentasi.show', $jadwal->id_jadwal) }}"
-                           class="dok-card"
-                           style="background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.55)), url('{{ $bg }}')">
-                            <h2>{{ $jadwal->nama_kegiatan }}</h2>
+                    <dl class="dok-stats">
+                        <div class="dok-stat">
+                            <dt>Partisipan</dt>
+                            <dd>{{ $jadwal->jumlah_peserta ?? 0 }}</dd>
+                        </div>
+                    </dl>
 
-                            <div class="dok-stat">
-                                <span>Partisipan</span>
-                                <strong>{{ $jadwal->jumlah_peserta }}</strong>
-                            </div>
-                            <div class="dok-stat">
-                                <span>Tertanam</span>
-                                <strong>{{ $jadwal->jumlah_pohon }}</strong>
-                            </div>
-
-                            <span class="dok-detail-link">&gt;&gt; Detail</span>
-                        </a>
-                    @empty
-                        <p class="dok-empty">Belum ada dokumentasi.</p>
-                    @endforelse
+                    <a class="dok-detail-link" href="{{ route('dokumentasi.show', $jadwal->id_jadwal) }}">
+                        &gt;&gt; Detail
+                    </a>
                 </div>
-            </div>
-        </main>
+            </article>
+        @empty
+            <p class="dok-empty">
+                Belum ada dokumentasi. Dokumentasi muncul di sini setelah komunitas menambahkannya untuk kegiatan yang sudah terlaksana.
+            </p>
+        @endforelse
     </div>
+
+    {{-- Area Bawah Container: Button Kelola Dokumentasi untuk Komunitas --}}
+    <footer class="dok-panel-footer">
+        @auth('komunitas')
+            <a href="{{ route('komunitas.dokumentasi.index') }}" class="btn-kelola-dok">
+                Kelola Dokumentasi
+            </a>
+        @else
+            <a href="{{ route('login') }}" class="btn-kelola-dok">
+                Kelola Dokumentasi (Login Komunitas)
+            </a>
+        @endauth
+    </footer>
+</main>
+
 </body>
 </html>

@@ -67,7 +67,7 @@ body.menu-open .menu-overlay { opacity: 1; visibility: visible; }
     top: 0; bottom: 0; left: 0;
     width: var(--menubar-w);
     /* Gradient modern */
-    background: linear-gradient(160deg, #523a05 0%, #292400 100%);
+    background: linear-gradient(160deg, #594019 0%, #281d0b 100%);
     z-index: 1050;
     overflow-y: auto;
     display: flex;

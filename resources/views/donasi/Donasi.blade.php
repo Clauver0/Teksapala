@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DONASI</title>
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     @vite(['resources/css/Donasi-bulanan.css', 'resources/js/Donasi/donasi.js']) 
     
 </head>

@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- 2. Panggil CSS Navbar -->
-    <link rel="stylesheet" href="{{ asset('css/menubar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     
     <!-- 3. Panggil CSS Murni Halaman Ini -->

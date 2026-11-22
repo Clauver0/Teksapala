@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Jadwal extends Model
 {
@@ -57,11 +59,19 @@ class Jadwal extends Model
     }
 
     protected function gambarUrl(): Attribute
-{
-    return Attribute::get(function () {
-        return $this->gambar;
-    });
-}
+    {
+        return Attribute::get(function (): ?string {
+            if (blank($this->gambar)) {
+                return null;
+            }
+
+            if (Str::startsWith($this->gambar, ['http://', 'https://'])) {
+                return $this->gambar;
+            }
+
+            return Storage::url(ltrim($this->gambar, '/'));
+        });
+    }
 
     public function jadwalTanaman(): HasMany
     {
@@ -77,5 +87,15 @@ class Jadwal extends Model
         return Attribute::get(
             fn () => (float) $this->jadwalTanaman->sum(fn (JadwalTanaman $jt) => $jt->nominal_terdonasi)
         );
+    }
+
+    public function dokumentasi(): HasOne
+    {
+            return $this->hasOne(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
+    }
+
+    public function sudahTerlaksana(): bool
+    {
+        return strtolower(trim((string) $this->status_pelaksanaan)) === 'selesai';
     }
 }
