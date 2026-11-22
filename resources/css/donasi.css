@@ -1,4 +1,3 @@
-
 /* =========================================
    1. RESET & BASE STYLES
    ========================================= */
@@ -121,10 +120,7 @@
     justify-content: space-between;
 
     background-image:
-        linear-gradient(
-            rgba(0, 0, 0, 0.45),
-            rgba(0, 0, 0, 0.45)
-        ),
+        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
         var(--gambar-kartu);
 
     background-size: cover;
@@ -343,4 +339,22 @@
     padding: 8px 14px;
     border-radius: 8px;
     margin-bottom: 10px;
+}
+.card-input-donasi-header {
+    position: relative;
+    overflow: hidden; /* potong gambar yang keluar dari header */
+}
+
+.donasi-input-header {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* gambar menutupi header tanpa gepeng */
+    z-index: 0;
+}
+
+.header-teks {
+    position: relative;
+    z-index: 1; /* teks di atas gambar */
 }

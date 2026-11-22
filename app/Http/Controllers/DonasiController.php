@@ -88,6 +88,9 @@ foreach ($items as $item) {
 }
 public function tanaman($idJadwal)
 {
+     $jadwal = DB::table('jadwal')->where('id_jadwal', $idJadwal)->first();
+    abort_if(!$jadwal, 404);
+    
     $tanaman = DB::table('jadwal_tanaman')
         ->join('tanaman', 'tanaman.id_tanaman', '=', 'jadwal_tanaman.id_tanaman')
         ->where('jadwal_tanaman.id_jadwal', $idJadwal)
@@ -101,7 +104,7 @@ public function tanaman($idJadwal)
         )
         ->get();
 
-    return view('donasi.Donasi', compact('tanaman'));
+    return view('donasi.Donasi', compact('tanaman', 'jadwal'));
 }
 
 public function daftar()
