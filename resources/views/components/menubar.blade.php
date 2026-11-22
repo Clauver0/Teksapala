@@ -34,10 +34,13 @@
         </a>
 
 
-        <a href="#" class="menu-item">
-            <img src="{{ asset('icons/jadwal-icon.png') }}" alt="Jadwal">
+        
+        <a href="{{ route('jadwal.index') }}"
+        class="menu-item {{ request()->routeIs('jadwal.*') ? 'active' : '' }}">
+            <img src="{{ asset('icons/jadwal-icon.png') }}" alt="Jadwal" class="nav-icon">
             <span>JADWAL</span>
         </a>
+        
 
         <a href="{{ route('dokumentasi.index') }}"
            class="menu-item {{ request()->routeIs('dokumentasi.*') ? 'active' : '' }}">
