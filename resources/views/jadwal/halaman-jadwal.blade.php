@@ -1,6 +1,8 @@
 {{-- Halaman list jadwal --}}
 @extends('layouts.app')
-
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
+@endpush
 @section('konten')
     <header class="kepala-halaman">
         <h1 class="judul-halaman">Jadwal Penanaman</h1>
