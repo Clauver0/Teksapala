@@ -1,24 +1,26 @@
 {{-- Halaman arsip: jadwal yang sudah diarsipkan. Dikembalikan lewat menu kebab ("Kembalikan"). --}}
 @extends('layouts.app')
 
-@section('judul-halaman', 'Arsip Jadwal')
+@section('judul-halaman', 'Arsip Jadwal - Teksapala')
+
+@section('kepala')
+    <header class="dok-panel-header">
+        <a class="dok-back" href="{{ route('jadwal.index') }}" aria-label="Kembali ke daftar jadwal">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </a>
+        <h1>Arsip Jadwal</h1>
+    </header>
+@endsection
 
 @section('konten')
-    <header class="kepala-halaman">
-        <h1 class="judul-halaman">Arsip Jadwal</h1>
-        <a href="{{ route('jadwal.index') }}" class="tombol-arsip">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 6l-6 6 6 6"/>
-            </svg>
-            <span>Kembali</span>
-        </a>
-    </header>
-
     <section class="daftar-jadwal">
         @forelse ($daftarJadwal as $jadwal)
             @include('jadwal.komponen.kartu-jadwal', ['jadwal' => $jadwal])
         @empty
-            <p>Belum ada jadwal yang diarsipkan.</p>
+            <p class="dok-empty">Belum ada jadwal yang diarsipkan.</p>
         @endforelse
     </section>
 
