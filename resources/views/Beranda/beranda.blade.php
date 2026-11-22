@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda - Teksapala</title>
-    <link rel="stylesheet" href="{{ asset('css/menubar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     @vite(['resources/css/beranda.css'])
 </head>
 <body class="beranda-layout" style="background-image: url('{{ asset('icons/begroundberanda.jpg') }}');">
