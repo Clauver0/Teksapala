@@ -10,7 +10,6 @@
 <body class="beranda-layout" style="background-image: url('{{ asset('icons/begroundberanda.jpeg') }}');">
 
 <div class="sidebar">
-    <button class="sidebar-top-btn">&lt;&lt;</button>
     @include('components.menubar')
 </div>
 
@@ -27,29 +26,34 @@
         <div class="card-body-content">
             <div class="stat-row">
                 <span class="stat-label">Total</span>
-                <span class="stat-value-large">Rp 700.000,00</span>
+                <span class="stat-value-large">
+                    Rp {{ number_format($totalDonasi ?? 0, 2, ',', '.') }}
+                </span>
             </div>
             <div class="stat-row">
                 <span class="stat-label">Partisipan</span>
-                 <span class="stat-value-large">366</span>
-                <img src="{{ asset('/icons/donatur.png') }}" class="stat-label" alt="Partisipan">
-               
+                <span class="stat-value-large">{{ $jumlahPartisipan ?? 0 }}</span>
+                <img src="{{ asset('icons/donatur.png') }}" class="stat-label" alt="Partisipan">
             </div>
             <hr class="card-divider">
             <div class="stat-label label-spacing">Peringkat</div>
             <table class="ranking-table">
-                <tr>
-                    <td>1. You</td>
-                    <td class="text-right"><b>Rp 200.000,00</b></td>
-                </tr>
-                <tr>
-                    <td>2. Joko Purnomo</td>
-                    <td class="text-right">Rp 170.000,00</td>
-                </tr>
-                <tr>
-                    <td>3. Levi Ackerman</td>
-                    <td class="text-right">Rp 100.000,00</td>
-                </tr>
+                @forelse($peringkat ?? [] as $item)
+                    <tr>
+                        <td>{{ $item['rank'] }}. {{ $item['nama'] }}</td>
+                        <td class="text-right">
+                            @if($item['is_you'])
+                                <b>Rp {{ number_format($item['nominal'], 2, ',', '.') }}</b>
+                            @else
+                                Rp {{ number_format($item['nominal'], 2, ',', '.') }}
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="2">Belum ada data peringkat donatur.</td>
+                    </tr>
+                @endforelse
             </table>
         </div>
     </div>
@@ -58,20 +62,22 @@
     <div class="dashboard-card">
         <div class="card-header-bar card-header-jejak">Jejak</div>
         <div class="card-body-content">
-
             <div class="stat-row">
                 <span class="stat-label">Tertanam</span>
-                <span class="stat-value-large">133</span>
-                <img src="{{ asset('/icons/tanaman.png') }}" class="stat-label" alt="Tertanam">
+                <span class="stat-value-large">{{ $totalTertanam ?? 0 }}</span>
+                <img src="{{ asset('icons/tanaman.png') }}" class="stat-label" alt="Tertanam">
             </div>
             <div class="stat-row">
                 <span class="stat-label">Penyerapan CO₂</span>
-                <span class="stat-value-large font-small">2,6 Ton</span>
-                <img src="{{ asset('/icons/wind.png') }}" class="stat-label" alt="Penyerapan CO₂">
+                <span class="stat-value-large font-small">
+                    {{ number_format($penyerapanCo2 ?? 0, 2, ',', '.') }} Ton
+                </span>
+                <img src="{{ asset('icons/wind.png') }}" class="stat-label" alt="Penyerapan CO₂">
             </div>
             <div class="stat-row margin-top-sm">
                 <span class="stat-label">Dokumentasi</span>
-                <a href="#" class="link-details">&gt;&gt; details</a>
+                <a href="{{ \Illuminate\Support\Facades\Route::has('dokumentasi.index') ? route('dokumentasi.index') : '#' }}"
+                   class="link-details">&gt;&gt; details</a>
             </div>
         </div>
     </div>
@@ -89,16 +95,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12 May 2027</td>
-                        <td>Bandung</td>
-                        <td>Pinus</td>
-                    </tr>
-                    <tr>
-                        <td>2 Nov 2027</td>
-                        <td>Drini Beach</td>
-                        <td>Mangrove</td>
-                    </tr>
+                    @forelse($jadwals ?? [] as $jadwal)
+                        <tr>
+                            <td>{{ $jadwal['tanggal'] }}</td>
+                            <td>{{ $jadwal['lokasi'] }}</td>
+                            <td>{{ $jadwal['tanaman'] }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">Belum ada jadwal penanaman.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

@@ -19,7 +19,7 @@ use App\Models\DetailDonasi;
 
 
 
-Route::redirect('/', '/beranda');
+Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
 Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
