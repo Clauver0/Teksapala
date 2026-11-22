@@ -20,6 +20,7 @@
             <div class="alert-success">{{ session('success') }}</div>
         @endif
 
+         <div class="card-komunitas" id="main-panel">
         <div class="list-pendonasi">
             @forelse ($donasis as $d)
                 <div class="row-donasi">
@@ -58,7 +59,8 @@
                 <p>Belum ada data donasi.</p>
             @endforelse
         </div>
-    </div> {{-- penutup .card --}}
+    </div> 
+    </div>
     
 </body>
 </html>
