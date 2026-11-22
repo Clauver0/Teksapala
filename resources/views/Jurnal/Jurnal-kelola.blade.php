@@ -14,13 +14,12 @@
       </div>
          <div  class="card">
           <div class="card-header">Kelola Jurnal</div> 
-             <div class="scroll-area"> 
              <div class="card-body-kelola"> 
-              @if(session('success'))
-        <div class="alert-success" style="width: 100%; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
-    @endif
+                @if(session('success'))
+                  <div class="alert-success" style="width: 100%; margin-bottom: 20px;">
+                    {{ session('success') }}
+                  </div>
+                @endif
                <div class="card-Jurnal-Kelola">
                 {{-- Pencarian --}}
                 <form action="/kelola-jurnal" method="GET" class="form-cari">
@@ -34,25 +33,28 @@
                         <span>{{ $jurnal->judul_jurnal }}</span>
                           <div class="aksi">
                             <a href="{{ route('jurnals.edit', $jurnal->id_jurnal) }}" class="link">Edit</a>
-                                <form action="{{ route('jurnals.destroy', $jurnal->id_jurnal) }}" method="POST" 
-                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus jurnal ini?');" 
-                  style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="link" style="background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; font-size: inherit; text-decoration: underline;">
-                    Hapus
-                </button>
-                  </form>
+                              <form action="{{ route('jurnals.destroy', $jurnal->id_jurnal) }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <button type="button" class="link btn-hapus"
+            data-judul="{{ $jurnal->judul_jurnal }}"
+            style="background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; font-size: inherit; text-decoration: underline;">
+        Hapus
+    </button>
+</form>
                           </div>
-                    </div>
-                    
+                    </div>    
                   @empty
                      <p class="kosong">{{ $Pesan ?? 'Belum ada jurnal.' }}</p>
                   @endforelse
                 </div> 
-                  <button type="button" class="btn batal-jurnal"onclick="window.location.href='/jurnal'">Kembali</button>
-                 </div>    
+               </div>
              </div>
+             <div class="card-footer-kelola">
+                  <button type="button" class="btn kembali-jurnal"onclick="window.location.href='/jurnal'">Kembali</button>
+              </div>    
+         </div>
+           
 
 </body>
 

@@ -7,7 +7,7 @@ use App\Models\Tanaman;
 use Illuminate\Http\Request;
 use App\Models\Jadwal;
 use Illuminate\Support\Facades\DB; 
-
+use Illuminate\Support\Facades\Auth;
 
 class DonasiController extends Controller
 {
@@ -32,14 +32,60 @@ class DonasiController extends Controller
     /**
      * Memproses transaksi/pembayaran donasi.
      */
-    public function store(Request $request)
-    {
-        // Logika menyimpan transaksi donasi
-        return redirect()->back()->with(
-            'success',
-            'Donasi berhasil diproses!'
-        );
+  public function store(Request $request)
+{
+    $request->validate([
+        'bukti_transfer' => 'required|image|mimes:jpg,jpeg,png|max:20480',
+    ]);
+
+    $total = session('total_donasi');
+    $items = session('item_donasi', []);
+
+    if (!$total) {
+        return redirect()->route('donasi')->with('error', 'Data donasi tidak ditemukan.');
     }
+
+    $donatur = Auth::guard('donatur')->user();
+    if (!$donatur) {
+        return back()->with('error', 'Hanya akun donatur yang dapat berdonasi.');
+    }
+
+    DB::transaction(function () use ($request, $total, $items, $donatur) {
+        $last = DB::table('donasi')->lockForUpdate()->max('id_donasi');
+        $next = $last ? ((int) substr($last, 2)) + 1 : 1;
+        $idDonasi = 'DN' . str_pad($next, 8, '0', STR_PAD_LEFT);
+
+        $path = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
+
+        DB::table('donasi')->insert([
+            'id_donasi'         => $idDonasi,
+            'nominal_donasi'    => $total,
+            'waktu_donasi'      => now(),
+            'metode_donasi'     => 'Transfer',
+            'status_verifikasi' => 'Pending',
+            'bukti_donasi'      => $path,
+            'id_donatur'        => $donatur->id_donatur,
+            'created_at'        => now(),
+            'updated_at'        => now(),
+        ]);
+
+       $lastDetail = DB::table('detail_donasi')->lockForUpdate()->max('id_detail_donasi');
+$nextDetail = $lastDetail ? ((int) substr($lastDetail, 2)) + 1 : 1;
+
+foreach ($items as $item) {
+    DB::table('detail_donasi')->insert([
+        'id_detail_donasi'  => 'DD' . str_pad($nextDetail++, 8, '0', STR_PAD_LEFT),
+        'jumlah_tanaman'    => (int) $item['jumlah'],
+        'id_donasi'         => $idDonasi,
+        'id_jadwal_tanaman' => $item['id_jadwal_tanaman'],
+    ]);
+}
+    });
+
+    session()->forget(['total_donasi', 'item_donasi', 'jenis_donasi']);
+
+    return redirect()->route('donasi')->with('success', 'Donasi berhasil dikirim, menunggu verifikasi.');
+}
 public function tanaman($idJadwal)
 {
     $tanaman = DB::table('jadwal_tanaman')
@@ -213,12 +259,63 @@ private function dataBank(): array
               ->join('jadwal_tanaman', 'jadwal_tanaman.id_jadwal_tanaman', '=', 'detail_donasi.id_jadwal_tanaman')
               ->where('jadwal_tanaman.id_jadwal', $idJadwal);
         })
-        ->select('donatur.nama as nama_donatur', 'donasi.nominal_donasi as nominal')
+        ->select(
+    DB::raw('COALESCE(donatur.nama_lengkap, donatur.display_name, donatur.username) as nama_donatur'),
+    'donasi.nominal_donasi as nominal'
+)
         ->get();
 
     $total = $donasi->sum('nominal');
 
     return view('donasi.detail-donasi', compact('jadwal', 'donasi', 'total'));
 }
+public function verifikasiIndex()
+{
+    $donasis = DB::table('donasi')
+        ->join('donatur', 'donatur.id_donatur', '=', 'donasi.id_donatur')
+        ->select(
+            'donasi.*',
+            DB::raw('COALESCE(donatur.nama_lengkap, donatur.display_name, donatur.username) as nama_donatur')
+        )
+        ->orderByDesc('donasi.waktu_donasi')
+        ->get();
 
+    return view('donasi.donasi-komunitas', compact('donasis'));
+}
+
+public function verifikasiUpdate(Request $request, $idDonasi)
+{
+    $request->validate([
+        'status_verifikasi' => 'required|in:Terverifikasi,Ditolak',
+    ]);
+
+    DB::transaction(function () use ($request, $idDonasi) {
+        $donasi = DB::table('donasi')
+            ->where('id_donasi', $idDonasi)
+            ->lockForUpdate()
+            ->first();
+
+        // hanya donasi Pending yang boleh diproses
+        if (!$donasi || $donasi->status_verifikasi !== 'Pending') {
+            return;
+        }
+
+        DB::table('donasi')->where('id_donasi', $idDonasi)->update([
+            'status_verifikasi' => $request->status_verifikasi,
+            'updated_at'        => now(),
+        ]);
+
+        // Saat terverifikasi, baru tambah kolom terdonasi
+        if ($request->status_verifikasi === 'Terverifikasi') {
+            $details = DB::table('detail_donasi')->where('id_donasi', $idDonasi)->get();
+            foreach ($details as $d) {
+                DB::table('jadwal_tanaman')
+                    ->where('id_jadwal_tanaman', $d->id_jadwal_tanaman)
+                    ->increment('terdonasi', $d->jumlah_tanaman);
+            }
+        }
+    });
+
+    return back()->with('success', 'Status donasi berhasil diperbarui.');
+}
 }

@@ -18,7 +18,7 @@
          <div class="card-body"> 
          
             <button type="button" class="btn btn-donasi"
-            onclick="window.location.href='/Donasi-sekarang'">Donasi</button>
+            onclick="window.location.href='{{ route('donasi') }}'">Donasi</button>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       
         
            <div class="card-input-donasi">

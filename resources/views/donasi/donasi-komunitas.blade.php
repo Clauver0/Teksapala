@@ -23,7 +23,7 @@
         <div class="list-pendonasi">
             @forelse ($donasis as $d)
                 <div class="row-donasi">
-                    <span class="nama">{{ $d->donatur->nama_donatur ?? '-' }}</span>
+                    <span class="nama">{{ $d->nama_donatur ?? '-' }}</span>
 
                     <span class="tanggal">
                         {{ \Carbon\Carbon::parse($d->waktu_donasi)->format('d/m/Y') }}
@@ -33,7 +33,7 @@
                         Donasi: Rp {{ number_format($d->nominal_donasi, 0, ',', '.') }}
                     </span>
 
-                    @if ($d->status_verifikasi === 'Diterima')
+                    @if ($d->status_verifikasi === 'Terverifikasi')
                         <span class="badge badge-ok">terverifikasi</span>
                     @elseif ($d->status_verifikasi === 'Ditolak')
                         <span class="badge badge-tolak">ditolak</span>
@@ -45,7 +45,7 @@
                         <a href="{{ asset('storage/' . $d->bukti_donasi) }}" target="_blank">Bukti</a>
 
                         @if ($d->status_verifikasi === 'Pending')
-                            <form method="POST" action="{{ route('donasi.verifikasi.update', $d) }}">
+                            <form method="POST" action="{{ route('donasi.verifikasi.update', $d->id_donasi) }}">
                                 @csrf
                                 @method('PATCH')
                                 <button class="btn-terima" name="status_verifikasi" value="Terverifikasi">Terverifikasi</button>
