@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dokumentasi.css') }}">
 </head>
-<body class="dok-layout" style="background-image: url('{{ asset('icons/begroundberanda.jpg') }}');">
+<body class="dok-layout dok-bg-photo"
+      style="background-image: url('{{ asset('img/background-dokumentasi.png') }}');">
 
 <div class="sidebar">
     @include('components.menubar')
