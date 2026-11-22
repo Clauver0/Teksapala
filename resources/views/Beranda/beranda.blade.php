@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda - Teksapala</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
+=======
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+>>>>>>> 4c09a0884b4284102fc3d076a53ff7a654ba3b99
     @vite(['resources/css/beranda.css'])
 </head>
-<body class="beranda-layout" style="background-image: url('{{ asset('icons/begroundberanda.jpg') }}');">
+<body class="beranda-layout" style="background-image: url('{{ asset('icons/begroundberanda.jpeg') }}');">
 
 <div class="sidebar">
     <button class="sidebar-top-btn">&lt;&lt;</button>
@@ -16,11 +20,11 @@
 
 <div class="hehe-content">
     <h1 class="hehe-quote">
-        "Donasi Anda, Menyelamatkan Bumi."
+        "Donasi Anda, Menyelamatkan<br>Bumi."
     </h1>
 </div>
 
-<div class="dashboard-panel">
+<div class="kartu-donasi">
     <!-- CARD DONASI -->
     <div class="dashboard-card">
         <div class="card-header-bar card-header-donasi">Donasi</div>
@@ -31,7 +35,9 @@
             </div>
             <div class="stat-row">
                 <span class="stat-label">Partisipan</span>
-                <span class="stat-value-large">366</span>
+                 <span class="stat-value-large">366</span>
+                <img src="{{ asset('/icons/donatur.png') }}" class="stat-label" alt="Partisipan">
+               
             </div>
             <hr class="card-divider">
             <div class="stat-label label-spacing">Peringkat</div>
@@ -56,13 +62,16 @@
     <div class="dashboard-card">
         <div class="card-header-bar card-header-jejak">Jejak</div>
         <div class="card-body-content">
+
             <div class="stat-row">
                 <span class="stat-label">Tertanam</span>
                 <span class="stat-value-large">133</span>
+                <img src="{{ asset('/icons/tanaman.png') }}" class="stat-label" alt="Tertanam">
             </div>
             <div class="stat-row">
                 <span class="stat-label">Penyerapan CO₂</span>
                 <span class="stat-value-large font-small">2,6 Ton</span>
+                <img src="{{ asset('/icons/wind.png') }}" class="stat-label" alt="Penyerapan CO₂">
             </div>
             <div class="stat-row margin-top-sm">
                 <span class="stat-label">Dokumentasi</span>
