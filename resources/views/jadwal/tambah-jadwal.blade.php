@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
 @section('konten')
-    <h1>Tambah jadwal</h1>
-    @include('jadwal.komponen.form-jadwal')
+    @include('jadwal.komponen.form-jadwal', ['idKomunitas' => $id_komunitas])
 @endsection

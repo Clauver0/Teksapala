@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jadwal.css') }}">
     <link rel="stylesheet" href="{{ asset('css/kartu-jadwal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form-jadwal.css') }}">
     @stack('styles')
 </head>
 <body>
