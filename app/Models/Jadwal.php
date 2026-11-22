@@ -44,7 +44,7 @@ class Jadwal extends Model
         });
     }
 
-    /** Format: J0001 (5 karakter, sesuai komentar format 'J' + 4 digit). */
+    /** Format: J0001 (5 karakter, sesuai format 'J' + 4 digit). */
     protected static function buatId(): string
     {
         $terakhir = static::withTrashed()->orderByDesc('id_jadwal')->value('id_jadwal');

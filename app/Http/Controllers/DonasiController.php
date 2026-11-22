@@ -8,11 +8,12 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DonasiController extends Controller
 {
     /**
-     * Menampilkan form/halaman utama transaksi donasi.
+     * Menampilkan halaman informasi donasi beserta total donasi terverifikasi per jadwal.
      */
     public function index()
     {
@@ -21,10 +22,31 @@ class DonasiController extends Controller
             ->orderBy('tanggal_pelaksanaan', 'asc')
             ->get();
 
-        return view(
-            'donasi.lihat-informasi-donasi',
-            compact('jadwals')
-        );
+        $totalDonasi = DB::select("
+            SELECT
+                jt.id_jadwal,
+                SUM(dd.jumlah_tanaman * jt.harga) AS total_donasi
+            FROM detail_donasi dd
+            JOIN jadwal_tanaman jt
+                ON jt.id_jadwal_tanaman = dd.id_jadwal_tanaman
+            JOIN donasi d
+                ON d.id_donasi = dd.id_donasi
+            WHERE d.status_verifikasi = 'Terverifikasi'
+            GROUP BY jt.id_jadwal
+        ");
+
+        foreach ($jadwals as $jadwal) {
+            $jadwal->total_donasi = 0;
+
+            foreach ($totalDonasi as $total) {
+                if ((string) $total->id_jadwal === (string) $jadwal->id_jadwal) {
+                    $jadwal->total_donasi = (float) $total->total_donasi;
+                    break;
+                }
+            }
+        }
+
+        return view('donasi.lihat-informasi-donasi', compact('jadwals'));
     }
 
     public function tanaman($idJadwal)
@@ -48,15 +70,25 @@ class DonasiController extends Controller
     public function daftar()
     {
         $perJadwal = DB::table('detail_donasi')
-            ->join('jadwal_tanaman', 'jadwal_tanaman.id_jadwal_tanaman', '=', 'detail_donasi.id_jadwal_tanaman')
-            ->join('donasi', 'donasi.id_donasi', '=', 'detail_donasi.id_donasi')
+            ->join(
+                'jadwal_tanaman',
+                'jadwal_tanaman.id_jadwal_tanaman',
+                '=',
+                'detail_donasi.id_jadwal_tanaman'
+            )
+            ->join(
+                'donasi',
+                'donasi.id_donasi',
+                '=',
+                'detail_donasi.id_donasi'
+            )
+            ->where('donasi.status_verifikasi', 'Terverifikasi')
             ->select(
                 'jadwal_tanaman.id_jadwal',
-                'donasi.id_donasi',
                 'donasi.id_donatur',
-                'donasi.nominal_donasi'
-            )
-            ->distinct();
+                'detail_donasi.jumlah_tanaman',
+                'jadwal_tanaman.harga'
+            );
 
         $jadwal = DB::table('jadwal')
             ->leftJoinSub($perJadwal, 'd', 'd.id_jadwal', '=', 'jadwal.id_jadwal')
@@ -68,7 +100,7 @@ class DonasiController extends Controller
                 'jadwal.tanggal_pelaksanaan',
                 'jadwal.status_pelaksanaan',
                 DB::raw('COUNT(DISTINCT d.id_donatur) as jumlah_donatur'),
-                DB::raw('COALESCE(SUM(d.nominal_donasi), 0) as total_donasi')
+                DB::raw('COALESCE(SUM(d.jumlah_tanaman * d.harga), 0) as total_donasi')
             )
             ->groupBy(
                 'jadwal.id_jadwal',
@@ -241,51 +273,61 @@ class DonasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:20480',
+            'metode_donasi'  => 'nullable|string|max:100',
+            'bukti_transfer' => 'required|image|mimes:jpg,jpeg,png|max:20480',
         ]);
+
+        $donatur = Auth::guard('donatur')->user();
+        if (!$donatur) {
+            return back()->with('error', 'Silakan login sebagai donatur.');
+        }
 
         $total = session('total_donasi');
         $items = session('item_donasi', []);
         $jenis = session('jenis_donasi');
 
         if (!$total || !$jenis) {
-            return back()->with('error', 'Data donasi tidak ditemukan.');
+            return back()->with('error', 'Data transaksi donasi tidak ditemukan.');
         }
 
         if ($jenis === 'tanaman' && empty($items)) {
-            return back()->with('error', 'Data donasi tidak ditemukan.');
-        }
-
-        $donatur = Auth::guard('donatur')->user();
-        if (!$donatur) {
-            return back()->with('error', 'Hanya donatur yang dapat berdonasi.');
+            return back()->with('error', 'Data transaksi donasi tidak ditemukan.');
         }
 
         $path = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
+        $metode = $request->input('metode_donasi') ?: 'Transfer';
 
-        DB::transaction(function () use ($items, $path, $donatur, $total, $jenis) {
-            $donasi = Donasi::create([
-                'nominal_donasi' => $total,
-                'waktu_donasi'   => now(),
-                'metode_donasi'  => 'Transfer',
-                'bukti_donasi'   => $path,
-                'id_donatur'     => $donatur->id_donatur,
-            ]);
+        try {
+            DB::transaction(function () use ($items, $path, $donatur, $total, $jenis, $metode) {
+                $donasi = Donasi::create([
+                    'nominal_donasi'    => $total,
+                    'waktu_donasi'      => now(),
+                    'metode_donasi'     => $metode,
+                    'status_verifikasi' => 'Pending',
+                    'bukti_donasi'      => $path,
+                    'id_donatur'        => $donatur->id_donatur,
+                ]);
 
-            if ($jenis === 'tanaman') {
-                foreach ($items as $item) {
-                    DetailDonasi::create([
-                        'jumlah_tanaman'    => $item['jumlah'],
-                        'id_donasi'         => $donasi->id_donasi,
-                        'id_jadwal_tanaman' => $item['id_jadwal_tanaman'],
-                    ]);
+                if ($jenis === 'tanaman') {
+                    foreach ($items as $item) {
+                        DetailDonasi::create([
+                            'jumlah_tanaman'    => (int) $item['jumlah'],
+                            'id_donasi'         => $donasi->id_donasi,
+                            'id_jadwal_tanaman' => $item['id_jadwal_tanaman'],
+                        ]);
+                    }
                 }
-            }
-        });
+            });
+        } catch (\Throwable $e) {
+            Storage::disk('public')->delete($path);
 
-        session()->forget(['item_donasi', 'total_donasi', 'jenis_donasi']);
+            throw $e;
+        }
 
-        return redirect()->route('donasi')->with('success', 'Bukti donasi berhasil diunggah!');
+        session()->forget(['total_donasi', 'item_donasi', 'jenis_donasi']);
+
+        return redirect()->route('donasi')
+            ->with('success', 'Bukti donasi berhasil dikirim. Menunggu verifikasi.');
     }
 
     public function detailUser(Donasi $donasi)

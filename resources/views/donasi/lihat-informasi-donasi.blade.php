@@ -37,13 +37,13 @@
     @forelse ($jadwals as $jadwal)
 
         <div class="donation-item"
-             style="--gambar-kartu: url('{{ $jadwal->gambar_url }}');">
+         style="--gambar-kartu: url('{{ $jadwal->gambar }}');">
 
             <div>
                 {{-- Nama kegiatan --}}
-                <h3 class="donation-title">
-                    {{ strtoupper($jadwal->judul) }}
-                </h3>
+                 <h3 class="donation-title">
+                {{ strtoupper($jadwal->judul) }}
+            </h3>
 
                 {{-- Jumlah peserta --}}
                 <div class="donation-info">
