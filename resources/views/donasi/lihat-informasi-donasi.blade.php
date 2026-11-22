@@ -30,8 +30,8 @@
             </div>
 
             <div class="tab-container">
-                <button class="tab-btn active">Donasi</button>
-            </div>
+    <div class="tab-label active">Donasi</div>
+</div>
 
             
 <div class="donation-list">

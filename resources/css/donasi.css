@@ -69,7 +69,13 @@
 /* =========================================
    4. TOMBOL TAB
    ========================================= */
-.tab-btn {
+/* =========================================
+   4. LABEL DONASI
+   ========================================= */
+/* =========================================
+   4. LABEL DONASI
+   ========================================= */
+.tab-label {
     width: 34%;
     min-height: 46px;
     border: 1px solid #777777;
@@ -77,14 +83,15 @@
     font-size: 20px;
     font-weight: bold;
     color: #333333;
-    cursor: pointer;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    background-color: #ffffff;
 }
-
 .tab-btn.active {
     background-color: #ffffff;
 }
