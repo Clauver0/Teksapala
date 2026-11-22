@@ -16,38 +16,33 @@ class DonasiController extends Controller
      * Menampilkan halaman informasi donasi beserta total donasi terverifikasi per jadwal.
      */
     public function index()
-    {
-        $jadwals = Jadwal::tidakDiarsipkan()
-            ->with('jadwalTanaman')
-            ->orderBy('tanggal_pelaksanaan', 'asc')
-            ->get();
+{
+    $jadwals = Jadwal::tidakDiarsipkan()
+        ->with('jadwalTanaman')
+        ->orderBy('tanggal_pelaksanaan', 'asc')
+        ->get();
 
-        $totalDonasi = DB::select("
-            SELECT
-                jt.id_jadwal,
-                SUM(dd.jumlah_tanaman * jt.harga) AS total_donasi
-            FROM detail_donasi dd
-            JOIN jadwal_tanaman jt
-                ON jt.id_jadwal_tanaman = dd.id_jadwal_tanaman
-            JOIN donasi d
-                ON d.id_donasi = dd.id_donasi
-            WHERE d.status_verifikasi = 'Terverifikasi'
-            GROUP BY jt.id_jadwal
-        ");
+    $totalDonasi = DB::select("
+        SELECT
+            jt.id_jadwal,
+            SUM(dd.jumlah_tanaman * jt.harga) AS total_donasi
+        FROM detail_donasi dd
+        JOIN jadwal_tanaman jt
+            ON jt.id_jadwal_tanaman = dd.id_jadwal_tanaman
+        JOIN donasi d
+            ON d.id_donasi = dd.id_donasi
+        WHERE LOWER(TRIM(d.status_verifikasi)) = 'terverifikasi'
+        GROUP BY jt.id_jadwal
+    ");
 
-        foreach ($jadwals as $jadwal) {
-            $jadwal->total_donasi = 0;
+    $mapTotal = collect($totalDonasi)->pluck('total_donasi', 'id_jadwal');
 
-            foreach ($totalDonasi as $total) {
-                if ((string) $total->id_jadwal === (string) $jadwal->id_jadwal) {
-                    $jadwal->total_donasi = (float) $total->total_donasi;
-                    break;
-                }
-            }
-        }
-
-        return view('donasi.lihat-informasi-donasi', compact('jadwals'));
+    foreach ($jadwals as $jadwal) {
+        $jadwal->total_donasi_terverifikasi = (float) ($mapTotal[$jadwal->id_jadwal] ?? 0);
     }
+
+    return view('donasi.lihat-informasi-donasi', compact('jadwals'));
+}
 
     public function tanaman($idJadwal)
     {

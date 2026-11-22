@@ -6,13 +6,13 @@
     <title>Lihat Informasi Donasi - Teksapala</title>
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/kartu-jadwal.css') }}">
-    @vite(['resources/css/donasi.css'])
-    @vite(['resources/js/donasi.js'])
-    @vite(['resources/css/Donasi-bulanan.css', 'resources/js/Donasi/donasi.js'])
-    
-</head>
-
-    @vite(['resources/css/donasi.css', 'resources/js/help-model.js'])
+    @vite([
+        'resources/css/donasi.css',
+        'resources/js/donasi.js',
+        'resources/css/Donasi-bulanan.css',
+        'resources/js/Donasi/donasi.js',
+        'resources/js/help-model.js',
+    ])
 </head>
 
 <body class="donasi-layout" style="background-image: url('{{ asset('icons/haldonasi.jpg') }}');">
@@ -29,105 +29,103 @@
             </div>
 
             <div class="tab-container">
-</div>
-
-            
-<div class="donation-list">
-
-    @forelse ($jadwals as $jadwal)
-
-        <div class="donation-item"
-         style="--gambar-kartu: url('{{ $jadwal->gambar }}');">
-
-            <div>
-                {{-- Nama kegiatan --}}
-                 <h3 class="donation-title">
-                {{ strtoupper($jadwal->judul) }}
-            </h3>
-
-                {{-- Jumlah peserta --}}
-                <div class="donation-info">
-                    <div class="donation-info-left">
-                        <span>Peserta</span>
-
-                        <strong class="highlight-num">
-                            {{ $jadwal->jumlah_peserta ?? 0 }}
-                        </strong>
-
-                        <img src="{{ asset('icons/donatur.png') }}"
-                             class="nav-icon-inline"
-                             alt="Peserta">
-                    </div>
-                </div>
-
-                {{-- Total donasi --}}
-                <div class="donation-info">
-                    <div class="donation-info-left">
-                        <span>Donasi Terkumpul</span>
-
-                        <strong class="donation-amount-highlight">
-                            Rp {{ number_format($jadwal->total_donasi, 0, ',', '.') }},00
-                        </strong>
-
-                        <img src="{{ asset('icons/donasi-terkumpul.png') }}"
-                             class="nav-icon-inline"
-                             alt="Donasi Terkumpul">
-                    </div>
-
-                    <a href="{{ route('jadwal.show', $jadwal) }}"
-                       class="btn-detail">
-                        &gt;&gt; Detail
-                    </a>
-                </div>
             </div>
 
-            {{-- Tanggal dan tombol donasi --}}
-            <div class="donation-footer">
+            <div class="donation-list">
 
-                <span class="donation-date">
-                    Pelaksanaan
+                @forelse ($jadwals as $jadwal)
 
-                    <strong>
-                        {{ $jadwal->tanggal_pelaksanaan
-                            ? $jadwal->tanggal_pelaksanaan->translatedFormat('d M Y')
-                            : '-' }}
-                    </strong>
+                    <div class="donation-item"
+                         style="--gambar-kartu: url('{{ $jadwal->gambar }}');">
 
-                    <img src="{{ asset('icons/jadwal-icon.png') }}"
-                         class="nav-icon-inline"
-                         alt="Tanggal">
-                </span>
+                        <div>
+                            {{-- Nama kegiatan --}}
+                            <h3 class="donation-title">
+                                {{ strtoupper($jadwal->judul) }}
+                            </h3>
 
-                <div class="action-buttons">
-    <a href="{{ route('donasi.bulanan', ['idJadwal' => $jadwal->id_jadwal]) }}"
-       class="btn-donate">
-        Donasi Sekarang
-    </a>
-</div>
+                            {{-- Jumlah peserta --}}
+                            <div class="donation-info">
+                                <div class="donation-info-left">
+                                    <span>Peserta</span>
+
+                                    <strong class="highlight-num">
+                                        {{ $jadwal->jumlah_peserta ?? 0 }}
+                                    </strong>
+
+                                    <img src="{{ asset('icons/donatur.png') }}"
+                                         class="nav-icon-inline"
+                                         alt="Peserta">
+                                </div>
+                            </div>
+
+                            {{-- Total donasi --}}
+                            <div class="donation-info">
+                                <div class="donation-info-left">
+                                    <span>Donasi Terkumpul</span>
+
+                                    <strong class="donation-amount-highlight">
+                                        Rp {{ number_format($jadwal->total_donasi_terverifikasi ?? 0, 0, ',', '.') }},00
+                                    </strong>
+
+                                    <img src="{{ asset('icons/donasi-terkumpul.png') }}"
+                                         class="nav-icon-inline"
+                                         alt="Donasi Terkumpul">
+                                </div>
+
+                                <a href="{{ route('jadwal.show', $jadwal) }}"
+                                   class="btn-detail">
+                                    &gt;&gt; Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Tanggal dan tombol donasi --}}
+                        <div class="donation-footer">
+
+                            <span class="donation-date">
+                                Pelaksanaan
+
+                                <strong>
+                                    {{ $jadwal->tanggal_pelaksanaan
+                                        ? $jadwal->tanggal_pelaksanaan->translatedFormat('d M Y')
+                                        : '-' }}
+                                </strong>
+
+                                <img src="{{ asset('icons/jadwal-icon.png') }}"
+                                     class="nav-icon-inline"
+                                     alt="Tanggal">
+                            </span>
+
+                            <div class="action-buttons">
+                                <a href="{{ route('donasi.bulanan', ['idJadwal' => $jadwal->id_jadwal]) }}"
+                                   class="btn-donate">
+                                    Donasi Sekarang
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @empty
+
+                    <p>Belum ada jadwal penanaman yang tersedia.</p>
+
+                @endforelse
 
             </div>
-
-        </div>
-
-    @empty
-
-        <p>Belum ada jadwal penanaman yang tersedia.</p>
-
-    @endforelse
-
-</div>
-
 
             <div class="content-footer">
-    <button type="button"
-            class="btn-sukarela"
-            onclick="window.location.href='{{ route('donasi.sukarela') }}'">
-        Donasi Sukarela
-    </button>
+                <button type="button"
+                        class="btn-sukarela"
+                        onclick="window.location.href='{{ route('donasi.sukarela') }}'">
+                    Donasi Sukarela
+                </button>
 
-    <!-- Membuka pop-up bantuan pembayaran -->
-    <button type="button" class="btn-bantu" onclick="openHelpModal()">Bantu?</button>
-</div>
+                <!-- Membuka pop-up bantuan pembayaran -->
+                <button type="button" class="btn-bantu" onclick="openHelpModal()">Bantu?</button>
+            </div>
 
         </div>
     </div>
