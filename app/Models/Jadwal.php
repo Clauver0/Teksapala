@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\Dokumentasi;
+
+
 
 class Jadwal extends Model
 {
@@ -30,6 +33,8 @@ class Jadwal extends Model
         'jumlah_peserta',
         'is_archived',
     ];
+
+    public function komunitas() { return $this->belongsTo(Komunitas::class, 'id_komunitas', 'id_komunitas'); }
 
     protected $casts = [
         'tanggal_pelaksanaan' => 'date',
