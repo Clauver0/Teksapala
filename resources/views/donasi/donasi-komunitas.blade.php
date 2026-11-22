@@ -6,48 +6,7 @@
     <title>Riwayat Donasi - Admin Komunitas</title>
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dokumentasi.css') }}">
-    <style>
-        .donasi-table-wrap {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 16px;
-            overflow-x: auto;
-            box-shadow: 0 2px 10px rgba(89, 64, 25, 0.08);
-        }
-        .donasi-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-        .donasi-table th,
-        .donasi-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #e5dfd5;
-            text-align: left;
-            vertical-align: middle;
-        }
-        .donasi-table th {
-            background: #f6f1e9;
-            color: #594019;
-            font-weight: 700;
-        }
-        .badge-status {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-        .badge-pending { background: #fef3c7; color: #92400e; }
-        .badge-verified { background: #dcfce7; color: #166534; }
-        .badge-rejected { background: #fee2e2; color: #991b1b; }
-        .aksi-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/donasi-komunitas.css') }}">
 </head>
 <body class="dok-layout"
       style="background-image: url('{{ asset('img/background-riwayat.png') }}');">
@@ -58,7 +17,12 @@
 
 <main class="dok-panel">
     <header class="dok-panel-header">
-        <a class="dok-back" href="{{ route('beranda') }}">Kembali</a>
+        <a class="dok-back" href="{{ route('beranda') }}" aria-label="Kembali ke Beranda">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </a>
         <h1>Riwayat Donasi User</h1>
     </header>
 
@@ -124,7 +88,7 @@
 
                                     @if ($donasi->status_verifikasi !== 'Terverifikasi')
                                         <form action="{{ route('komunitas.donasi.verifikasi', $donasi->id_donasi) }}"
-                                              method="POST" style="display:inline;">
+                                              method="POST" class="aksi-form-inline">
                                             @csrf
                                             @method('PATCH')
                                             <input type="hidden" name="status_verifikasi" value="Terverifikasi">
@@ -136,7 +100,7 @@
 
                                     @if ($donasi->status_verifikasi !== 'Ditolak')
                                         <form action="{{ route('komunitas.donasi.verifikasi', $donasi->id_donasi) }}"
-                                              method="POST" style="display:inline;">
+                                              method="POST" class="aksi-form-inline">
                                             @csrf
                                             @method('PATCH')
                                             <input type="hidden" name="status_verifikasi" value="Ditolak">

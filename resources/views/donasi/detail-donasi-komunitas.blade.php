@@ -6,25 +6,7 @@
     <title>Rincian Donasi {{ $donasi->id_donasi }} - Admin Komunitas</title>
     <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dokumentasi.css') }}">
-    <style>
-        .bukti-box {
-            margin-top: 10px;
-        }
-        .bukti-box img {
-            max-width: 100%;
-            max-height: 360px;
-            border-radius: 10px;
-            border: 1px solid #dcdcdc;
-            display: block;
-        }
-        .tanaman-list {
-            margin: 8px 0 16px;
-            padding-left: 20px;
-        }
-        .tanaman-list li {
-            margin-bottom: 6px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/donasi-komunitas.css') }}">
 </head>
 <body class="dok-layout"
       style="background-image: url('{{ asset('img/background-riwayat.png') }}');">
@@ -35,7 +17,12 @@
 
 <main class="dok-panel">
     <header class="dok-panel-header">
-        <a class="dok-back" href="{{ route('komunitas.donasi.riwayat') }}">Kembali</a>
+        <a class="dok-back" href="{{ route('komunitas.donasi.riwayat') }}" aria-label="Kembali ke Riwayat Donasi">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </a>
         <h1>Rincian Pembayaran Donasi</h1>
     </header>
 
@@ -92,7 +79,7 @@
                     @endforeach
                 </ul>
             @else
-                <p class="dok-muted" style="color: #555;">Donasi sukarela (tidak terikat item tanaman tertentu).</p>
+                <p class="dok-muted donasi-muted-dark">Donasi sukarela (tidak terikat item tanaman tertentu).</p>
             @endif
 
             <div class="dok-entry">
@@ -102,14 +89,14 @@
                         <img src="{{ asset('storage/' . $donasi->bukti_donasi) }}" alt="Bukti donasi {{ $donasi->id_donasi }}">
                     </div>
                 @else
-                    <p class="dok-muted" style="color: #555;">Tidak ada file bukti donasi.</p>
+                    <p class="dok-muted donasi-muted-dark">Tidak ada file bukti donasi.</p>
                 @endif
             </div>
 
-            <div class="dok-card-actions" style="margin-top: 20px;">
+            <div class="dok-card-actions donasi-actions-spacing">
                 @if ($donasi->status_verifikasi !== 'Terverifikasi')
                     <form action="{{ route('komunitas.donasi.verifikasi', $donasi->id_donasi) }}"
-                          method="POST" style="display:inline;">
+                          method="POST" class="aksi-form-inline">
                         @csrf
                         @method('PATCH')
                         <input type="hidden" name="status_verifikasi" value="Terverifikasi">
@@ -121,7 +108,7 @@
 
                 @if ($donasi->status_verifikasi !== 'Ditolak')
                     <form action="{{ route('komunitas.donasi.verifikasi', $donasi->id_donasi) }}"
-                          method="POST" style="display:inline;">
+                          method="POST" class="aksi-form-inline">
                         @csrf
                         @method('PATCH')
                         <input type="hidden" name="status_verifikasi" value="Ditolak">
