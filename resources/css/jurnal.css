@@ -238,43 +238,83 @@ textarea.form-control {
 /* MEMAKSA SCROLLBAR KLASIK SEPERTI DI GAMBAR */
 /* ========================================= */
 
-.card-body-kelola {
-    /* 1. Paksa selalu munculkan scrollbar */
-    overflow-y: scroll !important;
-
-    /* 2. Matikan fitur scrollbar modern yang disembunyikan */
-    scrollbar-width: auto; /* Untuk Firefox */
+/* Card Kelola: tinggi tetap, isi di-scroll */
+.card.card-kelola {
+    height: 80vh; /* tinggi tetap, tidak ikut bertambah */
+    max-height: 80vh;
 }
 
-/* 3. Desain Scrollbar Webkit (Chrome, Edge, Safari, Opera) */
-.card-body-kelola::-webkit-scrollbar {
-    width: 16px !important; /* Lebar scrollbar standar Windows */
-    display: block !important;
-    background-color: #f0f0f0; /* Warna jalur (track) abu-abu terang */
+.card-kelola .card-header {
+    flex-shrink: 0; /* header tidak ikut mengecil */
 }
 
-.card-body-kelola::-webkit-scrollbar-track {
-    background-color: #f4f1ea; /* Samakan dengan warna background card Anda */
-    border-left: 1px solid #ccc; /* Garis batas kiri scrollbar */
+.card-kelola .card-body-kelola {
+    flex: 1 1 0;
+    min-height: 0; /* kunci agar bisa scroll di dalam flex */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 30px;
 }
 
-.card-body-kelola::-webkit-scrollbar-thumb {
-    background-color: #a0a0a0; /* Warna batang scroll (abu-abu seperti gambar Anda) */
-    border-radius: 0; /* Kotak, tidak bulat */
-    border: 2px solid #f4f1ea; /* Memberi efek bingkai agar terlihat klasik */
+.card-footer-kelola {
+    flex-shrink: 0; /* footer selalu terlihat */
+    padding: 15px 30px;
+    border-top: 1px solid #ddd;
+    background-color: #f4f1ea;
+}
+/* ===== Modal konfirmasi hapus ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center; /* tengah vertikal */
+    justify-content: center; /* tengah horizontal */
 }
 
-.card-body-kelola::-webkit-scrollbar-thumb:hover {
-    background-color: #888; /* Warna saat di-hover */
+.modal-overlay.tampil {
+    display: flex;
 }
 
-/* 4. Memunculkan Tombol Panah Atas & Bawah (Hanya berfungsi di Chrome/Edge versi tertentu) */
-.card-body-kelola::-webkit-scrollbar-button {
-    display: block !important;
-    height: 16px;
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
+.modal-box {
+    background: #f4f1ea;
+    border-radius: 12px;
+    padding: 25px 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
+
+.modal-box h3 {
+    margin: 0 0 10px;
+    color: #5c4018;
+}
+
+.modal-box p {
+    margin: 0 0 20px;
+}
+
+.modal-aksi {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-aksi .btn {
+    border-radius: 12px;
+    font-size: 15px;
+    padding: 6px 25px;
+    cursor: pointer;
+}
+
+.modal-ya {
+    background-color: #b3261e;
+    color: #fff;
+    border: none;
+}
+
 /* =========================================================================================== */
 
 /* =========================================JURNAL EDIT======================================= */
@@ -346,4 +386,39 @@ textarea.form-control {
 .toast-sukses.hilang {
     opacity: 0;
     transform: translateY(-20px);
+}
+.btn.kembali-jurnal {
+    border-radius: 12px;
+    font-size: 15px;
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+    padding: 7px 2;
+    cursor: pointer;
+}
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-overlay.tampil {
+    display: flex;
+}
+.modal-box {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+.modal-aksi {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
 }

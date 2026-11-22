@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Jurnal</title>
   <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
-      @vite(['resources/css/jurnal.css', 'resources/js/app.js']) 
+    @vite(['resources/css/jurnal.css', 'resources/js/app.js', 'resources/js/Jurnal/Jurnal.js'])
+      
 </head>
 <body>
      <div class="jurnal-hero">
@@ -14,13 +15,12 @@
       </div>
          <div  class="card">
           <div class="card-header">Kelola Jurnal</div> 
-             <div class="scroll-area"> 
              <div class="card-body-kelola"> 
-              @if(session('success'))
-        <div class="alert-success" style="width: 100%; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
-    @endif
+                @if(session('success'))
+                  <div class="alert-success" style="width: 100%; margin-bottom: 20px;">
+                    {{ session('success') }}
+                  </div>
+                @endif
                <div class="card-Jurnal-Kelola">
                 {{-- Pencarian --}}
                 <form action="/kelola-jurnal" method="GET" class="form-cari">
@@ -34,26 +34,34 @@
                         <span>{{ $jurnal->judul_jurnal }}</span>
                           <div class="aksi">
                             <a href="{{ route('jurnals.edit', $jurnal->id_jurnal) }}" class="link">Edit</a>
-                                <form action="{{ route('jurnals.destroy', $jurnal->id_jurnal) }}" method="POST" 
-                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus jurnal ini?');" 
-                  style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="link" style="background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; font-size: inherit; text-decoration: underline;">
-                    Hapus
-                </button>
-                  </form>
+                              <form action="{{ route('jurnals.destroy', $jurnal->id_jurnal) }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <a href="#" class="link btn-hapus" data-judul="{{ $jurnal->judul_jurnal }}">Hapus</a>
+</form>
                           </div>
-                    </div>
-                    
+                    </div>    
                   @empty
                      <p class="kosong">{{ $Pesan ?? 'Belum ada jurnal.' }}</p>
                   @endforelse
                 </div> 
-                  <button type="button" class="btn batal-jurnal"onclick="window.location.href='/jurnal'">Kembali</button>
-                 </div>    
+               </div>
              </div>
-
+             <div class="card-footer-kelola">
+                  <button type="button" class="btn kembali-jurnal"onclick="window.location.href='/jurnal'">Kembali</button>
+              </div>    
+         </div>
+           <div id="modalHapus" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Konfirmasi Hapus</h3>
+            <p id="modalPesan"></p>
+            <div class="modal-aksi">
+                <button type="button" id="btnBatalHapus" class="btn">Batal</button>
+                <button type="button" id="btnYaHapus" class="btn modal-ya">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+<script src="{{ asset('js/Jurnal.js') }}"></script>
 </body>
 
 </html>
