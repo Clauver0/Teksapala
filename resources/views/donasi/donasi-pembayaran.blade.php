@@ -138,16 +138,16 @@
     @endphp
 
     @if ($popupPesan)
-        <div class="popup-overlay" id="popupNotif">
-            <div class="popup-box">
-                <div class="popup-icon {{ $popupSukses ? 'sukses' : 'gagal' }}">
-                    {{ $popupSukses ? '✓' : '!' }}
-                </div>
-                <p>{{ $popupPesan }}</p>
-                <button type="button" onclick="document.getElementById('popupNotif').remove()">OK</button>
+    <div class="popup-overlay" id="popupNotif">
+        <div class="popup-box">
+            <div class="popup-icon {{ $popupSukses ? 'sukses' : 'gagal' }}">
+                {{ $popupSukses ? '✓' : '!' }}
             </div>
+            <p>{{ $popupPesan }}</p>
+            <button type="button" onclick="window.location.href='{{ route('donasi') }}'">OK</button>
         </div>
-    @endif
+    </div>
+@endif
     @php
         $popupBatal = session('batal') ?? session('error') ?? ($errors->any() ? $errors->first() : null);
         $popupSukses = session('batal') ? true : false;

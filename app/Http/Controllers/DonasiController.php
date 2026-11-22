@@ -41,8 +41,8 @@ class DonasiController extends Controller
     $total = session('total_donasi');
     $items = session('item_donasi', []);
 
-    if (!$total) {
-        return redirect()->route('donasi')->with('error', 'Data donasi tidak ditemukan.');
+   if (!$total) {
+    return back()->with('error', 'Data donasi tidak ditemukan.');
     }
 
     $donatur = Auth::guard('donatur')->user();
@@ -82,10 +82,11 @@ foreach ($items as $item) {
 }
     });
 
-    session()->forget(['total_donasi', 'item_donasi', 'jenis_donasi']);
 
-    return redirect()->route('donasi')->with('success', 'Donasi berhasil dikirim, menunggu verifikasi.');
+ return back()->with('success', 'Donasi berhasil dikirim, menunggu verifikasi.');
 }
+
+
 public function tanaman($idJadwal)
 {
      $jadwal = DB::table('jadwal')->where('id_jadwal', $idJadwal)->first();
