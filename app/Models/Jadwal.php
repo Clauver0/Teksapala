@@ -76,4 +76,9 @@ class Jadwal extends Model
             fn () => (float) $this->jadwalTanaman->sum(fn (JadwalTanaman $jt) => $jt->nominal_terdonasi)
         );
     }
+
+    public function dokumentasi(): HasMany
+    {
+    return $this->hasMany(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
+    }
 }

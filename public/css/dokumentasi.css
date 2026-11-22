@@ -1,183 +1,274 @@
-/* public/css/dokumentasi.css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ===== Dokumentasi: daftar & detail ===== */
+
+:root {
+    --dok-panel-bg: #e9e9e9;
+    --dok-header-bg: #4a4a4a;
+    --dok-text: #1b1b1b;
+    --dok-white: #ffffff;
+    --dok-accent: #f5c518;
+    --dok-radius: 14px;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    background:
-        linear-gradient(rgba(0, 0, 0, 0), rgba(0,0,0,0.4)),
-        url('../img/background1.jpg');
+.dok-layout {
+    margin: 0;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     background-attachment: fixed;
-
-    min-height: 100vh;
-    /* HAPUS display:flex, justify-content, align-items, padding */
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    color: var(--dok-text);
 }
 
-.container {
-    width: 100%;
+/* Lencana halaman di kiri atas */
+.dok-badge {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 20;
+    padding: 6px 14px;
+    border-radius: 10px;
+    background: #111;
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-.main-content {
-    margin-left: var(--menubar-width, 64px);
-    min-height: 100vh;
-    width: calc(100% - var(--menubar-width, 64px));
+.dok-badge-aktif {
+    box-shadow: 0 0 0 3px var(--dok-accent);
 }
 
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-        padding-bottom: 80px;
-    }
-}
-
-/* background putih dihapus, body yang jadi background */
-.dok-page {
-    background: transparent;
-    padding: 30px 20px;
-}
-
+/* Panel utama di kanan sidebar */
 .dok-panel {
-    width: 100%;
-    max-width: 1000px;   /* ubah sesuai selera, atau hapus agar penuh */
+    position: fixed;
+    top: 56px;
+    right: 24px;
+    bottom: 24px;
+    left: 24px;        /* tadinya 260px */
+    max-width: none;   /* biar memenuhi lebar layar */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 980px;
     margin: 0 auto;
-    background: #e5e5e5;
-    border-radius: 20px;
-    padding: 6px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.25);
+    background: var(--dok-panel-bg);
+    border-radius: var(--dok-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-.dok-panel-head {
+.dok-panel-header {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: var(--dok-header-bg);
+    color: var(--dok-white);
 }
 
-.dok-panel-title {
-    background: #3a3a3a;
-    color: #fff;
-    text-align: center;
-    font-size: 20px;
-    padding: 8px;
-    border-radius: 14px 14px 0 0;
+.dok-panel-header h1 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
 }
 
 .dok-back {
     position: absolute;
     left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 22px;
-    text-decoration: none;
+    display: inline-flex;
+    color: var(--dok-white);
+    border-radius: 6px;
 }
 
-/* LIST */
-.dok-list {
-    max-height: 75vh;
+.dok-back:hover { color: var(--dok-accent); }
+
+.dok-panel-body {
+    flex: 1;
+    padding: 10px;
     overflow-y: auto;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    scrollbar-width: thin;
 }
+
+/* ===== Kartu di halaman daftar ===== */
 
 .dok-card {
-    display: block;
     min-height: 170px;
-    padding: 16px 20px;
-    border-radius: 14px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background-color: #2d3a2d;
     background-size: cover;
     background-position: center;
-    color: #fff;
-    text-decoration: none;
-    transition: .2s;
+    overflow: hidden;
 }
 
-.dok-card:hover { transform: translateY(-3px); }
+.dok-card:last-child { margin-bottom: 0; }
 
-.dok-card h2 {
-    font-size: 20px;
+.dok-card-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    min-height: 170px;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    color: var(--dok-white);
+    /* gelap di bawah supaya teks tetap terbaca di atas foto apa pun */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.12) 75%);
+}
+
+.dok-card-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
-    margin-bottom: 10px;
+}
+
+.dok-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+    margin: 0;
 }
 
 .dok-stat {
     display: flex;
     align-items: baseline;
-    gap: 12px;
-    margin-bottom: 4px;
-}
-
-.dok-stat span { min-width: 80px; }
-.dok-stat strong { font-size: 26px; }
-
-.dok-detail-link {
-    display: inline-block;
-    margin-top: 8px;
-    border-bottom: 1px solid #fff;
-    font-size: 14px;
-}
-
-.dok-empty {
-    text-align: center;
-    padding: 40px 0;
-    color: #666;
-}
-
-/* DETAIL */
-.dok-detail {
-    background: #fff;
-    border-radius: 0 0 14px 14px;
-    padding: 20px 24px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.dok-detail h2 {
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-}
-
-.dok-info,
-.dok-desc-label { font-size: 14px; margin-bottom: 8px; }
-
-.dok-desc {
-    font-size: 14px;
-    text-align: justify;
-    text-indent: 30px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.dok-gallery-box h3 {
-    background: #3a3a3a;
-    color: #fff;
-    text-align: center;
-    font-size: 14px;
-    padding: 4px;
-    border-radius: 10px 10px 0 0;
-}
-
-.dok-gallery {
-    background: #e5e5e5;
-    padding: 10px;
-    border-radius: 0 0 10px 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 10px;
 }
 
-.dok-gallery img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 10px;
-    display: block;
+.dok-stat dt { font-size: 0.9rem; opacity: 0.9; }
+.dok-stat dd { margin: 0; font-size: 1.5rem; font-weight: 700; }
+
+.dok-detail-link,
+.dok-detail-link:visited {
+    align-self: flex-start;
+}
+
+.dok-detail-link {
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+.dok-detail-link:hover { color: var(--dok-accent); }
+
+/* ===== Halaman detail ===== */
+
+.dok-detail {
+    box-sizing: border-box;
+    padding: 18px 22px 22px;
+    background: var(--dok-white);
+    border-radius: 12px;
+}
+
+.dok-detail-title {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dok-meta {
+    display: grid;
+    gap: 2px;
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+}
+
+.dok-meta div { display: flex; gap: 6px; }
+.dok-meta dt { font-weight: 600; min-width: 92px; }
+.dok-meta dt::after { content: ':'; }
+.dok-meta dd { margin: 0; }
+
+.dok-section-label {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.dok-deskripsi {
+    margin: 0 0 16px;
+    max-width: 75ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: justify;
+    text-indent: 1.5em;
+    white-space: pre-line;
+}
+
+.dok-entry {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #d6d6d6;
+}
+
+.dok-entry-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.dok-entry-date {
+    margin: 2px 0 10px;
+    font-size: 0.82rem;
+    color: #666;
+}
+
+/* Kotak Foto & Video (link Google Drive) */
+.dok-drive {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.dok-drive-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #1f5f3b;
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.dok-drive-link:hover { background: #17482d; }
+
+.dok-media-kosong {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.dok-empty {
+    margin: 24px 12px;
+    text-align: center;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Fokus keyboard terlihat */
+.dok-back:focus-visible,
+.dok-detail-link:focus-visible,
+.dok-drive-link:focus-visible {
+    outline: 3px solid var(--dok-accent);
+    outline-offset: 2px;
+}
+
+/* ===== Responsif ===== */
+
+@media (max-width: 800px) {
+    .dok-panel {
+        position: static;
+        margin: 64px 12px 12px;
+        max-width: none;
+    }
+
+    .dok-layout { padding-bottom: 12px; }
+}
+
+@media (max-width: 520px) {
+    .dok-media { grid-template-columns: 1fr; }
+    .dok-card-title { font-size: 1.05rem; }
 }

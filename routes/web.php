@@ -8,6 +8,7 @@ use App\Http\Controllers\DonationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\BerandaController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\DokumentasiController;
@@ -18,7 +19,7 @@ use App\Models\DetailDonasi;
 
 
 
-Route::redirect('/', '/dokumentasi');
+Route::redirect('/', '/beranda');
 
 Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -26,10 +27,8 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/registrasi', [AuthController::class, 'registerView'])->name('register');
     Route::post('/registrasi', [AuthController::class, 'register']);
 });
-
+Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
-Route::get('/beranda', [DokumentasiController::class, 'index'])
-    ->name('beranda');
 Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
 
 Route::middleware('auth:donatur,komunitas')->group(function () {
