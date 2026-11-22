@@ -93,6 +93,15 @@ Route::middleware('auth:komunitas')
         Route::get('/{dokumentasi}/edit', [DokumentasiController::class, 'edit'])->name('edit');
         Route::put('/{dokumentasi}', [DokumentasiController::class, 'update'])->name('update');
         Route::delete('/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware('auth:komunitas')
+    ->prefix('komunitas/donasi')
+    ->name('komunitas.donasi.')
+    ->group(function () {
+        Route::get('/riwayat', [DonasiController::class, 'verifikasiIndex'])->name('riwayat');
+        Route::get('/{donasi}/detail', [DonasiController::class, 'verifikasiShow'])->name('detail');
+        Route::patch('/{donasi}/verifikasi', [DonasiController::class, 'verifikasiUpdate'])->name('verifikasi');
     });
 
 Route::view('/tentang-kami', 'tentang-kami')->name('tentang');

@@ -183,7 +183,11 @@ private function dataBank(): array
 }
 public function verifikasiIndex()
 {
-    $donasis = Donasi::with('donatur')
+    $donasis = Donasi::with([
+        'donatur',
+        'detailDonasis.jadwalTanaman.tanaman',
+        'detailDonasis.jadwalTanaman.jadwal',
+    ])
         ->latest('waktu_donasi')
         ->get();
 
@@ -199,6 +203,22 @@ public function verifikasiUpdate(Request $request, Donasi $donasi)
     $donasi->update(['status_verifikasi' => $request->status_verifikasi]);
 
     return back()->with('success', 'Status donasi diperbarui.');
+}
+public function verifikasiShow(Donasi $donasi)
+{
+    $donasi->load([
+        'donatur',
+        'detailDonasis.jadwalTanaman.tanaman',
+        'detailDonasis.jadwalTanaman.jadwal',
+    ]);
+
+    $jadwals = $donasi->detailDonasis
+        ->map(fn ($detail) => $detail->jadwalTanaman?->jadwal)
+        ->filter()
+        ->unique('id_jadwal')
+        ->values();
+
+    return view('donasi.detail-donasi-komunitas', compact('donasi', 'jadwals'));
 }
 public function store(Request $request)
 {
