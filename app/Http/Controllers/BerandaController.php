@@ -76,7 +76,7 @@ class BerandaController extends Controller
             ->orderBy('tanggal_pelaksanaan', 'asc')
             ->limit(5)
             ->get()
-            ->map(function (Jadwal $jadwal) {
+            ->map(function ($jadwal) {
                 
                 $namaTanaman = $jadwal->jadwalTanaman
                     ->map(fn ($jt) => $jt->tanaman?->nama_tanaman)
