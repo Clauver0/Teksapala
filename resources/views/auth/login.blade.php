@@ -16,7 +16,7 @@
         @endif
 
         @if(session('success'))
-            <p class="error-msg" style="background-color: #22c55e30; color: #15803d;">
+            <p class="error-msg success-msg">
                 {{ session('success') }}
             </p>
         @endif
@@ -37,6 +37,11 @@
                 <button type="button" onclick="window.location.href='{{ route('register') }}'">
                     Belum punya akun? Registrasi
                 </button>
+            </li>
+            <li class="guest-action">
+                <a href="{{ route('beranda') }}" class="btn-guest">
+                    Masuk sebagai Tamu
+                </a>
             </li>
         </ul>
     </form>
