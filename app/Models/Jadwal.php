@@ -72,10 +72,5 @@ class Jadwal extends Model
      * Total donasi = jumlah (harga x terdonasi) dari semua tanaman di jadwal ini.
      * Tabel donasi sendiri belum punya kolom penghubung ke jadwal, jadi angka diambil dari jadwal_tanaman.
      */
-    protected function totalDonasi(): Attribute
-    {
-        return Attribute::get(
-            fn () => (float) $this->jadwalTanaman->sum(fn (JadwalTanaman $jt) => $jt->nominal_terdonasi)
-        );
-    }
+    
 }

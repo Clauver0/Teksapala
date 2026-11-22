@@ -109,3 +109,5 @@ Route::middleware('auth:komunitas')->group(function () {
 
 Route::view('/tentang-kami', 'tentang-kami')->name('tentang');
 
+
+
