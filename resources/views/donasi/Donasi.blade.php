@@ -19,13 +19,13 @@
          
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       
         
-           <div class="card-input-donasi">
+            <div class="card-input-donasi">
             <div class="card-input-donasi-header">
-                 <img src="/icons/don1.png" alt="donasi" class="donasi-input-header">
+                 <img src="{{$jadwal->gambar}}" alt="{{ $jadwal->judul }}" class="donasi-input-header">
                 <div class="header-teks">
                      <small>Donasikan Tanaman</small>
-                     &nbsp;     
-                     <h3>PENANAMAN MANGROVE DI PANTAI CEMARA</h3>
+                     &nbsp;   
+                     <h3>{{ strtoupper($jadwal->judul ?? 'Penanaman di ' . $jadwal->lokasi_pelaksanaan) }}</h3>
                 </div>
             </div> 
 

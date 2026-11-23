@@ -1,6 +1,4 @@
-*,
-*::before,
-*::after {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -154,7 +152,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    padding-left: 16rem; /* Sesuaikan dengan lebar Navbar Anda */
 }
 
 .modal-box {
@@ -315,18 +313,4 @@ body {
     filter: blur(4px);
     opacity: 0.5;
     transition: all 0.3s ease;
-}
-
-@media (min-width: 1024px) {
-    .modal-container {
-        /* Sesuaikan angka ini jika sidebar kiri memang selebar tertentu */
-        padding-left: 4rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .modal-container {
-        padding: 1rem;
-        padding-bottom: 5rem;
-    }
 }
