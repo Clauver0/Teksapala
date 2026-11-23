@@ -6,6 +6,7 @@
     <title>Edit Profil</title>
 
     <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
 </head>
 
 <body>

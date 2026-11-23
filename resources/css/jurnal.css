@@ -1,0 +1,349 @@
+/* ===========================BAGIAN DEPAN JURNAL============================= */
+.jurnal-img {
+    display: block;
+    width: 100%; /* selebar area di kanan sidebar */
+    height: 100vh; /* setinggi layar */
+    object-fit: cover; /* gambar terpotong rapi, tidak gepeng */
+}
+
+.jurnal-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.jurnal-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Setinggi layar (bisa diubah ke 500px jika mau pendek) */
+    /* Lapisan gelap transparan agar card lebih menonjol */
+    background-color: #000;
+}
+.jurnal-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar gambar tidak gepeng */
+    z-index: 1; /* Berada di lapisan bawah */
+    opacity: 0.8; /* Sedikit transparan agar card terbaca */
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    width: 90%;
+    max-width: 600px;
+    background-color: #f4f1ea;
+    border-radius: 12px;
+
+    /* --- UBAH BAGIAN INI --- */
+    overflow: hidden; /* Tetap hidden di card induk */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+    max-height: 85vh; /* KUNCI: Card maksimal 85% tinggi layar */
+    display: flex; /* KUNCI: Jadikan flexbox */
+    flex-direction: column; /* Susun ke bawah (header di atas, body di bawah) */
+}
+
+.card-header {
+    background-color: #5c4018;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.card-body {
+    padding: 20px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* tengah vertikal */
+    align-items: center; /* tengah horizontal */
+    gap: 20px;
+}
+.card-input1,
+.card-input {
+    border-radius: 12px;
+    width: 60%;
+    height: auto;
+    justify-content: center;
+    background-color: #d9cab0;
+}
+
+.btn.btn-primary,
+.btn.btn-secondary {
+    font-size: 20px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+/* ==================================================================*/
+
+/* ==============================INPUT JURNAL======================== */
+.card-Jurnal-input {
+    flex: 1; /* kotak beige ikut mengisi body */
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background-color: #d9cab0;
+    width: 100%;
+    min-height: 200px; /* tinggi minimal saat ukuran kecil */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.aksi-jurnal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin: 20px auto 0;
+}
+.btn.simpan-jurnal,
+.btn.batal-jurnal {
+    border-radius: 12px;
+    font-size: 15px;
+    flex: 1;
+    max-width: 130px;
+    text-align: center;
+    padding: 5px 0;
+    cursor: pointer;
+}
+.judul-jurnal,
+.tanggal-jurnal,
+.jenis-jurnal,
+.deskripsi,
+.unggah-file {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* kolom label | kolom input */
+    gap: 8px 16px;
+    align-items: start;
+    margin-bottom: 16px;
+}
+
+.form-control {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ==================================================================================== */
+
+/* =====================================KELOLA JURNAL================================== */
+.item-jurnal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    border-radius: 10px;
+
+    /* HAPUS height: 30px; GANTI DENGAN INI */
+    min-height: 40px;
+    height: auto;
+
+    color: #fff;
+    background-color: #5c451a;
+}
+.link {
+    color: #fff;
+}
+.aksi {
+    display: flex;
+    flex-direction: row; /* sejajar ke samping */
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    white-space: nowrap; /* tidak boleh pindah baris */
+}
+.daftar-jurnal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* atur jaraknya: 10px, 14px, 20px, dst */
+}
+.card-Jurnal-Kelola {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 30px;
+
+    /* --- UBAH BAGIAN INI --- */
+    padding: 0; /* Hapus padding 30px ini agar tidak melebar */
+    min-height: auto; /* Ganti 400px jadi auto agar tidak memaksa tinggi */
+
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-cari .input-cari {
+    border-radius: 12px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 12px;
+}
+.card-body-kelola {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* KUNCI SCROLL */
+    flex: 1 1 0%; /* Ubah dari auto ke 0% agar memaksa mengecil */
+    min-height: 0;
+
+    /* Paksa scroll */
+    overflow-y: scroll !important; /* Gunakan 'scroll' bukan 'auto' untuk tes */
+    overflow-x: hidden !important;
+
+    /* Memastikan area scroll bekerja */
+    height: 100%;
+}
+.card-Jurnal-Kelola {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 20px; /* Jarak antar elemen */
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* ========================================= */
+/* MEMAKSA SCROLLBAR KLASIK SEPERTI DI GAMBAR */
+/* ========================================= */
+
+.card-body-kelola {
+    /* 1. Paksa selalu munculkan scrollbar */
+    overflow-y: scroll !important;
+
+    /* 2. Matikan fitur scrollbar modern yang disembunyikan */
+    scrollbar-width: auto; /* Untuk Firefox */
+}
+
+/* 3. Desain Scrollbar Webkit (Chrome, Edge, Safari, Opera) */
+.card-body-kelola::-webkit-scrollbar {
+    width: 16px !important; /* Lebar scrollbar standar Windows */
+    display: block !important;
+    background-color: #f0f0f0; /* Warna jalur (track) abu-abu terang */
+}
+
+.card-body-kelola::-webkit-scrollbar-track {
+    background-color: #f4f1ea; /* Samakan dengan warna background card Anda */
+    border-left: 1px solid #ccc; /* Garis batas kiri scrollbar */
+}
+
+.card-body-kelola::-webkit-scrollbar-thumb {
+    background-color: #a0a0a0; /* Warna batang scroll (abu-abu seperti gambar Anda) */
+    border-radius: 0; /* Kotak, tidak bulat */
+    border: 2px solid #f4f1ea; /* Memberi efek bingkai agar terlihat klasik */
+}
+
+.card-body-kelola::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Warna saat di-hover */
+}
+
+/* 4. Memunculkan Tombol Panah Atas & Bawah (Hanya berfungsi di Chrome/Edge versi tertentu) */
+.card-body-kelola::-webkit-scrollbar-button {
+    display: block !important;
+    height: 16px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+}
+/* =========================================================================================== */
+
+/* =========================================JURNAL EDIT======================================= */
+.card-body-edit {
+    flex: 1; /* kotak beige ikut mengisi body */
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background-color: #d9cab0;
+    width: 90%;
+    min-height: 200px; /* tinggi minimal saat ukuran kecil */
+    padding: 20px;
+    box-sizing: border-box;
+}
+.aksi-edit-jurnal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 60%;
+}
+.btn.btn-edit {
+    border-radius: 12px;
+    font-size: 15px;
+    flex: 1;
+    max-width: 130px;
+    text-align: center;
+    padding: 5px 0;
+    cursor: pointer;
+}
+.jarak-bawah {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* kolom label | kolom input */
+    gap: 8px 16px;
+    align-items: start;
+    margin-bottom: 10px;
+}
+/* =============================================================================================== */
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.toast-sukses {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    transition:
+        opacity 0.5s,
+        transform 0.5s;
+}
+.toast-sukses.hilang {
+    opacity: 0;
+    transform: translateY(-20px);
+}

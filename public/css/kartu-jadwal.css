@@ -1,273 +1,126 @@
 /* =========================================================
-   Daftar & kartu jadwal
-   Dipakai oleh: jadwal/halaman-jadwal.blade.php
-                 jadwal/komponen/kartu-jadwal.blade.php
-   Muat SETELAH jadwal.css (file ini menimpa aturan .kontainer lama).
+   Daftar, kartu, dan detail jadwal
+   Mengikuti panel dokumentasi (dokumentasi.css).
    ========================================================= */
 
-:root {
-    /* Ukuran & bentuk: ubah di sini untuk menyesuaikan proporsi */
-    --lebar-daftar: 30rem;
-    --jarak-kartu: 0.75rem;
-    --radius-kartu: 0.75rem;
-    --rasio-banner: 8 / 1; /* lebar / tinggi gambar; mis. 5 / 1 agar lebih tinggi */
-
-    /* Warna */
-    --kartu-latar: #ffffff;
-    --kartu-teks: #1f2937;
-    --kartu-teks-redup: #6b7280;
-    --kartu-tanggal: #8b2e2e;
-    --status-berjalan: #2f8f2f;
-    --status-ditunda: #c9484a;
-    --status-selesai: #3b3fd1;
-    --status-belum: #b45309;
+.jadwal-tautan-header {
+    position: absolute;
+    right: 14px;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
 }
 
-/* ---------- Daftar (halaman-jadwal) ---------- */
+.jadwal-tautan-header:hover {
+    color: #f5c518;
+}
+
+.jadwal-tautan-header:focus-visible {
+    outline: 3px solid #f5c518;
+    outline-offset: 2px;
+}
 
 .daftar-jadwal {
     display: flex;
     flex-direction: column;
-    gap: var(--jarak-kartu);
-    max-width: var(--lebar-daftar);
-    margin: 0 auto;
-    padding: 0.75rem 1rem 1rem;
-    box-sizing: border-box;
+    gap: 12px;
 }
 
-/* Pesan "Belum ada jadwal." */
-.daftar-jadwal > p {
-    margin: 2rem 0;
-    text-align: center;
-    color: var(--kartu-teks-redup);
+.jadwal-kartu {
+    position: relative;
+    min-height: 170px;
+    border-radius: 12px;
+    background-color: #3e2c10;
+    background-size: cover;
+    background-position: center;
 }
 
-/* ---------- Kartu ---------- */
-
-.kontainer {
-    position: relative; /* acuan untuk link kartu & kebab menu */
+.jadwal-kartu-overlay {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    background: var(--kartu-latar);
-    color: var(--kartu-teks);
-    border-radius: var(--radius-kartu);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22), 0 1px 2px rgba(0, 0, 0, 0.12);
-    transition: box-shadow 0.15s ease;
-    /* Jangan beri overflow:hidden / transform di sini: dropdown kebab akan terpotong
-       atau tertutup kartu di bawahnya. */
+    justify-content: flex-end;
+    gap: 6px;
+    min-height: 170px;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    border-radius: 12px;
+    color: #fff;
+    background: linear-gradient(to top, rgba(28, 19, 6, 0.88), rgba(89, 64, 25, 0.18) 78%);
 }
 
-.kontainer:hover {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.28), 0 2px 3px rgba(0, 0, 0, 0.14);
+.jadwal-kartu-judul {
+    margin: 0;
+    max-width: 85%;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
 }
 
-/* Gambar banner */
-.kontainer-gambar {
-    width: 100%;
-    aspect-ratio: var(--rasio-banner);
-    overflow: hidden;
-    border-radius: var(--radius-kartu) var(--radius-kartu) 0 0;
-    background: #e5e7eb;
-}
-
-.kontainer-gambar img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Baris informasi: judul | status | tanggal */
-.kontainer-informasi {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 6.25rem 4.75rem; /* judul | status | tanggal */
-    column-gap: 0.5rem;
-    align-items: start;
-    padding: 0.5rem 0.75rem 0.7rem;
-}
-
-.judul {
-    grid-column: 1;
-    grid-row: 1;
-    margin: 0.3rem 0 0;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1.3;
-}
-
-/* Seluruh kartu bisa diklik lewat pseudo-element pada link judul */
-.tautan-kartu {
+.jadwal-kartu-tautan {
     color: inherit;
     text-decoration: none;
 }
 
-.tautan-kartu::after {
+.jadwal-kartu-tautan::after {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: var(--radius-kartu);
+    border-radius: 12px;
 }
 
-.tautan-kartu:focus-visible {
+.jadwal-kartu-tautan:focus-visible {
     outline: none;
 }
 
-.tautan-kartu:focus-visible::after {
-    outline: 2px solid #2563eb;
+.jadwal-kartu-tautan:focus-visible::after {
+    outline: 3px solid #f5c518;
     outline-offset: 2px;
 }
 
-/* Status: tampil sebagai ": SEDANG BERJALAN", warna mengikuti nilai data-status */
-.status-pelaksanaan {
-    grid-column: 2;
-    grid-row: 1;
-    margin-top: 0.3rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1.3;
-    text-transform: uppercase;
-    color: var(--kartu-teks-redup);
-}
-
-.status-pelaksanaan::before {
-    content: ": ";
-}
-
-.status-pelaksanaan[data-status="sedang-berjalan"] { color: var(--status-berjalan); }
-.status-pelaksanaan[data-status="ditunda"]         { color: var(--status-ditunda); }
-.status-pelaksanaan[data-status="selesai"]         { color: var(--status-selesai); }
-.status-pelaksanaan[data-status="belum-dilaksanakan"] { color: var(--status-belum); }
-
-/* Tanggal di kanan, rata kanan, sejajar dengan sisi atas baris informasi */
-.waktu-pelaksanaan {
-    grid-column: 3;
-    grid-row: 1;
-    text-align: right;
-    font-size: 0.7rem;
-    font-weight: 700;
-    line-height: 1.35;
-    text-transform: uppercase;
-    color: var(--kartu-tanggal);
-}
-
-/* Lokasi tidak ada di desain: disembunyikan secara visual, tetap terbaca screen reader.
-   Hapus aturan ini kalau lokasi mau ditampilkan. */
-.lokasi-pelaksanaan {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* ---------- Kebab menu di atas banner ---------- */
-
-.kontainer .kebab-menu {
-    top: 0.4rem;
-    right: 0.4rem;
-}
-
-/* Menu yang sedang terbuka harus di atas tombol kebab kartu di bawahnya */
-.kontainer .kebab-menu:has(.kebab-tombol[aria-expanded="true"]) {
-    z-index: 5;
-}
-
-.kontainer .kebab-tombol {
-    width: 1.75rem;
-    height: 1.75rem;
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-}
-
-.kontainer .kebab-tombol:hover,
-.kontainer .kebab-tombol[aria-expanded="true"] {
-    background: #fff;
-}
-
-/* ---------- Kepala halaman: judul + tombol Arsip / Kembali ---------- */
-
-.kepala-halaman {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    max-width: var(--lebar-daftar);
-    margin: 0 auto;
-    padding: 1rem 1rem 0;
-    box-sizing: border-box;
-}
-
-.judul-halaman {
+.jadwal-kartu-meta,
+.jadwal-kartu-lokasi {
     margin: 0;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--kartu-teks);
-    background: var(--kartu-latar);
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
+    font-size: 0.9rem;
 }
 
-.tombol-arsip {
+.jadwal-kartu-meta {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.1rem;
-    min-width: 2.75rem;
-    padding: 0.35rem 0.5rem;
-    font-size: 0.6rem;
-    color: var(--kartu-teks);
-    text-decoration: none;
-    background: #f3f4f6;
-    border-radius: 0.6rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    gap: 8px 14px;
 }
 
-.tombol-arsip svg {
-    width: 1.25rem;
-    height: 1.25rem;
+.jadwal-kartu-lokasi {
+    color: rgba(255, 255, 255, 0.88);
 }
 
-.tombol-arsip:hover {
-    background: #e5e7eb;
+.jadwal-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 }
 
-.tombol-arsip:focus-visible {
-    outline: 2px solid #2563eb;
-    outline-offset: 2px;
-}
-
-/* ---------- Pesan sukses (flash dari controller) ---------- */
-
-.pesan-sukses {
-    width: calc(100% - 2rem);
-    max-width: calc(var(--lebar-daftar) - 2rem);
-    margin: 0.75rem auto 0;
-    padding: 0.6rem 0.9rem;
-    box-sizing: border-box;
-    font-size: 0.85rem;
-    color: #166534;
-    background: #dcfce7;
-    border: 1px solid #bbf7d0;
-    border-radius: 0.5rem;
-}
-
-/* ---------- Pagination ($daftarJadwal->links('pagination::default')) ---------- */
+.jadwal-status[data-status="sedang-berjalan"] { background: rgba(47, 143, 47, 0.85); }
+.jadwal-status[data-status="ditunda"]         { background: rgba(166, 38, 38, 0.88); }
+.jadwal-status[data-status="selesai"]         { background: rgba(27, 94, 136, 0.9); }
+.jadwal-status[data-status="belum-dilaksanakan"] { background: rgba(180, 101, 14, 0.92); }
 
 .pagination {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.25rem;
-    max-width: var(--lebar-daftar);
-    margin: 0 auto 1.5rem;
-    padding: 0 1rem;
-    box-sizing: border-box;
+    gap: 6px;
+    margin: 16px 0 4px;
+    padding: 0;
     list-style: none;
 }
 
@@ -275,33 +128,160 @@
 .pagination li > span {
     display: block;
     min-width: 2rem;
-    padding: 0.35rem 0.6rem;
+    padding: 0.35rem 0.65rem;
     box-sizing: border-box;
     text-align: center;
-    font-size: 0.8rem;
-    color: var(--kartu-teks);
+    font-size: 0.85rem;
+    color: #1b1b1b;
     text-decoration: none;
     background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
+    border: 1px solid rgba(89, 64, 25, 0.18);
+    border-radius: 8px;
 }
 
 .pagination li > a:hover {
-    background: #f3f4f6;
+    background: #f6f1e9;
 }
 
 .pagination .active > span {
     color: #fff;
-    background: var(--kartu-teks);
-    border-color: var(--kartu-teks);
+    background: #594019;
+    border-color: #594019;
 }
 
 .pagination .disabled > span {
     opacity: 0.45;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .kontainer {
-        transition: none;
+/* ---------- Detail ---------- */
+
+.jadwal-detail {
+    overflow: hidden;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(89, 64, 25, 0.08);
+}
+
+.jadwal-detail-sampul {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.jadwal-detail-isi {
+    padding: 18px 22px 22px;
+}
+
+.jadwal-detail-judul {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.jadwal-tanaman {
+    margin-top: 8px;
+}
+
+.jadwal-tanaman ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jadwal-tanaman-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    background: #f6f1e9;
+    border-radius: 10px;
+}
+
+.jadwal-tanaman-item img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #efeae2;
+}
+
+.jadwal-tanaman-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    font-size: 0.88rem;
+}
+
+.jadwal-tanaman-item progress {
+    width: min(220px, 100%);
+    height: 8px;
+    accent-color: #594019;
+}
+
+.jadwal-statistik {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: stretch;
+    margin-top: 18px;
+}
+
+.jadwal-stat {
+    padding: 14px 16px;
+    background: #f6f1e9;
+    border-radius: 10px;
+}
+
+.jadwal-stat p {
+    margin: 0 0 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #594019;
+}
+
+.jadwal-stat strong {
+    font-size: 1.15rem;
+}
+
+.jadwal-tombol-donasi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 9px;
+    background: #594019;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.jadwal-tombol-donasi:hover {
+    background: #3e2c10;
+    transform: translateY(-1px);
+}
+
+.jadwal-tombol-donasi:focus-visible {
+    outline: 3px solid #f5c518;
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+    .jadwal-statistik {
+        grid-template-columns: 1fr;
+    }
+
+    .jadwal-detail-isi {
+        padding: 16px;
+    }
+
+    .jadwal-kartu-judul {
+        font-size: 1.05rem;
     }
 }

@@ -1,183 +1,682 @@
-/* public/css/dokumentasi.css */
-* {
+/* ===== Dokumentasi: daftar, detail, kelola & form ===== */
+
+:root {
+    --dok-primary: #594019;
+    --dok-primary-dark: #3e2c10;
+    --dok-primary-soft: #f6f1e9;
+    --dok-panel-bg: #efeae2;
+    --dok-header-bg: var(--dok-primary);
+    --dok-text: #1b1b1b;
+    --dok-white: #ffffff;
+    --dok-accent: #f5c518;
+    --dok-radius: 14px;
+    --dok-green: var(--dok-primary);
+    --dok-green-hover: var(--dok-primary-dark);
+    --dok-blue: #1b5e88;
+    --dok-blue-hover: #144767;
+    --dok-amber: #b4650e;
+    --dok-amber-hover: #8f4f09;
+    --dok-red: #a62626;
+    --dok-red-hover: #7e1b1b;
+
+    /* Variabel opsi background halaman (.dok-layout) */
+    --dok-bg-color: #2f220d;
+    --dok-bg-image: none;
+    --dok-bg-overlay: linear-gradient(135deg, rgba(89, 64, 25, 0.45), rgba(27, 20, 9, 0.65));
+}
+
+.dok-layout {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    background:
-        linear-gradient(rgba(0, 0, 0, 0), rgba(0,0,0,0.4)),
-        url('../img/background1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
     min-height: 100vh;
-    /* HAPUS display:flex, justify-content, align-items, padding */
+    background-color: var(--dok-bg-color);
+    background-image: var(--dok-bg-overlay), var(--dok-bg-image);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-attachment: fixed, fixed;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    color: var(--dok-text);
 }
 
-.container {
-    width: 100%;
+/* === Opsi Background Halaman (pakai salah satu class di <body class="dok-layout ...">) === */
+
+/* 1. Pakai gambar background dari inline style Blade + tint #594019 */
+.dok-layout.dok-bg-photo {
+    --dok-bg-overlay: linear-gradient(135deg, rgba(89, 64, 25, 0.52), rgba(24, 17, 7, 0.68));
 }
 
-.main-content {
-    margin-left: var(--menubar-width, 64px);
-    min-height: 100vh;
-    width: calc(100% - var(--menubar-width, 64px));
+/* 2. Background solid/gradasi penuh warna utama #594019 tanpa foto */
+.dok-layout.dok-bg-solid {
+    --dok-bg-color: #594019;
+    --dok-bg-image: none;
+    --dok-bg-overlay: linear-gradient(160deg, #6b4e20 0%, #594019 55%, #3b2a0f 100%);
 }
 
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-        padding-bottom: 80px;
-    }
+/* 3. Background terang lembut bernuansa #594019 */
+.dok-layout.dok-bg-soft {
+    --dok-bg-color: #e8e0d2;
+    --dok-bg-image: none;
+    --dok-bg-overlay: radial-gradient(circle at top right, rgba(89, 64, 25, 0.16), rgba(89, 64, 25, 0.04) 70%);
 }
 
-/* background putih dihapus, body yang jadi background */
-.dok-page {
-    background: transparent;
-    padding: 30px 20px;
+/* 4. Background pola titik/grid halus dengan nuansa #594019 */
+.dok-layout.dok-bg-pattern {
+    --dok-bg-color: #463213;
+    --dok-bg-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    --dok-bg-overlay: none;
 }
 
+.dok-layout.dok-bg-pattern {
+    background-size: 22px 22px;
+}
+
+/* Lencana halaman di kiri atas */
+.dok-badge {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 20;
+    padding: 6px 14px;
+    border-radius: 10px;
+    background: var(--dok-primary-dark);
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.dok-badge-aktif {
+    box-shadow: 0 0 0 3px var(--dok-accent);
+}
+
+/* Panel utama */
 .dok-panel {
-    width: 100%;
-    max-width: 1000px;   /* ubah sesuai selera, atau hapus agar penuh */
+    position: fixed;
+    top: 56px;
+    right: 24px;
+    bottom: 24px;
+    left: 24px;
+    max-width: 980px;
     margin: 0 auto;
-    background: #e5e5e5;
-    border-radius: 20px;
-    padding: 6px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.25);
+    display: flex;
+    flex-direction: column;
+    background: var(--dok-panel-bg);
+    border-radius: var(--dok-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-.dok-panel-head {
+.dok-panel-header {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: var(--dok-header-bg);
+    color: var(--dok-white);
 }
 
-.dok-panel-title {
-    background: #3a3a3a;
-    color: #fff;
-    text-align: center;
-    font-size: 20px;
-    padding: 8px;
-    border-radius: 14px 14px 0 0;
+.dok-panel-header h1 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
 }
 
 .dok-back {
     position: absolute;
     left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--dok-white);
     text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 6px;
 }
 
-/* LIST */
-.dok-list {
-    max-height: 75vh;
+.dok-back:hover { color: var(--dok-accent); }
+
+.dok-panel-body {
+    flex: 1;
+    padding: 12px;
     overflow-y: auto;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    scrollbar-width: thin;
 }
+
+/* ===== Alert / Notifikasi ===== */
+
+.dok-panel-body .alert {
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.dok-panel-body .alert ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.dok-panel-body .alert-success {
+    background: #dff2e6;
+    color: #15472a;
+    border: 1px solid #9ad0af;
+}
+
+.dok-panel-body .alert-danger {
+    background: #fae3e3;
+    color: #7a1919;
+    border: 1px solid #e2a4a4;
+}
+
+.dok-panel-body .alert-info {
+    background: #e1eff8;
+    color: #134261;
+    border: 1px solid #a2cbe6;
+}
+
+/* ===== Kartu di halaman daftar & kelola ===== */
 
 .dok-card {
-    display: block;
     min-height: 170px;
-    padding: 16px 20px;
-    border-radius: 14px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background-color: var(--dok-primary-dark);
     background-size: cover;
     background-position: center;
-    color: #fff;
-    text-decoration: none;
-    transition: .2s;
+    overflow: hidden;
 }
 
-.dok-card:hover { transform: translateY(-3px); }
+.dok-card:last-child { margin-bottom: 0; }
 
-.dok-card h2 {
-    font-size: 20px;
+.dok-card-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    min-height: 170px;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    color: var(--dok-white);
+    background: linear-gradient(to top, rgba(28, 19, 6, 0.86), rgba(89, 64, 25, 0.16) 78%);
+}
+
+.dok-card-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
-    margin-bottom: 10px;
+}
+
+.dok-card-status {
+    margin: 0;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.dok-card-info {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(2px);
+}
+
+.dok-info-title {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--dok-white);
+}
+
+.dok-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+    margin: 0;
 }
 
 .dok-stat {
     display: flex;
     align-items: baseline;
-    gap: 12px;
-    margin-bottom: 4px;
-}
-
-.dok-stat span { min-width: 80px; }
-.dok-stat strong { font-size: 26px; }
-
-.dok-detail-link {
-    display: inline-block;
-    margin-top: 8px;
-    border-bottom: 1px solid #fff;
-    font-size: 14px;
-}
-
-.dok-empty {
-    text-align: center;
-    padding: 40px 0;
-    color: #666;
-}
-
-/* DETAIL */
-.dok-detail {
-    background: #fff;
-    border-radius: 0 0 14px 14px;
-    padding: 20px 24px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.dok-detail h2 {
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-}
-
-.dok-info,
-.dok-desc-label { font-size: 14px; margin-bottom: 8px; }
-
-.dok-desc {
-    font-size: 14px;
-    text-align: justify;
-    text-indent: 30px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.dok-gallery-box h3 {
-    background: #3a3a3a;
-    color: #fff;
-    text-align: center;
-    font-size: 14px;
-    padding: 4px;
-    border-radius: 10px 10px 0 0;
-}
-
-.dok-gallery {
-    background: #e5e5e5;
-    padding: 10px;
-    border-radius: 0 0 10px 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 10px;
 }
 
-.dok-gallery img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 10px;
+.dok-stat dt { font-size: 0.9rem; opacity: 0.9; }
+.dok-stat dd { margin: 0; font-size: 1.5rem; font-weight: 700; }
+
+.dok-detail-link,
+.dok-detail-link:visited {
+    align-self: flex-start;
+}
+
+.dok-detail-link {
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+.dok-detail-link:hover { color: var(--dok-accent); }
+
+/* ===== Tombol aksi di card (Buat, Detail, Edit, Hapus) ===== */
+
+.dok-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    color: var(--dok-white);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+}
+
+.btn-create {
+    background: var(--dok-green);
+}
+.btn-create:hover { background: var(--dok-green-hover); }
+
+.btn-detail {
+    background: var(--dok-blue);
+}
+.btn-detail:hover { background: var(--dok-blue-hover); }
+
+.btn-edit {
+    background: var(--dok-amber);
+}
+.btn-edit:hover { background: var(--dok-amber-hover); }
+
+.btn-delete {
+    background: var(--dok-red);
+}
+.btn-delete:hover { background: var(--dok-red-hover); }
+
+.dok-muted {
+    margin: 2px 0 0;
+    font-size: 0.84rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/* ===== Footer nav button di bawah panel ===== */
+
+.dok-panel-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--dok-panel-bg);
+    border-top: 1px solid rgba(89, 64, 25, 0.16);
+}
+
+.btn-kelola-dok {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 22px;
+    border-radius: 9px;
+    background: var(--dok-green);
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.btn-kelola-dok:hover {
+    background: var(--dok-green-hover);
+    transform: translateY(-1px);
+}
+
+/* ===== Halaman detail ===== */
+
+.dok-detail {
+    box-sizing: border-box;
+    padding: 18px 22px 22px;
+    background: var(--dok-white);
+    border-radius: 12px;
+}
+
+.dok-detail-title {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dok-meta {
+    display: grid;
+    gap: 2px;
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+}
+
+.dok-meta div { display: flex; gap: 6px; }
+.dok-meta dt { font-weight: 600; min-width: 92px; }
+.dok-meta dt::after { content: ':'; }
+.dok-meta dd { margin: 0; }
+
+.dok-section-label {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.dok-deskripsi {
+    margin: 0 0 16px;
+    max-width: 75ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: justify;
+    text-indent: 1.5em;
+    white-space: pre-line;
+}
+
+.dok-entry {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #d6d6d6;
+}
+
+.dok-entry-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.dok-entry-date {
+    margin: 2px 0 10px;
+    font-size: 0.82rem;
+    color: #666;
+}
+
+/* Kotak link Google Drive */
+.dok-drive {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.dok-drive-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: var(--dok-green);
+    color: var(--dok-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.dok-drive-link:hover { background: var(--dok-green-hover); }
+
+/* ===== Form tambah & edit dokumentasi ===== */
+
+.dok-form-card,
+.dok-panel-body > form {
+    box-sizing: border-box;
+    max-width: 720px;
+    margin: 4px auto;
+    padding: 20px 24px;
+    background: var(--dok-white);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(89, 64, 25, 0.08);
+}
+
+.dok-form-jadwal {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border-left: 4px solid var(--dok-primary);
+    border-radius: 6px;
+    background: var(--dok-primary-soft);
+    font-size: 0.92rem;
+    color: var(--dok-text);
+}
+
+.dok-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.dok-form-group label,
+.dok-panel-body form > div > label {
     display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--dok-text);
+}
+
+.dok-form-hint {
+    font-size: 0.78rem;
+    color: #666;
+}
+
+.dok-form-group input[type="text"],
+.dok-form-group input[type="url"],
+.dok-form-group textarea,
+.dok-panel-body form input[type="text"],
+.dok-panel-body form input[type="url"],
+.dok-panel-body form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--dok-text);
+    background: #fafafa;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.dok-form-group textarea,
+.dok-panel-body form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.dok-form-group input:focus,
+.dok-form-group textarea:focus,
+.dok-panel-body form input:focus,
+.dok-panel-body form textarea:focus {
+    outline: none;
+    border-color: var(--dok-primary);
+    background: var(--dok-white);
+    box-shadow: 0 0 0 3px rgba(89, 64, 25, 0.18);
+}
+
+.dok-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.dok-form-card button[type="submit"],
+.dok-panel-body form button[type="submit"] {
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    background: var(--dok-green);
+    color: var(--dok-white);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.dok-form-card button[type="submit"]:hover,
+.dok-panel-body form button[type="submit"]:hover {
+    background: var(--dok-green-hover);
+    transform: translateY(-1px);
+}
+
+.btn-form-cancel {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    background: var(--dok-panel-bg);
+    color: var(--dok-text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.btn-form-cancel:hover {
+    background: #dcdcdc;
+}
+
+.dok-empty {
+    margin: 24px 12px;
+    text-align: center;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Fokus keyboard terlihat */
+.dok-back:focus-visible,
+.dok-detail-link:focus-visible,
+.dok-drive-link:focus-visible,
+.btn-kelola-dok:focus-visible,
+.btn-action:focus-visible,
+.dok-form-card button[type="submit"]:focus-visible {
+    outline: 3px solid var(--dok-accent);
+    outline-offset: 2px;
+}
+
+/* ===== Modal Konfirmasi Hapus ===== */
+
+.dok-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.dok-modal-backdrop.is-open {
+    display: flex;
+}
+
+.dok-modal {
+    width: 100%;
+    max-width: 400px;
+    background: var(--dok-white);
+    color: var(--dok-text);
+    border-radius: var(--dok-radius);
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    animation: dokModalPop 0.16s ease-out;
+}
+
+@keyframes dokModalPop {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dok-modal-header {
+    padding: 10px 16px;
+    background: var(--dok-header-bg);
+    color: var(--dok-white);
+}
+
+.dok-modal-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.dok-modal-body {
+    padding: 16px 18px;
+}
+
+.dok-modal-text {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.5;
+    color: var(--dok-text);
+}
+
+.dok-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 18px 16px;
+}
+
+.btn-modal-cancel {
+    padding: 7px 14px;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    background: var(--dok-panel-bg);
+    color: var(--dok-text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.btn-modal-cancel:hover {
+    background: #dcdcdc;
+}
+
+.dok-modal-backdrop .btn-action:focus-visible,
+.btn-modal-cancel:focus-visible {
+    outline: 3px solid var(--dok-accent);
+    outline-offset: 2px;
+}
+
+/* ===== Responsif ===== */
+
+@media (max-width: 800px) {
+    .dok-panel {
+        position: static;
+        margin: 64px 12px 12px;
+        max-width: none;
+    }
+
+    .dok-layout { padding-bottom: 12px; }
+}
+
+@media (max-width: 520px) {
+    .dok-card-title { font-size: 1.05rem; }
+    .dok-form-card { padding: 16px; }
 }

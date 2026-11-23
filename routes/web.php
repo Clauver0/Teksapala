@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -8,12 +7,18 @@ use App\Http\Controllers\EventController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\BerandaController;
 use Illuminate\Http\Request;
 use App\Livewire\KalenderJadwal;
 use App\Http\Controllers\DokumentasiController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Models\Donasi;
+use App\Models\DetailDonasi;
 
 
-Route::redirect('/', '/dokumentasi');
+
+Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
 Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -21,9 +26,9 @@ Route::middleware('guest:donatur,komunitas')->group(function () {
     Route::get('/registrasi', [AuthController::class, 'registerView'])->name('register');
     Route::post('/registrasi', [AuthController::class, 'register']);
 });
-
+Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
-Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');    
+Route::get('/dokumentasi/{id_jadwal}', [DokumentasiController::class, 'show'])->name('dokumentasi.show');
 
 Route::middleware('auth:donatur,komunitas')->group(function () {
     
@@ -32,61 +37,59 @@ Route::middleware('auth:donatur,komunitas')->group(function () {
     Route::post('/profil/edit', [AuthController::class, 'updateProfile'])->name('profil.update');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
+    Route::get('/donasi/{donasi}/detail', [DonasiController::class, 'detailUser'])->name('donasi.detail-user');
+
     // Rute Kirim Bukti Donasi
     Route::get('/kirim-bukti-donasi', function () {
         return view('components.kirim-bukti-donasi'); 
     })->name('kirim-bukti');
 
     // Proses Upload Bukti Donasi
-    Route::post('/kirim-bukti-donasi', function (Request $request) {
-        // Validasi file (Wajib gambar, format jpg/png, maksimal 20MB)
-        $request->validate([
-            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:20480',
-        ]);
-
-        if ($request->hasFile('bukti_transfer')) {
-            // Simpan gambar ke folder storage/app/public/bukti_donasi
-            $path = $request->file('bukti_transfer')->store('bukti_donasi', 'public');
-            
-            // Di sini Anda bisa menambahkan logika untuk menyimpan $path ke database
-            // Contoh: Auth::user()->update(['bukti_donasi' => $path]);
-            
-            return redirect()->back()->with('success', 'Bukti donasi berhasil diunggah!');
-        }
-
-        return redirect()->back()->with('error', 'Gagal mengunggah bukti donasi.');
-    })->name('kirim-bukti.store');
-
-    // ==========================================
-    // RUTE HALAMAN SERTIFIKAT (BARU DITAMBAHKAN)
-    // ==========================================
-    Route::get('/sertifikat', function () {
-        return view('sertifikat'); 
-    })->name('sertifikat');
-});
-
-
-Route::get('/beranda', function () {
-    return view('Beranda.beranda');
-})->name('beranda');
 
 //Route::get('/donasi', [JadwalController::class, 'index'])
   //  ->name('donasi');
 
-  //TESTING HALAMAN DONASI
-Route::get('/donasi', function () {
-    return view('donasi.lihat-informasi-donasi');
-})->name('donasi');
+  
+    // Halaman Lihat Informasi Donasi
+    Route::get('/donasi', [DonasiController::class, 'index'])
+        ->name('donasi');
 
-Route::get('/help', function () {
-    return view('help');
-})->name('help');
+    Route::get('/help', function () {
+        return view('help');
+    })->name('help');
 
+    // Halaman Donasi Bulanan (hasil pull branch cia)
+    Route::get('/donasi-bulanan/{idJadwal}', [DonasiController::class, 'tanaman'])
+        ->name('donasi.bulanan');
 
-// Testing halaman dokumentasi
-Route::get('/iwak', function () {
-    return view('sites.halaman-dokumentasi');
+    // Halaman Pembayaran Donasi
+    Route::get('/donasi-pembayaran', [DonasiController::class, 'tampilPembayaran'])
+        ->name('donasi.pembayaran.tampil');
+
+    Route::post('/donasi-pembayaran', [DonasiController::class, 'pembayaran'])
+        ->name('donasi.pembayaran');
+
+    // Kirim Bukti Donasi
+    Route::post('/kirim-bukti-donasi', [DonasiController::class, 'store'])
+        ->name('kirim-bukti.store');
+
+    // Daftar Pendonasi
+    Route::get('/daftar-pendonasi', [DonasiController::class, 'verifikasiIndex'])
+        ->name('donasi.verifikasi');
+
+    Route::patch('/daftar-pendonasi/{donasi}', [DonasiController::class, 'verifikasiUpdate'])
+        ->name('donasi.verifikasi.update');
+
+    // Donasi Sukarela
+    Route::get('/donasi-sukarela', [DonasiController::class, 'sukarela'])
+        ->name('donasi.sukarela');
+
+    // Detail Donasi
+    Route::get('/donasi-detail/{idJadwal}', [DonasiController::class, 'detail'])
+        ->name('donasi.detail');
+
 });
+
 
 // Rute untuk Halaman Bantuan Pembayaran
 
@@ -100,8 +103,30 @@ Route::middleware('auth:komunitas')->group(function () {
     Route::post('/input-jurnal', [JurnalController::class, 'store'])->name('jurnals.store');
     Route::get('/edit-jurnal/{jurnal}', [JurnalController::class, 'edit'])->name('jurnals.edit');
     Route::put('/edit-jurnal/{jurnal}', [JurnalController::class, 'update'])->name('jurnals.update');
-    Route::delete('/jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
+    Route::delete('/kelola-jurnal/{jurnal}', [JurnalController::class, 'destroy'])->name('jurnals.destroy');
+});
+Route::middleware('auth:komunitas')
+    ->prefix('komunitas/dokumentasi')
+    ->name('komunitas.dokumentasi.')
+    ->group(function () {
+        Route::get('/', [DokumentasiController::class, 'kelola'])->name('index');
+        Route::get('/create/{jadwal}', [DokumentasiController::class, 'create'])->name('create');
+        Route::post('/{jadwal}', [DokumentasiController::class, 'store'])->name('store');
+        Route::get('/{dokumentasi}/edit', [DokumentasiController::class, 'edit'])->name('edit');
+        Route::put('/{dokumentasi}', [DokumentasiController::class, 'update'])->name('update');
+        Route::delete('/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('destroy');
 });
 
+Route::middleware('auth:komunitas')
+    ->prefix('komunitas/donasi')
+    ->name('komunitas.donasi.')
+    ->group(function () {
+        Route::get('/riwayat', [DonasiController::class, 'verifikasiIndex'])->name('riwayat');
+        Route::get('/{donasi}/detail', [DonasiController::class, 'verifikasiShow'])->name('detail');
+        Route::patch('/{donasi}/verifikasi', [DonasiController::class, 'verifikasiUpdate'])->name('verifikasi');
+    });
 
 Route::view('/tentang-kami', 'tentang-kami')->name('tentang');
+
+
+

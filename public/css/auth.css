@@ -1,167 +1,228 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+:root {
+    --auth-primary: #594019;
+    --auth-primary-hover: #6f5020;
+    --auth-primary-dark: #3b2a0f;
+    --auth-accent: #f5c518;
+    --auth-text: #ffffff;
+    --auth-text-muted: rgba(255, 248, 236, 0.78);
+    --auth-card-bg: rgba(34, 24, 9, 0.78);
+    --auth-card-border: rgba(245, 197, 24, 0.22);
+    --auth-input-bg: rgba(20, 14, 5, 0.65);
+    --auth-input-border: rgba(255, 245, 228, 0.24);
+}
+
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
     background:
-        linear-gradient(rgba(0, 0, 0, 0), rgba(0,0,0,0.4)),
+        linear-gradient(160deg, rgba(89, 64, 25, 0.42), rgba(18, 13, 5, 0.68)),
         url('../img/background1.jpg');
-
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
     min-height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 20px;
+    color: var(--auth-text);
 }
 
-body::before{
+/* Lapisan blur & gelap merata di atas foto hutan agar detail daun tidak mengganggu teks */
+body::before {
     content: '';
     position: fixed;
     inset: 0;
-
-    backdrop-filter: blur(4px);
-    background: rgba(15, 23, 42, 0);
-
+    backdrop-filter: blur(5px);
+    background: rgba(16, 11, 4, 0.28);
     z-index: 0;
 }
 
-.login-card{
+.login-card {
     position: relative;
     z-index: 1;
-
     width: 100%;
     max-width: 450px;
-
-    background: rgba(255, 255, 255, 0.204);
-    backdrop-filter: blur(12px);
-
+    background: var(--auth-card-bg);
+    backdrop-filter: blur(14px);
     padding: 40px;
-
     border-radius: 20px;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border: 1px solid var(--auth-card-border);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
 }
 
-.login-card h1{
+.login-card h1 {
     text-align: center;
-
     margin-bottom: 30px;
-
-    color: #ffffffda;
-
+    color: var(--auth-text);
     font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
-.login-card ul{
+.login-card ul {
     list-style: none;
 }
 
-.login-card li{
+.login-card li {
     margin-bottom: 20px;
 }
 
-.login-card label{
+.login-card label {
     display: block;
-
     margin-bottom: 8px;
-
     font-weight: 600;
-
-    color: #ffffffda;
+    color: #fff6e5;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
-.login-card input{
+.login-card input {
     width: 100%;
-
     padding: 12px 15px;
-
-    background: rgba(255,255,255,0.15);
-
-    color: #ffffffda;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
+    background: var(--auth-input-bg);
+    color: var(--auth-text);
+    border: 1px solid var(--auth-input-border);
     border-radius: 10px;
-
     font-size: 15px;
-
-    transition: .3s;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
-.login-card input::placeholder{
-    color: rgba(255,255,255,0.6);
+.login-card input::placeholder {
+    color: var(--auth-text-muted);
 }
 
-.login-card input:focus{
+.login-card input:focus {
     outline: none;
-
-    border-color: rgba(255,255,255,0.5);
-
-    box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+    background: rgba(26, 18, 7, 0.85);
+    border-color: var(--auth-accent);
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.22);
 }
 
-.login-card button{
+.login-card button {
     width: 100%;
-
     padding: 12px;
-
     border: none;
-
     border-radius: 10px;
-
     cursor: pointer;
-
     font-size: 15px;
-
-    font-weight: bold;
-
-    transition: .3s;
+    font-weight: 700;
+    transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-.login-card button[type="submit"]{
-    background: #7A8F45;
-    color: #ffffffe9;
+.login-card button:active {
+    transform: translateY(0);
 }
 
-.login-card button[type="submit"]:hover{
-    background: #96af57;
+.login-card button[type="submit"] {
+    background: var(--auth-primary);
+    color: var(--auth-text);
+    border: 1px solid rgba(255, 244, 224, 0.18);
 }
 
-.login-card button[type="button"]{
-    background: #ffffffda;
-    color: #7A8F45;
+.login-card button[type="submit"]:hover {
+    background: var(--auth-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
-.login-card button[type="button"]:hover{
-    background: #dcdcdc;
+.login-card button[type="button"] {
+    background: #fff6e5;
+    color: var(--auth-primary-dark);
 }
 
-.error-msg{
+.login-card button[type="button"]:hover {
+    background: #f2e4ca;
+    transform: translateY(-1px);
+}
+
+.login-card button:focus-visible,
+.login-card input:focus-visible {
+    outline: 3px solid var(--auth-accent);
+    outline-offset: 2px;
+}
+
+.error-msg {
     margin-bottom: 20px;
-
-    padding: 12px;
-
+    padding: 12px 14px;
     border-radius: 10px;
-
     text-align: center;
-
     font-size: 14px;
+    font-weight: 500;
+    color: #ffd4d4;
+    background: rgba(127, 29, 29, 0.65);
+    border: 1px solid rgba(248, 113, 113, 0.45);
+}
+.login-card li:last-child {
+    margin-bottom: 0;
+}
 
-    color: #ff8a8a;
-    background: rgba(220,38,38,0.15);
+.guest-action {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 245, 228, 0.16);
+}
 
-    border: 1px solid rgba(220,38,38,0.3);
+.btn-guest {
+    display: block;
+    width: 100%;
+    padding: 11px 14px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff6e5;
+    background: rgba(89, 64, 25, 0.35);
+    border: 1px solid rgba(255, 245, 228, 0.32);
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+}
+
+.btn-guest:hover {
+    background: rgba(89, 64, 25, 0.65);
+    border-color: var(--auth-accent);
+    transform: translateY(-1px);
+}
+
+.btn-guest:focus-visible {
+    outline: 3px solid var(--auth-accent);
+    outline-offset: 2px;
+}
+
+.success-msg {
+    background-color: rgba(34, 197, 94, 0.22);
+    color: #bbf7d0;
+    border-color: rgba(74, 222, 128, 0.45);
+}
+
+.error-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.error-list li {
+    margin-bottom: 4px;
+}
+
+.error-list li:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 28px 22px;
+        border-radius: 16px;
+    }
+
+    .login-card h1 {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
 }

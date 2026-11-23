@@ -80,17 +80,32 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return view('profil.profil', ['user' => Auth::user()]);
+    $user = $this->getAuthenticatedUser();
+    abort_if(!$user, 401);
+
+    if (method_exists($user, 'donations')) {
+        $user->load([
+            'donations' => fn ($q) => $q->latest('waktu_donasi'),
+            'donations.detailDonasis.jadwalTanaman.tanaman',
+            'donations.detailDonasis.jadwalTanaman.jadwal',
+        ]);
+    }
+
+    return view('profil.profil', compact('user'));
     }
 
     public function editProfile()
     {
-        return view('profil.profil-edit', ['user' => Auth::user()]);
+        $user = $this->getAuthenticatedUser();
+        abort_if(!$user, 401);
+
+        return view('profil.profil-edit', compact('user'));
     }
 
     public function updateProfile(Request $request)
     {
-        $user = Auth::user();
+        $user = $this->getAuthenticatedUser();
+        abort_if(!$user, 401);
 
         $request->validate([
             'display_name' => 'nullable|string|max:100',
@@ -112,5 +127,19 @@ class AuthController extends Controller
         $user->save();
 
         return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    /**
+     * Helper internal untuk mengambil user yang sedang login dari guard donatur atau komunitas.
+     */
+    private function getAuthenticatedUser()
+    {
+        foreach (self::GUARDS as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return Auth::guard($guard)->user();
+            }
+        }
+
+        return Auth::user();
     }
 }

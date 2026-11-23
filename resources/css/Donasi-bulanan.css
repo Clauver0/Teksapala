@@ -1,0 +1,836 @@
+.donasi-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(0.5); /* gambar terpotong rapi, tidak gepeng */
+}
+
+.Donasi-welpapaer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.donasi-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Setinggi layar (bisa diubah ke 500px jika mau pendek) */
+    /* Lapisan gelap transparan agar card lebih menonjol */
+    background-color: #000;
+}
+.donasi-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar gambar tidak gepeng */
+    z-index: 1; /* Berada di lapisan bawah */
+    opacity: 0.8; /* Sedikit transparan agar card terbaca */
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* hanya tengah vertikal */
+    z-index: 10;
+
+    width: 90%;
+    height: 600px;
+    max-width: 1000px;
+    background-color: rgba(
+        244,
+        241,
+        234,
+        0.7
+    ); /* 0 = transparan penuh, 1 = solid */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+    background-color: #5c4018;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.card-body {
+    padding: 20px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* tengah vertikal */
+    align-items: center; /* tengah horizontal */
+    gap: 20px;
+}
+
+.btn.btn-donasi {
+    width: 34%;
+    min-height: 46px;
+    border: 1px solid #777777;
+    border-radius: 13px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    color: #333333;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.card-input-donasi {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    width: 80%;
+    position: relative;
+    top: -30px;
+    min-height: 400px;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-input-donasi-header {
+    position: relative;
+    padding: 0; /* hapus padding supaya gambar menempel */
+    height: 100px;
+    flex-shrink: 0;
+}
+
+.donasi-input-header {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.3);
+}
+.header-teks {
+    position: absolute;
+    inset: 0; /* menutupi seluruh foto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.header-teks small {
+    font-size: 17px;
+}
+
+.header-teks h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-input-donasi-body {
+    border-radius: 12px;
+    width: 90%;
+    margin: auto auto 10px;
+    padding: 10px 0;
+    background-color: #d9cab0;
+}
+
+.daftar-tanaman {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px 15px;
+    overflow-x: auto;
+}
+
+.item-tanaman {
+    flex: 0 0 140px;
+    background-color: #c9b48a;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+}
+
+.item-tanaman img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-tanaman .nama {
+    font-weight: bold;
+    margin: 6px 0 2px;
+}
+.item-tanaman .harga {
+    font-size: 12px;
+    margin: 0;
+}
+
+.daftar-tanaman {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 10px 15px;
+    overflow-x: scroll; /* scrollbar selalu tampil */
+    overflow-y: hidden;
+}
+.daftar-tanaman::after {
+    content: "";
+    flex: 0 0 600px; /* ruang kosong tambahan di ujung kanan */
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #d9d9d9; /* jalur abu-abu */
+    border-radius: 999px; /* bentuk pil */
+    padding: 3px;
+    margin-top: 8px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 20px;
+    border: none;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.qty-min {
+    background-color: #b8b8b8; /* abu-abu */
+    color: #000;
+}
+
+.qty-plus {
+    background-color: #5c4018; /* cokelat tua */
+    color: #fff;
+}
+
+.qty-angka {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+}
+.card-total {
+    display: flex;
+    top: -30px;
+    align-items: center;
+    justify-content: left;
+    width: 70%;
+    height: 50px;
+    margin: auto auto 30px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.total-donasi {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* teks mulai dari kiri */
+    gap: 10px; /* jarak antara "Total Donasi:" dan "Rp 0,-" */
+    width: 100%;
+    box-sizing: border-box; /* padding tidak menambah lebar */
+    padding: 0 40px 0 30px; /* kiri 30px, kanan 40px */
+}
+
+.btn.btn-donasi-bayar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+    /* lebar mengikuti isi, bukan persen */
+    margin-right: 50px;
+    min-width: 130px;
+    height: 36px;
+    padding: 0 20px;
+    flex-shrink: 0; /* tidak menciut saat kotak sempit */
+    margin-left: auto; /* tetap di kanan */
+
+    border: 1px solid #777777;
+    border-radius: 12px;
+    background-color: #47a5ee;
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap; /* teks tidak turun ke baris baru */
+    text-decoration: none; /* kalau elemennya <a> */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
+}
+
+.btn.btn-donasi-bayar:hover {
+    background-color: #3a94dc;
+}
+
+.btn.btn-donasi-bayar:active {
+    transform: scale(0.97);
+}
+
+/* Tab Donasi / Catatan */
+.tab-baris {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.btn-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    min-width: 120px;
+    padding: 6px 0;
+    border: 1px solid #777777;
+    border-radius: 10px;
+    background-color: #d9d9d9;
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn-tab.aktif {
+    background-color: #ffffff;
+}
+
+/* Kotak besar "Metode Pembayaran" */
+.card-pembayaran {
+    width: 90%;
+    padding-bottom: 22px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-pembayaran-header {
+    padding: 12px;
+    background-color: #5c4018;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Dua kartu: BANK dan QRIS */
+.metode-baris {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 24px 20px 20px;
+}
+
+.metode-kartu {
+    display: flex;
+    flex-direction: column;
+    width: 184px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.metode-judul {
+    padding: 10px 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.metode-bank .metode-judul {
+    background-color: #b02525;
+}
+
+.metode-qris .metode-judul {
+    background-color: #2a7db5;
+}
+
+.metode-isi {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 12px;
+}
+
+/* Ikon kartu bank, digambar dengan CSS */
+.ikon-kartu {
+    position: relative;
+    width: 106px;
+    height: 68px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #5a6fb3, #3f559c);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ikon-kartu::before {
+    /* chip */
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    width: 26px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #e0b25a;
+}
+
+.ikon-kartu::after {
+    /* dua lingkaran logo */
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #e8506a;
+    box-shadow: -9px 0 0 #f0a24a;
+}
+
+.gambar-qris {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+/* Tombol */
+.btn-pilih {
+    width: 100%;
+    padding: 5px 0;
+    border: 1px solid #777777;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.btn-pilih:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-lanjut {
+    display: block;
+    margin: 0 auto;
+    padding: 9px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4156e0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-lanjut:hover {
+    background-color: #3447c4;
+}
+
+.btn-pilih:focus-visible,
+.btn-lanjut:focus-visible,
+.btn-tab:focus-visible {
+    outline: 3px solid #5c4018;
+    outline-offset: 2px;
+}
+
+.card-sukarela {
+    width: 90%;
+    margin-top: 20px;
+    padding-bottom: 22px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Isi: input di kiri, catatan di kanan */
+.sukarela-isi {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 28px 30px 20px;
+}
+
+.sukarela-label {
+    display: block;
+    margin-bottom: 12px;
+    color: #000000;
+    font-size: 20px;
+}
+
+.input-rupiah {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rupiah-simbol {
+    color: #000000;
+    font-size: 20px;
+}
+
+.input-rupiah input {
+    width: 160px;
+    padding: 6px 10px;
+    border: 1px solid #777777;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 20px;
+    text-decoration: underline;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.input-rupiah input:focus-visible {
+    outline: 3px solid #5c4018;
+    outline-offset: 2px;
+}
+
+.sukarela-catatan {
+    flex: 1;
+    min-width: 200px;
+    margin: 0;
+    color: #000000;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.sukarela-catatan strong {
+    font-style: normal;
+}
+
+/* Tombol Donasikan: pakai gaya .btn-lanjut, hanya ukurannya diubah */
+.btn-lanjut.btn-lebar {
+    width: 170px;
+    padding: 7px 0;
+}
+
+:root {
+    --brown-dark: #5a3d12;
+    --brown-mid: #6b4a14;
+    --text: #111;
+    --link: #3a2fd1;
+    --btn: #4a56e2;
+    --btn-text: #fff;
+    --overlay: rgba(0, 0, 0, 0.45);
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    padding: 24px 24px 24px 0; /* kiri 0 */
+    background:
+        radial-gradient(ellipse at 20% 30%, #6d8f45 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, #3f5a24 0%, transparent 60%),
+        linear-gradient(160deg, #2d4017, #1a2a0e);
+}
+
+/* ===== Kartu latar belakang ===== */
+.page-card {
+    width: min(690px, 100%);
+    min-height: 480px;
+    border-radius: 10px;
+    background: #cfcfcf;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    position: relative;
+}
+.page-card header {
+    background: var(--brown-dark);
+    color: #ddd;
+    text-align: center;
+    padding: 18px 12px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 70px;
+}
+.tab {
+    width: 195px;
+    padding: 6px;
+    text-align: center;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 1px solid #999;
+    background: #e5e5e5;
+}
+.tab.active {
+    background: #fff;
+}
+.page-card .continue {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    border: 0;
+    background: var(--btn);
+    color: #fff;
+    font: 600 16px var(--font);
+    padding: 10px 30px;
+    border-radius: 6px;
+}
+
+/* ===== MODAL BANK ===== */
+.bank-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 17px;
+    z-index: 1000;
+}
+.bank-overlay.show {
+    display: flex;
+}
+.bank-card {
+    width: min(620px, 900%);
+    min-height: 330px; /* tinggi minimum, ubah sesuai selera */
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 0;
+    background: #f2f2f2;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.bank-header {
+    padding: 12px;
+    background-color: #5c4018;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.bank-actions {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.bank-group {
+    margin-bottom: 24px;
+}
+
+.bank-group h4 {
+    margin: 0 0 12px;
+}
+
+.bank-row {
+    margin: 8px 0;
+}
+
+.bank-salin {
+    margin-left: 10px;
+}
+.bank-body {
+    text-align: center;
+    padding: 32px 40px 48px;
+}
+.bank-kembali {
+    display: inline-block;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0960f6;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== MODAL QRIS ===== */
+.qris-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 17px;
+    z-index: 1000;
+}
+.qris-overlay.show {
+    display: flex;
+}
+.qris-card {
+    width: min(420px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #f2f2f2;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.qris-header {
+    padding: 12px;
+    background-color: #5c4018;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.qris-body {
+    text-align: center;
+    padding: 24px 32px 32px;
+}
+.gambar-qris-modal {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin: 0 auto;
+}
+.qris-actions {
+    text-align: center;
+    margin-top: 24px;
+}
+.qris-kembali {
+    display: inline-block;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0960f6;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+.popup-box {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 280px;
+    max-width: 90%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+.popup-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 32px;
+    line-height: 60px;
+}
+.popup-icon.sukses {
+    background: #28a745;
+}
+.popup-icon.gagal {
+    background: #dc3545;
+}
+.popup-box p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+.popup-box button {
+    margin-top: 20px;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 5px;
+    background: #28a745;
+    color: #fff;
+    cursor: pointer;
+}
+.popup-donasi-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center; /* tengah vertikal */
+    justify-content: center; /* tengah horizontal */
+    z-index: 9999;
+}
+
+.popup-donasi-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    width: 90%;
+    max-width: 340px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.popup-donasi-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 52px;
+}
+
+.popup-donasi-box p {
+    margin: 0 0 18px;
+    font-size: 16px;
+    color: #333;
+}
+
+.popup-donasi-box button {
+    background: #5c4016;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 32px;
+    font-size: 15px;
+    cursor: pointer;
+}

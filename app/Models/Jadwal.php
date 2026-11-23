@@ -5,8 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use App\Models\Dokumentasi;
+
+
 
 class Jadwal extends Model
 {
@@ -29,6 +34,8 @@ class Jadwal extends Model
         'is_archived',
     ];
 
+    public function komunitas() { return $this->belongsTo(Komunitas::class, 'id_komunitas', 'id_komunitas'); }
+
     protected $casts = [
         'tanggal_pelaksanaan' => 'date',
         'is_archived'         => 'boolean',
@@ -42,11 +49,11 @@ class Jadwal extends Model
         });
     }
 
-    /** Format: JDW0000001 (10 karakter, sesuai string('id_jadwal', 10)). */
+    /** Format: J0001 (5 karakter, sesuai format 'J' + 4 digit). */
     protected static function buatId(): string
     {
         $terakhir = static::withTrashed()->orderByDesc('id_jadwal')->value('id_jadwal');
-        $nomor = $terakhir ? ((int) substr($terakhir, 3)) + 1 : 1;
+        $nomor = $terakhir ? ((int) substr($terakhir, 1)) + 1 : 1;
 
         return 'J' . str_pad((string) $nomor, 4, '0', STR_PAD_LEFT);
     }
@@ -58,7 +65,17 @@ class Jadwal extends Model
 
     protected function gambarUrl(): Attribute
     {
-        return Attribute::get(fn () => Storage::url($this->gambar));
+        return Attribute::get(function (): ?string {
+            if (blank($this->gambar)) {
+                return null;
+            }
+
+            if (Str::startsWith($this->gambar, ['http://', 'https://'])) {
+                return $this->gambar;
+            }
+
+            return Storage::url(ltrim($this->gambar, '/'));
+        });
     }
 
     public function jadwalTanaman(): HasMany
@@ -75,5 +92,15 @@ class Jadwal extends Model
         return Attribute::get(
             fn () => (float) $this->jadwalTanaman->sum(fn (JadwalTanaman $jt) => $jt->nominal_terdonasi)
         );
+    }
+
+    public function dokumentasi(): HasOne
+    {
+        return $this->hasOne(Dokumentasi::class, 'id_jadwal', 'id_jadwal');
+    }
+
+    public function sudahTerlaksana(): bool
+    {
+        return strtolower(trim((string) $this->status_pelaksanaan)) === 'selesai';
     }
 }

@@ -1,27 +1,10 @@
-/* Kebab menu */
-.kontainer {
-    position: relative; /* acuan untuk link kartu & posisi kebab */
-    display: flex;
-    gap: 1rem;
-}
+/* Kebab menu pada kartu jadwal */
 
-.tautan-kartu {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* Membuat seluruh kartu bisa diklik tanpa membungkus kebab di dalam <a> */
-.tautan-kartu::after {
-    content: "";
+.jadwal-kartu .kebab-menu {
     position: absolute;
-    inset: 0;
-}
-
-.kebab-menu {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    z-index: 2; /* di atas link kartu */
+    top: 0.55rem;
+    right: 0.55rem;
+    z-index: 3;
 }
 
 .kebab-tombol {
@@ -32,18 +15,19 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
     cursor: pointer;
 }
 
 .kebab-tombol:hover,
 .kebab-tombol[aria-expanded="true"] {
-    background: rgba(0, 0, 0, 0.08);
+    background: #fff;
 }
 
 .kebab-tombol:focus-visible,
 .kebab-item:focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 3px solid #f5c518;
     outline-offset: 2px;
 }
 
@@ -51,18 +35,22 @@
     position: absolute;
     top: calc(100% + 0.25rem);
     right: 0;
-    min-width: 9rem;
+    min-width: 9.5rem;
     margin: 0;
-    padding: 0.25rem 0;
+    padding: 0.3rem 0;
     list-style: none;
     background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(89, 64, 25, 0.16);
+    border-radius: 0.65rem;
+    box-shadow: 0 8px 24px rgba(40, 29, 11, 0.18);
 }
 
 .kebab-daftar[hidden] {
     display: none;
+}
+
+.jadwal-kartu .kebab-menu:has(.kebab-tombol[aria-expanded="true"]) {
+    z-index: 6;
 }
 
 .kebab-item {
@@ -72,28 +60,23 @@
     border: 0;
     background: none;
     font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
     text-align: left;
-    color: #111827;
+    color: #1b1b1b;
     text-decoration: none;
     cursor: pointer;
 }
 
 .kebab-item:hover {
-    background: #f3f4f6;
+    background: #f6f1e9;
 }
 
 .kebab-item--bahaya {
-    color: #dc2626;
-}
-
-/* Form */
-.kolom-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
+    color: #a62626;
 }
 
 .pesan-error {
-    color: #dc2626;
+    font-size: 0.78rem;
+    color: #a62626;
 }
