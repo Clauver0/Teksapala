@@ -14,20 +14,44 @@ class DonasiController extends Controller
     /**
      * Menampilkan form/halaman utama transaksi donasi.
      */
-     public function index()
-    {
-        // Mengambil semua jadwal yang tidak diarsipkan
-        $jadwals = Jadwal::tidakDiarsipkan()
-            ->with('jadwalTanaman')
-            ->orderBy('tanggal_pelaksanaan', 'asc')
-            ->get();
+    public function index()
+{
+    // Mengambil semua jadwal yang tidak diarsipkan
+    $jadwals = Jadwal::tidakDiarsipkan()
+        ->with('jadwalTanaman')
+        ->orderBy('tanggal_pelaksanaan', 'asc')
+        ->get();
 
-        // Mengirim data jadwal ke halaman informasi donasi
-        return view(
-            'donasi.lihat-informasi-donasi',
-            compact('jadwals')
-        );
+    // Menghitung total donasi yang sudah terverifikasi
+    $totalDonasi = DB::select("
+        SELECT
+            jt.id_jadwal,
+            SUM(dd.jumlah_tanaman * jt.harga) AS total_donasi
+        FROM detail_donasi dd
+        JOIN jadwal_tanaman jt
+            ON jt.id_jadwal_tanaman = dd.id_jadwal_tanaman
+        JOIN donasi d
+            ON d.id_donasi = dd.id_donasi
+        WHERE LOWER(TRIM(d.status_verifikasi)) = 'terverifikasi'
+        GROUP BY jt.id_jadwal
+    ");
+
+    // Mengubah hasil query menjadi pasangan ID jadwal dan total donasi
+    $mapTotal = collect($totalDonasi)
+        ->pluck('total_donasi', 'id_jadwal');
+
+    // Memasukkan total donasi ke masing-masing jadwal
+    foreach ($jadwals as $jadwal) {
+        $jadwal->total_donasi_terverifikasi =
+            (float) ($mapTotal[$jadwal->id_jadwal] ?? 0);
     }
+
+    // Mengirim data jadwal ke halaman informasi donasi
+    return view(
+        'donasi.lihat-informasi-donasi',
+        compact('jadwals')
+    );
+}
 
     /**
      * Memproses transaksi/pembayaran donasi.

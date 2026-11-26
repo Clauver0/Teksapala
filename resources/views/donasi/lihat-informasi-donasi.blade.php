@@ -35,10 +35,16 @@
 
                 @forelse ($jadwals as $jadwal)
 
-                    <div class="donation-item"
-                         style="--gambar-kartu: url('{{ $jadwal->gambar }}');">
+                    <!-- <div class="donation-item"
+                         style="--gambar-kartu: url('{{ $jadwal->gambar }}');">  jika gambar menggunakan link
 
+                        <div> -->
+
+                    <div class="donation-item"
+                       style="--gambar-kartu: url('{{ asset('storage/' . $jadwal->gambar) }}');"> <!--jika gambar menggunakan jpng-->
+                        
                         <div>
+
                             {{-- Nama kegiatan --}}
                             <h3 class="donation-title">
                                 {{ strtoupper($jadwal->judul) }}
