@@ -37,7 +37,7 @@
                                  data-harga="{{ $t->harga }}"
                                  data-sisa="{{ $t->kouta - $t->terdonasi }}">
 
-                                <img src="{{ asset('icons/' . $t->gambar) }}" alt="{{ $t->nama_tanaman }}">
+                                <img src="{{ asset($t->gambar) }}" alt="{{ $t->nama_tanaman }}">
                                 <p class="nama">{{ $t->nama_tanaman }}</p>
 
                                 <div class="qty">

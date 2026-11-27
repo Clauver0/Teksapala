@@ -51,7 +51,7 @@
         @if(Auth::guard('komunitas')->check())
             <a href="{{ route('jurnal') }}"
                 class="menu-item {{ request()->routeIs('jurnal', 'jurnals.*') ? 'active' : '' }}">
-                <img src="{{ asset('icons/jurnal-icon.png') }}" alt="Jurnal">
+                <img src="{{ asset('icons/jurnal.png') }}" alt="Jurnal">
                 <span>JURNAL</span>
             </a>
 

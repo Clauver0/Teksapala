@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Jurnal</title>
   <link rel="stylesheet" href="{{ asset('css/Navbar.css') }}">
-      @vite(['resources/css/jurnal.css', 'resources/js/app.js']) 
+      @vite(['resources/css/jurnal.css', 'resources/js/app.js','resources/css/jurnal.css's]) 
 </head>
 <body>
      <div class="jurnal-hero">
